@@ -68,16 +68,42 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 .app{position:relative;z-index:1;height:100%;width:min(100%,620px);margin:auto;display:flex;flex-direction:column;justify-content:space-between;gap:12px;
   padding:calc(14px + env(safe-area-inset-top,0px)) 18px calc(14px + env(safe-area-inset-bottom,0px))}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:1.05rem;color:var(--ink);text-shadow:0 1px 10px rgba(0,0,0,.5)}
-#hijri{display:flex;flex-direction:column;gap:1px;line-height:1.35}
-#hijri .d2{font-size:.82em;opacity:.85}
+.top{position:relative;z-index:6}
+.dbtn{display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;background:var(--card);border:1.5px solid var(--line);color:inherit;font:inherit;font-size:.95rem;text-shadow:inherit;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.dbtn:active,.cd:active{transform:scale(.97)}
+.chev{font-style:normal;font-size:.8em;opacity:.8;transition:transform .2s}
+[aria-expanded=true]>.chev{transform:rotate(180deg)}
+.cd{cursor:pointer}
+.pop{position:absolute;top:calc(100% + 8px);min-width:210px;padding:8px 16px;border-radius:18px;background:var(--card);border:1.5px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);animation:in .25s ease}
+#dpop{inset-inline-start:0}#ppop{inset-inline-end:0}
+.pop .row{display:flex;justify-content:space-between;gap:18px;padding:5px 0;font-size:.98rem}
+.pop .row+.row{border-top:1px solid var(--line)}
+.pop .row span:first-child{color:var(--mut)}
+.pop .row.on,.pop .row.on span:first-child{color:var(--ac);font-weight:600}
 .cd{padding:6px 16px;border-radius:99px;background:var(--card);border:1.5px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);text-align:center;line-height:1.35}
 .cd span{font-size:.92rem;color:var(--mut)}
 .cd b{display:block;font-size:1.5rem;font-weight:600;font-variant-numeric:tabular-nums;direction:ltr}
+/* لمسات جمالية */
+.dbtn,.cd,.pop,.big{box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 8px 24px rgba(0,0,0,.18)}
+.cd{position:relative}
+.cd::before,.cd::after{content:'';position:absolute;inset-inline-start:14px;bottom:4px;height:2px;border-radius:2px}
+.cd::before{width:calc(100% - 28px);background:var(--line)}
+.cd::after{width:calc((100% - 28px) * var(--pg,0));background:var(--ac);box-shadow:0 0 6px var(--ac);transition:width 1s linear}
+.pop{max-width:88vw;min-width:240px;padding-bottom:10px}.pop .row span:first-child{white-space:nowrap}.pop .row span:last-child{text-align:end}
+.pop i{display:inline-block;font-size:.85em;line-height:1;font-style:normal;color:var(--ac);transition:transform .3s}
+.dunes{position:fixed;left:0;right:0;bottom:0;width:100%;height:26dvh;z-index:0;pointer-events:none}
+/* زرّا التاريخ والصلاة: نفس الحجم والارتفاع للتناسق */
+.dbtn,.cd{flex:1 1 0;min-width:0;height:44px;box-sizing:border-box;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;font-size:clamp(.66rem,3.1vw,.92rem);line-height:1}
+.cd{flex-direction:row;gap:5px}
+.cd span{font-size:inherit;color:var(--mut)}
+.cd b{display:inline;font-size:inherit;font-weight:600}
+#hijri,.cd span{overflow:hidden;text-overflow:ellipsis}
+@media(max-width:380px){.dbtn,.cd{padding:0 6px;gap:3px;font-size:.64rem}.dbtn{gap:5px}}
 
 .info{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px}
 .why{padding:5px 16px;border-radius:99px;background:rgba(8,14,28,.5);color:var(--ac);font-size:1.05rem;line-height:1.5;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .why::before{content:'۞ ';font-family:'Amiri',serif}
-.title{font-family:'Amiri',serif;font-size:clamp(2.5rem,12vw,3.8rem);line-height:1.3;font-weight:700;text-shadow:0 2px 24px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.4)}
+.title{font-family:'Amiri',serif;font-size:clamp(2rem,9.5vw,3rem);line-height:1.3;font-weight:700;text-shadow:0 2px 24px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.4)}
 .title.swap{animation:in .45s ease}
 @keyframes in{from{opacity:0;transform:translateY(10px)}}
 .hint{font-size:1.1rem;color:var(--ink);min-height:1.5em;text-shadow:0 1px 10px rgba(0,0,0,.55)}
@@ -141,10 +167,13 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 
 <div class="bg" id="birds" aria-hidden="true"></div>
 
+<svg class="dunes" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path style="fill:color-mix(in srgb,var(--t) 35%,#000)" opacity=".35" d="M0 62C60 30 120 52 200 40S340 22 400 48V120H0Z"/><path style="fill:color-mix(in srgb,var(--t) 20%,#000)" opacity=".55" d="M0 88C80 66 150 94 240 78S360 64 400 84V120H0Z"/></svg>
+
 <main class="app" id="app">
   <header class="top">
-    <span id="hijri"></span>
-    <div class="cd"><span id="nx-name"></span><b id="nx-cd">--:--:--</b></div>
+    <button class="dbtn" id="hbtn" aria-expanded="false" aria-controls="dpop"><span id="hijri"></span><i class="chev" aria-hidden="true">▾</i></button>
+    <div class="cd" id="pbtn" role="button" tabindex="0" aria-expanded="false" aria-controls="ppop"><span id="nx-name"></span><b id="nx-cd">--:--:--</b></div>
+    <div class="pop" id="dpop" hidden></div><div class="pop" id="ppop" hidden></div>
   </header>
 
   <section class="info">
@@ -217,7 +246,7 @@ const MY_AUDIO = [
 	{ title: 'سورة الملك',					file: 'audio/067.mp3',				type: 'quran' },
 	{ title: 'سورة الحاقه',					file: 'audio/069.mp3',				type: 'quran' },
 	{ title: 'سورة الأعلى',					file: 'audio/087.mp3',				type: 'quran' },
-	{ title: 'البقره',			file: 'audio/Quran_1.mp3',			type: 'quran' },
+	{ title: 'اللبقره',			file: 'audio/Quran_1.mp3',			type: 'quran' },
 	{ title: 'فاطر',			file: 'audio/Quran_2.mp3', 			type: 'quran' },
    
 	{ title: 'أذكار الصباح',				file: 'audio/morning.mp3',			type: 'morning' },
@@ -272,8 +301,32 @@ function calcTimes(d){
   return {fajr:at(noon-A(19.5)),sunrise:at(noon-A(.833)),dhuhr:at(noon+.017),asr:at(noon+A(asrA)),maghrib:at(noon+A(.833)),isha:at(noon+A(17.5))};
 }
 const PR=[['fajr','الفجر'],['dhuhr','الظهر'],['asr','العصر'],['maghrib','المغرب'],['isha','العشاء']];
+/* ===== معلومات القمر والمناسبات والقبلة ===== */
+let _hd=0;
+function moonInfo(n){const p=(moonAge(n)%SYN)/SYN,pc=Math.round((1-Math.cos(2*Math.PI*p))/2*100),nm=p<.03||p>.97?'محاق':p<.22?'هلال متزايد':p<.28?'تربيع أول':p<.47?'أحدب متزايد':p<.53?'بدر':p<.72?'أحدب متناقص':p<.78?'تربيع أخير':'هلال متناقص';return nm+' · '+pc.toLocaleString('ar-EG')+'٪'}
+function hijriMD(n){try{const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'numeric'}).formatToParts(n);return[+p.find(x=>x.type==='month').value,+p.find(x=>x.type==='day').value]}catch(e){return[0,0]}}
+function occasions(n){const[m,d]=hijriMD(n),w=n.getDay(),o=[];
+  if(m===1&&(d===9||d===10))o.push('تاسوعاء وعاشوراء — يُستحب الصيام');
+  if(m===9)o.push(d>=21?'العشر الأواخر من رمضان':'شهر رمضان المبارك');
+  if(m===10&&d===1)o.push('عيد الفطر المبارك');
+  if(m===12){if(d<9)o.push('العشر الأوائل من ذي الحجة');if(d===9)o.push('يوم عرفة');if(d===10)o.push('عيد الأضحى المبارك');if(d>10&&d<14)o.push('أيام التشريق')}
+  if(d>=13&&d<=15&&m!==9&&m!==12)o.push('الأيام البيض — يُستحب صيامها');
+  if(w===1||w===4)o.push((w===1?'الاثنين':'الخميس')+' — يُستحب صيامه');
+  if(w===5)o.push('الجمعة — الصلاة على النبي ﷺ');
+  return o.slice(0,3)}
+function setQ(){if(!$('qa'))return;const r=Math.PI/180,f1=lat*r,f2=21.4225*r,dl=(39.8262-lng)*r,
+  q=(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))/r+360)%360;
+  $('qd').textContent=Math.round(q).toLocaleString('ar-EG')+'° '+['شمال','شمال شرق','شرق','جنوب شرق','جنوب','جنوب غرب','غرب','شمال غرب'][Math.round(q/45)%8];
+  $('qa').style.transform=`rotate(${q-_hd}deg)`}
+addEventListener('deviceorientationabsolute',e=>{if(e.alpha!=null){_hd=(360-e.alpha)%360;setQ()}});
 function recalc(){const n=new Date();Tday=n.getDate();T=calcTimes(n);const hj=n.toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{weekday:'long',day:'numeric',month:'long',year:'numeric'}),gr=n.toLocaleDateString('ar-EG-u-ca-gregory',{day:'numeric',month:'long',year:'numeric'});
-  $('hijri').innerHTML=`<span>${hj}</span><span class="d2">${gr} م</span>`}
+  const cal=(c,x)=>{try{const f=new Intl.DateTimeFormat('ar-EG-u-ca-'+c,{day:'numeric',month:'long',year:'numeric'});return f.resolvedOptions().calendar===c?f.format(n).replace(/\s*[A-Za-z]+\d*\s*$/,'')+x:''}catch(e){return ''}};
+  const R=(k,v)=>`<div class="row"><span>${k}</span><span>${v}</span></div>`;
+  $('hijri').textContent=n.toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
+  const mi=moonInfo(n),oc=occasions(n);
+  $('dpop').innerHTML=R('اليوم',n.toLocaleDateString('ar-EG',{weekday:'long'}))+R('ميلادي',gr+' م')+[['قبطي',cal('coptic',' للشهداء')],['هجري شمسي',cal('persian','')]].filter(x=>x[1]).map(x=>R(x[0],x[1])).join('')+R('القمر',mi)+oc.map(x=>R('مناسبة',x)).join('');
+  $('ppop').innerHTML=PR.map(([k,nm])=>`<div class="row" data-k="${k}"><span>${nm}</span><span>${T[k].toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit',hour12:true})}</span></div>`).join('')+`<div class="row"><span>القبلة</span><span><b id="qd"></b> <i id="qa" aria-hidden="true">▲</i></span></div>`;setQ()
+}
 function phase(n){if(n<T.fajr||n>=T.isha)return'night';if(n<T.sunrise)return'fajr';if(n<T.dhuhr)return'morning';if(n<T.asr)return'day';if(n<T.maghrib)return'asr';return'maghrib'}
 function windows(n){const d=n.getDay();return{adhan:PR.find(([k])=>n-T[k]>=0&&n-T[k]<3e5),kahf:(d===4&&n>=T.maghrib)||(d===5&&n<T.maghrib),m:n>=T.fajr&&n<T.dhuhr,e:n>=T.asr&&n<T.isha}}
 
@@ -386,11 +439,22 @@ function tick(){
   placeSky(n);updateMoon(n);
   let nx=PR.find(([k])=>T[k]>n),nt;nx?nt=T[nx[0]]:(nx=PR[0],nt=new Date(T.fajr.getTime()+864e5));
   const s=Math.max(0,Math.floor((nt-n)/1000)),z=v=>String(v).padStart(2,'0');
-  $('nx-name').textContent='باقي على '+nx[1];
+  $('nx-name').textContent='باقي على '+nx[1];document.querySelectorAll('#ppop .row').forEach(e=>e.classList.toggle('on',e.dataset.k===nx[0]));
   $('nx-cd').textContent=`${z(Math.floor(s/3600))}:${z(Math.floor(s%3600/60))}:${z(s%60)}`;
+  const pv=[...PR].reverse().find(([k])=>T[k]<=n),pt=pv?T[pv[0]]:new Date(T.isha.getTime()-864e5);
+  $('pbtn').style.setProperty('--pg',Math.min(1,Math.max(0,(n-pt)/(nt-pt))).toFixed(3));
   const ad=PR.find(([k])=>n-T[k]>=0&&n-T[k]<4000);
   if(ad&&!played.has(ADHAN(ad).key)){mode='now';mark();load(ADHAN(ad))}
 }
+/* ===== نوافذ التاريخ ومواعيد الصلاة ===== */
+(function(){
+  const P=[['hbtn','dpop'],['pbtn','ppop']];
+  const close=()=>P.forEach(([b,p])=>{$(p).hidden=true;$(b).setAttribute('aria-expanded','false')});
+  const tog=(b,p)=>{const o=$(p).hidden;close();if(o){$(p).hidden=false;$(b).setAttribute('aria-expanded','true')}};
+  P.forEach(([b,p])=>{$(b).addEventListener('click',e=>{e.stopPropagation();tog(b,p)});
+    $(b).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(b,p)}else if(e.key==='Escape')close()})});
+  document.addEventListener('click',e=>{if(!e.target.closest('.pop'))close()});
+})();
 /* ===== طيور: سربان صغيران يظهران نادرًا ===== */
 (function(){
   const W=['M0 0Q-8 -9 -17 -5Q-9 -3 0 2Q9 -3 17 -5Q8 -9 0 0Z','M0 0Q-8 -3 -17 2Q-9 0 0 2Q9 0 17 2Q8 -3 0 0Z','M0 0Q-8 4 -15 10Q-8 5 0 3Q8 5 15 10Q8 4 0 0Z'];
