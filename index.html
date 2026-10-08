@@ -53,7 +53,7 @@ body[data-p=night] #stars{opacity:1}body[data-p=fajr] #stars,body[data-p=maghrib
 #moon svg{display:block;width:100%;height:100%;overflow:visible}
 /* السحب: سحب SVG مُجسَّمة بطبقات ظل وضوء وحواف مبعثرة */
 #clouds .cloud{position:absolute;left:0;top:var(--y);width:var(--w);height:auto;aspect-ratio:5/2;overflow:visible;
-  opacity:calc(var(--o) * var(--co));animation:drift var(--d) linear infinite;animation-delay:var(--dl);will-change:transform}
+  opacity:min(1,calc(var(--o) * var(--co) * var(--cc,1)));filter:brightness(var(--cb,1));transition:opacity 3s;animation:drift calc(var(--d) / var(--wm,1)) linear infinite;animation-delay:var(--dl);will-change:transform}
 @keyframes drift{from{transform:translateX(-45vw)}to{transform:translateX(110vw)}}
 
 /* الطيور: سرب صغير يعبر السماء نهارًا بين فترة وأخرى */
@@ -92,6 +92,18 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 .pop{max-width:88vw;min-width:240px;padding-bottom:10px}.pop .row span:first-child{white-space:nowrap}.pop .row span:last-child{text-align:end}
 .pop i{display:inline-block;font-size:.85em;line-height:1;font-style:normal;color:var(--ac);transition:transform .3s}
 .dunes{position:fixed;left:0;right:0;bottom:0;width:100%;height:26dvh;z-index:0;pointer-events:none}
+/* الطقس الواقعي */
+#wxsky{position:fixed;inset:0;pointer-events:none;background:linear-gradient(#56626e,#8a949e 70%,#9aa3ab);opacity:var(--wo,0);transition:opacity 4s}
+#wxfog{position:fixed;top:0;bottom:0;left:-8%;right:-8%;pointer-events:none;opacity:var(--wf,0);transition:opacity 4s;animation:fogd 45s ease-in-out infinite alternate;
+  background:radial-gradient(ellipse 60% 22% at 30% 72%,rgba(228,233,238,.8),transparent 70%),radial-gradient(ellipse 60% 25% at 72% 52%,rgba(228,233,238,.65),transparent 70%),linear-gradient(rgba(215,222,228,.3),rgba(215,222,228,.5))}
+@keyframes fogd{to{transform:translateX(5%)}}
+#wxfx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#wxflash{position:fixed;inset:0;pointer-events:none;background:#dfe8ff;opacity:0}
+@keyframes flash{0%,100%{opacity:0}8%{opacity:.7}16%{opacity:.08}26%{opacity:.5}55%{opacity:0}}
+#wx{position:fixed;top:68px;left:50%;transform:translateX(-50%);z-index:5;padding:5px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:.78rem;white-space:nowrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16);pointer-events:none}
+body[data-wx=rain] #birds,body[data-wx=storm] #birds,body[data-wx=snow] #birds,body[data-wx=fog] #birds{opacity:0!important}
+.grove .sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway var(--sd,4s) ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(calc(var(--sa,.6deg) * -1))}to{transform:rotate(var(--sa,.6deg))}}
 /* زرّا التاريخ والصلاة: نفس الحجم والارتفاع للتناسق */
 .dbtn,.cd{flex:1 1 0;min-width:0;height:44px;box-sizing:border-box;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;font-size:clamp(.66rem,3.1vw,.92rem);line-height:1}
 .cd{flex-direction:row;gap:5px}
@@ -146,7 +158,7 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 </head>
 <body data-p="night">
 <div class="bg" id="stars" aria-hidden="true"><span class="shoot"></span></div>
-<div class="bg" id="clouds" aria-hidden="true"></div>
+<div id="wxsky" aria-hidden="true"></div><div id="wxfog" aria-hidden="true"></div>
 <div class="cel" id="sun" aria-hidden="true"></div>
 <div class="cel" id="moon" aria-hidden="true"><svg viewBox="0 0 100 100"><defs>
 <radialGradient id="mh"><stop offset="0" stop-color="#dfe8ff" stop-opacity=".5"/><stop offset=".35" stop-color="#b8c8f0" stop-opacity=".16"/><stop offset="1" stop-color="#b8c8f0" stop-opacity="0"/></radialGradient>
@@ -165,9 +177,13 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 <circle id="mhalo" cx="50" cy="50" r="90" fill="url(#mh)"/>
 <g clip-path="url(#md)"><circle cx="50" cy="50" r="47" fill="#0b1226" opacity=".4"/><use href="#mt" opacity=".1"/><use href="#mt" mask="url(#ml)"/></g></svg></div>
 
+<div class="bg" id="clouds" aria-hidden="true"></div>
 <div class="bg" id="birds" aria-hidden="true"></div>
 
 <svg class="dunes" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path style="fill:color-mix(in srgb,var(--t) 35%,#000)" opacity=".35" d="M0 62C60 30 120 52 200 40S340 22 400 48V120H0Z"/><path style="fill:color-mix(in srgb,var(--t) 20%,#000)" opacity=".55" d="M0 88C80 66 150 94 240 78S360 64 400 84V120H0Z"/></svg>
+
+<canvas id="wxfx" aria-hidden="true"></canvas><div id="wxflash" aria-hidden="true"></div>
+<div id="wx" hidden></div>
 
 <main class="app" id="app">
   <header class="top">
@@ -335,7 +351,7 @@ function place(el,t){
   const c=Math.min(1,Math.max(0,t)),alt=Math.sin(Math.PI*c),hz=1-alt;
   el.style.setProperty('--x',90-80*c);el.style.setProperty('--y',64-50*alt);
   el.style.setProperty('--hz',hz.toFixed(3));el.style.setProperty('--s',(1+.3*hz*hz).toFixed(3));
-  el.style.opacity=Math.max(0,Math.min(1,Math.min(t,1-t)*14));
+  el.style.opacity=Math.max(0,Math.min(1,Math.min(t,1-t)*14))*(window.WXV==null?1:window.WXV);
 }
 function placeSky(n){
   place($('sun'),(n-T.sunrise)/(T.maghrib-T.sunrise));
@@ -357,7 +373,7 @@ function updateMoon(n){
 /* ===== سحب واقعية: طبقة ظل + جسم + لمعة، مع تشويه عضوي للحواف ===== */
 (function(){
   const F=[3,11,27].map((s,i)=>`<filter id="cf${i}" x="-15%" y="-40%" width="130%" height="180%"><feTurbulence type="fractalNoise" baseFrequency=".014 .028" numOctaves="4" seed="${s}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="44" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation="1.8"/></filter>`).join('');
-  const C=[[220,8,160,-30,.8],[150,17,110,-90,.65],[260,27,210,-150,.6],[170,36,130,-10,.6],[200,44,180,-120,.5],[130,13,95,-60,.6]];
+  const C=[[220,8,160,-30,.8],[150,17,110,-90,.65],[260,27,210,-150,.6],[170,36,130,-10,.6],[200,44,180,-120,.5],[130,13,95,-60,.6],[190,30,170,-100,.6],[240,6,230,-20,.5],[160,40,120,-140,.55],[210,20,200,-80,.6],[260,34,240,-50,.55],[180,2,150,-110,.5]];
   let sd=7;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
   const cl=C.map(([w,y,d,dl,o],i)=>{
     const P=[];for(let k=0;k<8;k++){const t=k/7,r=22+34*Math.pow(Math.sin(Math.PI*t),.7)*(.75+.5*rnd());P.push([60+t*280+(rnd()-.5)*14,112-r*.55-rnd()*8,r])}
@@ -455,6 +471,43 @@ function tick(){
     $(b).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(b,p)}else if(e.key==='Escape')close()})});
   document.addEventListener('click',e=>{if(!e.target.closest('.pop'))close()});
 })();
+/* ===== الطقس الواقعي: يجلب الحالة الحقيقية (Open-Meteo) ويغيّر السماء والسحب والمطر والرياح ===== */
+(function(){
+  const NM={0:'صافٍ',1:'صافٍ غالبًا',2:'غائم جزئيًا',3:'غائم',45:'ضباب',48:'ضباب',51:'رذاذ',53:'رذاذ',55:'رذاذ',56:'رذاذ متجمد',57:'رذاذ متجمد',61:'مطر خفيف',63:'مطر',65:'مطر غزير',66:'مطر متجمد',67:'مطر متجمد',71:'ثلج خفيف',73:'ثلج',75:'ثلج كثيف',77:'حبيبات ثلج',80:'زخات مطر',81:'زخات مطر',82:'زخات غزيرة',85:'زخات ثلج',86:'زخات ثلج',95:'عاصفة رعدية',96:'عاصفة رعدية وبَرَد',99:'عاصفة رعدية وبَرَد'};
+  const RN={51:.25,53:.35,55:.45,56:.35,57:.5,61:.5,63:.65,65:1,66:.55,67:.9,80:.55,81:.8,82:1,95:.9,96:1,99:1},TH=[0,0,0,15,25,35,45,55,60,70,78,85];
+  const FAKE={clear:{code:0,temp:31,cover:0,ws:8},partly:{code:2,temp:29,cover:50,ws:12},cloudy:{code:3,temp:26,cover:95,ws:18},fog:{code:45,temp:19,cover:100,ws:4},rain:{code:63,temp:22,cover:95,ws:22},heavy:{code:65,temp:20,cover:100,ws:35},storm:{code:95,temp:21,cover:100,ws:40},snow:{code:73,temp:-1,cover:100,ws:10}};
+  const rs=document.documentElement.style,fx=$('wxfx'),cx=fx.getContext('2d'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let P=[],M=null,raf=0,WS=0,lt=0;
+  const fit=()=>{fx.width=innerWidth;fx.height=innerHeight};fit();addEventListener('resize',fit);
+  function loop(){cx.clearRect(0,0,fx.width,fx.height);if(!M){raf=0;return}
+    const sl=Math.min(6,WS/6),W=innerWidth,H=innerHeight;
+    if(M==='rain'){cx.strokeStyle='rgba(205,220,240,.5)';cx.lineWidth=1.1;cx.beginPath();
+      for(const p of P){const L=10+p.v*14,sp=14+p.v*12;cx.moveTo(p.x,p.y);cx.lineTo(p.x-sl*L*.12,p.y+L);p.y+=sp;p.x-=sl*sp*.12;if(p.y>H){p.y=-20;p.x=Math.random()*(W+100)}if(p.x<-20)p.x=W+20}cx.stroke()}
+    else{cx.fillStyle='rgba(255,255,255,.85)';for(const p of P){cx.beginPath();cx.arc(p.x,p.y,1+p.r*2.2,0,6.283);cx.fill();p.y+=.8+p.v*1.6;p.x+=Math.sin((p.y+p.r*50)/40)*.6-sl*.1;if(p.y>H)p.y=-5;if(p.x<-5)p.x=W+5}}
+    raf=requestAnimationFrame(loop)}
+  function setFx(k,n){M=k;P=Array.from({length:k?n:0},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,v:Math.random(),r:Math.random()}));if(k&&!raf&&!still)loop();if(!k)cx.clearRect(0,0,fx.width,fx.height)}
+  const fl=$('wxflash');let lg=0;
+  function bolt(){const x=fl;x.style.animation='none';void x.offsetWidth;x.style.animation='flash .9s ease-out';lg=setTimeout(bolt,6000+Math.random()*9000)}
+  function apply(w){
+    const code=w.code,ws=w.ws||0,S=[71,73,75,77,85,86].includes(code),F=code===45||code===48,ST=code>=95,rain=RN[code]||0;let c=w.cover;
+    c=code===0?Math.min(c,10):code===1?Math.min(c,30):code===2?Math.max(30,Math.min(c,65)):code===3?Math.max(c,85):Math.max(c,80);
+    const key=ST?'storm':S?'snow':rain?'rain':F?'fog':c>=80?'cloudy':c>=30?'partly':'clear';
+    rs.setProperty('--wo',Math.min(.7,Math.max(0,(c-40)/60*.3)+rain*.18+(ST?.12:0)+(S?.12:0)+(F?.12:0)).toFixed(2));
+    rs.setProperty('--wf',F?.85:0);rs.setProperty('--cb',Math.max(.45,1-c/100*.2-rain*.25-(ST?.15:0)).toFixed(2));
+    rs.setProperty('--wm',Math.min(3,Math.max(.7,.7+ws/15)).toFixed(2));rs.setProperty('--sa',Math.min(5,.5+ws/9).toFixed(1)+'deg');rs.setProperty('--sd',Math.max(1.2,4-ws/10).toFixed(1)+'s');
+    window.WXV=Math.max(.05,1-Math.min(.9,c/100*.75+rain*.2+(F?.5:0)+(S?.2:0)));WS=ws;
+    document.querySelectorAll('#clouds .cloud').forEach((e,i)=>{let v=Math.min(1,Math.max(0,(c-TH[i])/20));if(i<3)v=Math.max(.3,v);e.style.setProperty('--cc',(v*(1+Math.max(0,c-75)/40)).toFixed(2))});
+    setFx(S?'snow':rain?'rain':null,S?110:Math.round(50+rain*170));
+    clearTimeout(lg);if(ST&&!still)lg=setTimeout(bolt,2500);
+    document.body.dataset.wx=key;const e=$('wx');e.hidden=false;e.innerHTML=(NM[code]||'')+' · <bdi dir="ltr">'+Math.round(w.temp).toLocaleString('ar-EG')+'°</bdi>'+(ws>=30?' · رياح نشطة':'');
+    try{placeSky(new Date())}catch(_){}
+  }
+  async function loadWx(){try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(3)}&longitude=${lng.toFixed(3)}&current=temperature_2m,weather_code,cloud_cover,wind_speed_10m&timezone=auto`),c=(await r.json()).current,w={code:c.weather_code,temp:c.temperature_2m,cover:c.cloud_cover,ws:c.wind_speed_10m};try{localStorage.setItem('wx',JSON.stringify(w))}catch(e){}apply(w)}catch(e){}}
+  window.loadWx=loadWx;
+  const q=new URLSearchParams(location.search).get('wx');
+  if(FAKE[q])apply(FAKE[q]);
+  else{try{const w=JSON.parse(localStorage.getItem('wx'));if(w)apply(w)}catch(e){}loadWx();setInterval(loadWx,9e5)}
+})();
 /* ===== طيور: سربان صغيران يظهران نادرًا ===== */
 (function(){
   const W=['M0 0Q-8 -9 -17 -5Q-9 -3 0 2Q9 -3 17 -5Q8 -9 0 0Z','M0 0Q-8 -3 -17 2Q-9 0 0 2Q9 0 17 2Q8 -3 0 0Z','M0 0Q-8 4 -15 10Q-8 5 0 3Q8 5 15 10Q8 4 0 0Z'];
@@ -467,7 +520,7 @@ function tick(){
 })();
 for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*55}%;animation-delay:-${Math.random()*4}s;transform:scale(${.6+Math.random()*1.1})`;$('stars').appendChild(s)}
 recalc();tick();setInterval(tick,1000);load(pick());
-if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude;lng=p.coords.longitude;recalc();tick()},()=>{},{timeout:6000,maximumAge:36e5});
+if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude;lng=p.coords.longitude;recalc();tick();window.loadWx&&loadWx()},()=>{},{timeout:6000,maximumAge:36e5});
 </script>
 </body>
 </html>
