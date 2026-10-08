@@ -25,6 +25,17 @@ body[data-p=day]{--t:#134468;--b:#5aa7c9;--ac:#fff0b8;--cl:#fff;--co:.9}
 body[data-p=asr]{--t:#2a3a5e;--b:#d9904f;--ac:#ffd18a;--cl:#ffe6c4;--co:.75}
 body[data-p=maghrib]{--t:#2b1648;--b:#e0654a;--ac:#ffbf80;--cl:#ffb199;--co:.7}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+/* ===== مؤشر القبلة ===== */
+.qibla-box{display:inline-flex;align-items:center;gap:9px;direction:ltr}
+.qibla-compass{position:relative;width:46px;height:46px;flex:0 0 46px;border:2px solid var(--ac);border-radius:50%;background:rgba(8,14,28,.58);box-shadow:0 0 12px rgba(255,255,255,.08),inset 0 0 9px rgba(255,255,255,.08);display:grid;place-items:center}
+.qibla-compass::before{content:'';position:absolute;inset:5px;border:1px solid var(--line);border-radius:50%}
+.qibla-arrow{position:absolute;left:50%;top:50%;width:5px;height:29px;transform-origin:50% 50%;transform:translate(-50%,-50%) rotate(0deg);transition:transform .18s linear;z-index:2}
+.qibla-arrow::before{content:'';position:absolute;left:50%;top:-4px;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:15px solid #e53935;filter:drop-shadow(0 0 4px rgba(229,57,53,.8))}
+.qibla-arrow::after{content:'';position:absolute;left:50%;top:9px;bottom:0;width:3px;transform:translateX(-50%);background:#e53935;border-radius:3px;box-shadow:0 0 4px rgba(229,57,53,.55)}
+.qibla-kaaba{position:absolute;z-index:3;font-size:9px;font-weight:800;color:var(--ink);text-shadow:0 1px 3px #000;pointer-events:none}
+#qd{font-weight:700;color:var(--ac);white-space:nowrap}
+#qa{display:block!important;font-style:normal}
+
 :focus-visible{outline:3px solid var(--ac);outline-offset:3px;border-radius:24px}
 
 /* ===== السماء ===== */
@@ -146,80 +157,6 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
   background:var(--ac);transform:translateX(calc(var(--i,0) * -100%));transition:transform .35s cubic-bezier(.3,.8,.3,1)}
 .cat button{position:relative;min-height:60px;border-radius:99px;font-size:1.3rem;font-weight:600;transition:color .3s}
 .cat button.on{color:#1a1408}
-
-
-/* ===== مؤشر القبلة: أوضح وأكبر ===== */
-.qibla-box{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.qibla-compass{
-  position:relative;
-  width:44px;
-  height:44px;
-  flex:0 0 44px;
-  border:2px solid var(--ac);
-  border-radius:50%;
-  background:rgba(8,14,28,.55);
-  box-shadow:0 0 10px color-mix(in srgb,var(--ac) 35%,transparent), inset 0 0 8px rgba(255,255,255,.08);
-  display:grid;
-  place-items:center;
-}
-.qibla-compass::before{
-  content:'';
-  position:absolute;
-  inset:4px;
-  border:1px solid var(--line);
-  border-radius:50%;
-}
-.qibla-arrow{
-  position:absolute;
-  width:5px;
-  height:27px;
-  left:50%;
-  top:50%;
-  transform-origin:50% 50%;
-  transform:translate(-50%,-50%) rotate(0deg);
-  transition:transform .25s ease;
-}
-.qibla-arrow::before{
-  content:'';
-  position:absolute;
-  left:50%;
-  top:-2px;
-  transform:translateX(-50%);
-  width:0;
-  height:0;
-  border-left:6px solid transparent;
-  border-right:6px solid transparent;
-  border-bottom:13px solid var(--ac);
-  filter:drop-shadow(0 0 3px var(--ac));
-}
-.qibla-arrow::after{
-  content:'';
-  position:absolute;
-  left:50%;
-  top:9px;
-  bottom:0;
-  width:2px;
-  transform:translateX(-50%);
-  background:var(--ac);
-  border-radius:2px;
-}
-.qibla-kaaba{
-  position:absolute;
-  font-size:10px;
-  font-weight:700;
-  color:var(--ink);
-  text-shadow:0 1px 4px #000;
-}
-#qd{
-  font-weight:700;
-  color:var(--ac);
-  white-space:nowrap;
-}
-#qa{display:none!important}
 
 @media (orientation:landscape) and (max-height:540px){
   .app{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto;width:100%;column-gap:28px}
@@ -391,7 +328,7 @@ function calcTimes(d){
 }
 const PR=[['fajr','الفجر'],['dhuhr','الظهر'],['asr','العصر'],['maghrib','المغرب'],['isha','العشاء']];
 /* ===== معلومات القمر والمناسبات والقبلة ===== */
-let _hd=0;
+let _hd=0, _oriReady=false, _lastAlpha=null;
 function moonInfo(n){const p=(moonAge(n)%SYN)/SYN,pc=Math.round((1-Math.cos(2*Math.PI*p))/2*100),nm=p<.03||p>.97?'محاق':p<.22?'هلال متزايد':p<.28?'تربيع أول':p<.47?'أحدب متزايد':p<.53?'بدر':p<.72?'أحدب متناقص':p<.78?'تربيع أخير':'هلال متناقص';return nm+' · '+pc.toLocaleString('ar-EG')+'٪'}
 function hijriMD(n){try{const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'numeric'}).formatToParts(n);return[+p.find(x=>x.type==='month').value,+p.find(x=>x.type==='day').value]}catch(e){return[0,0]}}
 function occasions(n){const[m,d]=hijriMD(n),w=n.getDay(),o=[];
@@ -407,7 +344,29 @@ function setQ(){if(!$('qa'))return;const r=Math.PI/180,f1=lat*r,f2=21.4225*r,dl=
   q=(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))/r+360)%360;
   $('qd').textContent=Math.round(q).toLocaleString('ar-EG')+'° '+['شمال','شمال شرق','شرق','جنوب شرق','جنوب','جنوب غرب','غرب','شمال غرب'][Math.round(q/45)%8];
   $('qa').style.transform=`translate(-50%,-50%) rotate(${q-_hd}deg)`}
-addEventListener('deviceorientationabsolute',e=>{if(e.alpha!=null){_hd=(360-e.alpha)%360;setQ()}});
+function applyOrientation(e){
+  let h=null;
+  if(typeof e.webkitCompassHeading==='number' && isFinite(e.webkitCompassHeading)) h=e.webkitCompassHeading;
+  else if(typeof e.alpha==='number' && isFinite(e.alpha)){
+    h=(360-e.alpha)%360;
+    if(e.absolute===false && screen.orientation && /iPhone|iPad|iPod/i.test(navigator.userAgent)) h=(360-e.alpha)%360;
+  }
+  if(h==null)return;
+  _hd=(h+360)%360; _lastAlpha=e.alpha; setQ();
+}
+async function initCompass(){
+  try{
+    if(typeof DeviceOrientationEvent!=='undefined' && typeof DeviceOrientationEvent.requestPermission==='function'){
+      const p=await DeviceOrientationEvent.requestPermission();
+      if(p!=='granted')return;
+    }
+  }catch(e){}
+  addEventListener('deviceorientationabsolute',applyOrientation,true);
+  addEventListener('deviceorientation',applyOrientation,true);
+  _oriReady=true;
+}
+['click','touchend'].forEach(ev=>document.addEventListener(ev,()=>{if(!_oriReady)initCompass()},{once:true,passive:true}));
+initCompass();
 function recalc(){const n=new Date();Tday=n.getDate();T=calcTimes(n);const hj=n.toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{weekday:'long',day:'numeric',month:'long',year:'numeric'}),gr=n.toLocaleDateString('ar-EG-u-ca-gregory',{day:'numeric',month:'long',year:'numeric'});
   const cal=(c,x)=>{try{const f=new Intl.DateTimeFormat('ar-EG-u-ca-'+c,{day:'numeric',month:'long',year:'numeric'});return f.resolvedOptions().calendar===c?f.format(n).replace(/\s*[A-Za-z]+\d*\s*$/,'')+x:''}catch(e){return ''}};
   const R=(k,v)=>`<div class="row"><span>${k}</span><span>${v}</span></div>`;
