@@ -100,8 +100,7 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 #wxfx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
 #wxflash{position:fixed;inset:0;pointer-events:none;background:#dfe8ff;opacity:0}
 @keyframes flash{0%,100%{opacity:0}8%{opacity:.7}16%{opacity:.08}26%{opacity:.5}55%{opacity:0}}
-#wx{position:fixed;top:68px;left:50%;transform:translateX(-50%);z-index:5;padding:5px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:.78rem;white-space:nowrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16);pointer-events:none}
-body[data-wx=rain] #birds,body[data-wx=storm] #birds,body[data-wx=snow] #birds,body[data-wx=fog] #birds{opacity:0!important}
+#wx{position:fixed;top:calc(90px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:1;...}body[data-wx=rain] #birds,body[data-wx=storm] #birds,body[data-wx=snow] #birds,body[data-wx=fog] #birds{opacity:0!important}
 .grove .sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway var(--sd,4s) ease-in-out infinite alternate}
 @keyframes sway{from{transform:rotate(calc(var(--sa,.6deg) * -1))}to{transform:rotate(var(--sa,.6deg))}}
 /* زرّا التاريخ والصلاة: نفس الحجم والارتفاع للتناسق */
