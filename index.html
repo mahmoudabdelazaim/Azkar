@@ -101,7 +101,6 @@ body[data-p=night] #birds{opacity:0}body[data-p=fajr] #birds,body[data-p=maghrib
 #wxflash{position:fixed;inset:0;pointer-events:none;background:#dfe8ff;opacity:0}
 @keyframes flash{0%,100%{opacity:0}8%{opacity:.7}16%{opacity:.08}26%{opacity:.5}55%{opacity:0}}
 #wx{position:fixed;top:calc(90px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:1;...}body[data-wx=rain] #birds,body[data-wx=storm] #birds,body[data-wx=snow] #birds,body[data-wx=fog] #birds{opacity:0!important}
-body[data-wx=rain] #birds,body[data-wx=storm] #birds,body[data-wx=snow] #birds,body[data-wx=fog] #birds{opacity:0!important}
 .grove .sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway var(--sd,4s) ease-in-out infinite alternate}
 @keyframes sway{from{transform:rotate(calc(var(--sa,.6deg) * -1))}to{transform:rotate(var(--sa,.6deg))}}
 /* زرّا التاريخ والصلاة: نفس الحجم والارتفاع للتناسق */
@@ -147,6 +146,80 @@ body[data-wx=rain] #birds,body[data-wx=storm] #birds,body[data-wx=snow] #birds,b
   background:var(--ac);transform:translateX(calc(var(--i,0) * -100%));transition:transform .35s cubic-bezier(.3,.8,.3,1)}
 .cat button{position:relative;min-height:60px;border-radius:99px;font-size:1.3rem;font-weight:600;transition:color .3s}
 .cat button.on{color:#1a1408}
+
+
+/* ===== مؤشر القبلة: أوضح وأكبر ===== */
+.qibla-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.qibla-compass{
+  position:relative;
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border:2px solid var(--ac);
+  border-radius:50%;
+  background:rgba(8,14,28,.55);
+  box-shadow:0 0 10px color-mix(in srgb,var(--ac) 35%,transparent), inset 0 0 8px rgba(255,255,255,.08);
+  display:grid;
+  place-items:center;
+}
+.qibla-compass::before{
+  content:'';
+  position:absolute;
+  inset:4px;
+  border:1px solid var(--line);
+  border-radius:50%;
+}
+.qibla-arrow{
+  position:absolute;
+  width:5px;
+  height:27px;
+  left:50%;
+  top:50%;
+  transform-origin:50% 50%;
+  transform:translate(-50%,-50%) rotate(0deg);
+  transition:transform .25s ease;
+}
+.qibla-arrow::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:-2px;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-bottom:13px solid var(--ac);
+  filter:drop-shadow(0 0 3px var(--ac));
+}
+.qibla-arrow::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:9px;
+  bottom:0;
+  width:2px;
+  transform:translateX(-50%);
+  background:var(--ac);
+  border-radius:2px;
+}
+.qibla-kaaba{
+  position:absolute;
+  font-size:10px;
+  font-weight:700;
+  color:var(--ink);
+  text-shadow:0 1px 4px #000;
+}
+#qd{
+  font-weight:700;
+  color:var(--ac);
+  white-space:nowrap;
+}
+#qa{display:none!important}
 
 @media (orientation:landscape) and (max-height:540px){
   .app{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto;width:100%;column-gap:28px}
@@ -333,7 +406,7 @@ function occasions(n){const[m,d]=hijriMD(n),w=n.getDay(),o=[];
 function setQ(){if(!$('qa'))return;const r=Math.PI/180,f1=lat*r,f2=21.4225*r,dl=(39.8262-lng)*r,
   q=(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))/r+360)%360;
   $('qd').textContent=Math.round(q).toLocaleString('ar-EG')+'° '+['شمال','شمال شرق','شرق','جنوب شرق','جنوب','جنوب غرب','غرب','شمال غرب'][Math.round(q/45)%8];
-  $('qa').style.transform=`rotate(${q-_hd}deg)`}
+  $('qa').style.transform=`translate(-50%,-50%) rotate(${q-_hd}deg)`}
 addEventListener('deviceorientationabsolute',e=>{if(e.alpha!=null){_hd=(360-e.alpha)%360;setQ()}});
 function recalc(){const n=new Date();Tday=n.getDate();T=calcTimes(n);const hj=n.toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{weekday:'long',day:'numeric',month:'long',year:'numeric'}),gr=n.toLocaleDateString('ar-EG-u-ca-gregory',{day:'numeric',month:'long',year:'numeric'});
   const cal=(c,x)=>{try{const f=new Intl.DateTimeFormat('ar-EG-u-ca-'+c,{day:'numeric',month:'long',year:'numeric'});return f.resolvedOptions().calendar===c?f.format(n).replace(/\s*[A-Za-z]+\d*\s*$/,'')+x:''}catch(e){return ''}};
@@ -341,7 +414,7 @@ function recalc(){const n=new Date();Tday=n.getDate();T=calcTimes(n);const hj=n.
   $('hijri').textContent=n.toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
   const mi=moonInfo(n),oc=occasions(n);
   $('dpop').innerHTML=R('اليوم',n.toLocaleDateString('ar-EG',{weekday:'long'}))+R('ميلادي',gr+' م')+[['قبطي',cal('coptic',' للشهداء')],['هجري شمسي',cal('persian','')]].filter(x=>x[1]).map(x=>R(x[0],x[1])).join('')+R('القمر',mi)+oc.map(x=>R('مناسبة',x)).join('');
-  $('ppop').innerHTML=PR.map(([k,nm])=>`<div class="row" data-k="${k}"><span>${nm}</span><span>${T[k].toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit',hour12:true})}</span></div>`).join('')+`<div class="row"><span>القبلة</span><span><b id="qd"></b> <i id="qa" aria-hidden="true">▲</i></span></div>`;setQ()
+  $('ppop').innerHTML=PR.map(([k,nm])=>`<div class="row" data-k="${k}"><span>${nm}</span><span>${T[k].toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit',hour12:true})}</span></div>`).join('')+`<div class="row"><span>القبلة</span><span class="qibla-box"><b id="qd"></b><span class="qibla-compass" aria-label="مؤشر اتجاه القبلة"><span class="qibla-arrow" id="qa"></span><span class="qibla-kaaba">ك</span></span></span></div>`;setQ()
 }
 function phase(n){if(n<T.fajr||n>=T.isha)return'night';if(n<T.sunrise)return'fajr';if(n<T.dhuhr)return'morning';if(n<T.asr)return'day';if(n<T.maghrib)return'asr';return'maghrib'}
 function windows(n){const d=n.getDay();return{adhan:PR.find(([k])=>n-T[k]>=0&&n-T[k]<3e5),kahf:(d===4&&n>=T.maghrib)||(d===5&&n<T.maghrib),m:n>=T.fajr&&n<T.dhuhr,e:n>=T.asr&&n<T.isha}}
