@@ -274,6 +274,10 @@ input{user-select:text;-webkit-user-select:text}
   filter:drop-shadow(0 0 5px var(--ac))}
 .playing .orb::before{opacity:.85;animation:orbit 7s linear infinite}
 @keyframes orbit{to{transform:rotate(360deg)}}
+
+/* أنيميشن الدائرة يظهر فوق زرّي السابق والتالي (من غير ما يمنع الضغط عليهما) */
+.orb{z-index:3}
+.halo,.orb::before,.orb .ring{pointer-events:none}
 </style>
 </head>
 <body data-p="night">
