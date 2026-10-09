@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a1124">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="حصن المسلم">
 <title>حِصْنُ المُسْلِمِ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1010,6 +1014,43 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
 })();
 recalc();tick();setInterval(tick,1000);load(pick());
 if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude;lng=p.coords.longitude;recalc();tick();window.loadWx&&loadWx()},()=>{},{timeout:6000,maximumAge:36e5});
+</script>
+<script>
+/* ملء الشاشة: أول لمسة تفعّل وضع ملء الشاشة حيث يدعمه المتصفح، وتلميح للآيفون */
+(function(){
+  const d=document,e=d.documentElement,rq=e.requestFullscreen||e.webkitRequestFullscreen,
+  st=(matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches))||navigator.standalone;
+  if(st)return;
+  try{const m=new Blob([JSON.stringify({name:'حصن المسلم',short_name:'حصن المسلم',display:'fullscreen',orientation:'portrait',dir:'rtl',lang:'ar',background_color:'#0a1124',theme_color:'#0a1124',start_url:location.href})],{type:'application/manifest+json'}),l=d.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(m);d.head.appendChild(l)}catch(x){}
+  if(rq){const go=()=>{if(d.fullscreenElement||d.webkitFullscreenElement)return;try{const r=rq.call(e,{navigationUI:'hide'});r&&r.catch&&r.catch(()=>{})}catch(x){}};
+    addEventListener('pointerup',go,{once:true,capture:true})}
+  else if(/iPhone|iPod/.test(navigator.userAgent)){
+    let seen=0;try{seen=localStorage.getItem('fsh')}catch(x){}
+    if(seen)return;
+    const b=d.createElement('div');b.setAttribute('role','note');
+    b.style.cssText='position:fixed;z-index:40;left:10px;right:10px;top:calc(8px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:16px;background:rgba(8,14,28,.92);border:1.5px solid rgba(255,248,232,.26);color:#fff8e8;font-size:.82rem;line-height:1.6';
+    b.innerHTML='<span style="flex:1">للعمل بكامل الشاشة: اضغط زر المشاركة ثم «إضافة إلى الشاشة الرئيسية» وافتحه من الأيقونة</span><button aria-label="إغلاق" style="width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,248,232,.26);font-size:.8rem">✕</button>';
+    b.querySelector('button').onclick=()=>{b.remove();try{localStorage.setItem('fsh','1')}catch(x){}};
+    d.body.appendChild(b)}
+})();
+</script>
+<script>
+/* شاشة البداية: زر ابدأ يفتح ملء الشاشة ويشغّل المقطع المقترح */
+(function(){
+  const d=document,e=d.documentElement,rq=e.requestFullscreen||e.webkitRequestFullscreen,
+  st=(matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches))||navigator.standalone;
+  const t=((d.getElementById('title')||{}).textContent||'').trim(),s=d.createElement('div');
+  s.id='splash';s.setAttribute('role','dialog');s.setAttribute('aria-label','بدء التشغيل');
+  s.innerHTML='<style>#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,#0a1124,#1d2c52);color:#fff8e8;text-align:center;transition:opacity .45s}#splash.out{opacity:0;pointer-events:none}#splash .sp-t{font-family:Amiri,serif;font-size:2.4rem;color:#e8cc8e}#spgo{width:132px;height:132px;border-radius:50%;border:0;font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;font-size:1.7rem;font-weight:600;color:#1a1408;background:radial-gradient(circle at 36% 30%,#fff,#e8cc8e 62%,#9c7a3a);box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 10px rgba(232,204,142,.14);cursor:pointer;animation:spp 2s ease-in-out infinite}@keyframes spp{50%{transform:scale(1.06)}}#splash .sp-s{max-width:300px;font-size:.95rem;line-height:1.7;color:#d3d9e0}</style><div class="sp-t">حِصْنُ المُسْلِمِ</div><button id="spgo" type="button">ابدأ</button><div class="sp-s"></div>';
+  s.querySelector('.sp-s').textContent=t?'المقطع المقترح: '+t:'اضغط للبدء';
+  d.body.appendChild(s);
+  const go=d.getElementById('spgo');
+  go.onclick=()=>{
+    if(!st&&rq&&!(d.fullscreenElement||d.webkitFullscreenElement)){try{const r=rq.call(e,{navigationUI:'hide'});r&&r.catch&&r.catch(()=>{})}catch(x){}}
+    const a=d.getElementById('audio'),p=d.getElementById('b-play');
+    if(a&&p&&a.paused)p.click();
+    s.classList.add('out');setTimeout(()=>s.remove(),450)};
+})();
 </script>
 </body>
 </html>
