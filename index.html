@@ -53,8 +53,8 @@ body[data-p=night] #stars{opacity:1}body[data-p=fajr] #stars,body[data-p=maghrib
 #moon svg{display:block;width:100%;height:100%;overflow:visible}
 /* السحب: سحب SVG مُجسَّمة بطبقات ظل وضوء وحواف مبعثرة */
 #clouds .cloud{position:absolute;left:0;top:var(--y);width:var(--w);height:auto;aspect-ratio:5/2;overflow:visible;
-  opacity:min(1,calc(var(--o) * var(--co) * var(--cc,1)));filter:brightness(var(--cb,1));transition:opacity 3s;animation:drift calc(var(--d) / var(--wm,1)) linear infinite;animation-delay:var(--dl);will-change:transform}
-@keyframes drift{from{transform:translateX(-45vw)}to{transform:translateX(110vw)}}
+  opacity:min(1,calc(var(--o) * var(--co) * var(--cc,1)));filter:brightness(var(--cb,1));transition:opacity 3s;animation:drift var(--d) linear infinite;animation-delay:var(--dl);will-change:transform}
+@keyframes drift{from{transform:translateX(-135%)}to{transform:translateX(calc(100vw + 35%))}}
 
 /* الطيور: سرب صغير يعبر السماء نهارًا بين فترة وأخرى */
 #birds{transition:opacity 3s}
@@ -253,6 +253,27 @@ input{user-select:text;-webkit-user-select:text}
 /* ===== حالة الطقس بدون خلفية ===== */
 #wx{background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0 6px;
   text-shadow:0 1px 10px rgba(0,0,0,.65),0 0 3px rgba(0,0,0,.4)}
+
+/* ===== أنيميشن دائرة التشغيل ===== */
+/* موجات ضوء ناعمة تتسع وتتلاشى */
+.halo{inset:6%;border:0;background:none;will-change:transform,opacity;
+  box-shadow:0 0 0 1.5px color-mix(in srgb,var(--ac) 80%,transparent),0 0 22px color-mix(in srgb,var(--ac) 45%,transparent),inset 0 0 22px color-mix(in srgb,var(--ac) 25%,transparent)}
+.playing .halo{animation:ripple 4.8s cubic-bezier(.2,.6,.3,1) infinite}
+.playing .halo.h2{animation-delay:1.6s}.playing .halo.h3{animation-delay:3.2s}
+@keyframes ripple{0%{opacity:0;transform:scale(1)}14%{opacity:.7}100%{opacity:0;transform:scale(1.6)}}
+/* تنفّس خفيف لزر التشغيل */
+.playing .play{animation:breathe 3.2s ease-in-out infinite}
+@keyframes breathe{
+  0%,100%{box-shadow:0 14px 34px rgba(0,0,0,.35),0 0 0 6px color-mix(in srgb,var(--ac) 14%,transparent),0 0 36px color-mix(in srgb,var(--ac) 30%,transparent)}
+  50%{box-shadow:0 14px 34px rgba(0,0,0,.35),0 0 0 10px color-mix(in srgb,var(--ac) 22%,transparent),0 0 64px color-mix(in srgb,var(--ac) 55%,transparent)}}
+/* قوسان مضيئان بذيل متلاشٍ يدوران حول الدائرة */
+.orb::before{content:'';position:absolute;inset:-4%;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .8s;
+  background:conic-gradient(transparent 0 20%,var(--ac) 50%,transparent 50% 70%,var(--ac) 100%);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
+  filter:drop-shadow(0 0 5px var(--ac))}
+.playing .orb::before{opacity:.85;animation:orbit 7s linear infinite}
+@keyframes orbit{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body data-p="night">
@@ -301,7 +322,7 @@ input{user-select:text;-webkit-user-select:text}
       <button class="big" id="b-prev" aria-label="السابق"><svg viewBox="0 0 24 24"><path d="M5 5.5v13L16 12z"/><rect x="17.3" y="5.5" width="2.4" height="13" rx="1"/></svg></button>
       <div class="orb">
         <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="tr" cx="50" cy="50" r="48"/><circle class="pr" id="ring" cx="50" cy="50" r="48"/></svg>
-        <span class="halo"></span><span class="halo"></span>
+        <span class="halo"></span><span class="halo h2"></span><span class="halo h3"></span>
         <button class="play" id="b-play" aria-label="تشغيل أو إيقاف">
           <svg class="i1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           <svg class="i2" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>
@@ -615,7 +636,7 @@ function tick(){
     const key=ST?'storm':S?'snow':rain?'rain':F?'fog':c>=80?'cloudy':c>=30?'partly':'clear';
     rs.setProperty('--wo',Math.min(.7,Math.max(0,(c-40)/60*.3)+rain*.18+(ST?.12:0)+(S?.12:0)+(F?.12:0)).toFixed(2));
     rs.setProperty('--wf',F?.85:0);rs.setProperty('--cb',Math.max(.45,1-c/100*.2-rain*.25-(ST?.15:0)).toFixed(2));
-    rs.setProperty('--wm',Math.min(3,Math.max(.7,.7+ws/15)).toFixed(2));rs.setProperty('--sa',Math.min(5,.5+ws/9).toFixed(1)+'deg');rs.setProperty('--sd',Math.max(1.2,4-ws/10).toFixed(1)+'s');
+    {const wm=Math.min(3,Math.max(.7,.7+ws/15));rs.setProperty('--wm',wm.toFixed(2));document.querySelectorAll('#clouds .cloud').forEach(e=>e.getAnimations().forEach(a=>{if(a.animationName==='drift'){a.updatePlaybackRate?a.updatePlaybackRate(wm):(a.playbackRate=wm)}}))}rs.setProperty('--sa',Math.min(5,.5+ws/9).toFixed(1)+'deg');rs.setProperty('--sd',Math.max(1.2,4-ws/10).toFixed(1)+'s');
     window.WXV=Math.max(.05,1-Math.min(.9,c/100*.75+rain*.2+(F?.5:0)+(S?.2:0)));WS=ws;
     document.querySelectorAll('#clouds .cloud').forEach((e,i)=>{let v=Math.min(1,Math.max(0,(c-TH[i])/20));if(i<3)v=Math.max(.3,v);e.style.setProperty('--cc',(v*(1+Math.max(0,c-75)/40)).toFixed(2))});
     setFx(S?'snow':rain?'rain':null,S?110:Math.round(50+rain*170));
