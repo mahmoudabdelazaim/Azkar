@@ -278,6 +278,28 @@ input{user-select:text;-webkit-user-select:text}
 /* أنيميشن الدائرة يظهر فوق زرّي السابق والتالي (من غير ما يمنع الضغط عليهما) */
 .orb{z-index:3}
 .halo,.orb::before,.orb .ring{pointer-events:none}
+
+/* ===== خدمات جديدة: قضاء الصلوات / ختمة القرآن / حاسبة الزكاة ===== */
+.qd{display:grid;gap:6px}
+.qr{display:flex;justify-content:space-between;align-items:center;padding:5px 12px 5px 6px;border-radius:14px;background:rgba(0,0,0,.18);font-size:.95rem}
+.qr .qb{display:flex;align-items:center;gap:10px}
+.qr .chip{min-height:34px;min-width:40px;padding:2px 10px;font-size:1.05rem}
+.qr b{min-width:3ch;text-align:center;font-size:1.15rem;font-variant-numeric:tabular-nums;color:var(--ac)}
+.kbar{height:10px;border-radius:99px;background:rgba(0,0,0,.28);overflow:hidden}
+.kbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,color-mix(in srgb,var(--ac) 65%,#fff),var(--ac));transition:width .45s ease}
+.khn{margin-top:10px;text-align:center;font-size:1rem;font-weight:600}
+.zr{display:grid;grid-template-columns:1fr 1.1fr;gap:8px;align-items:center;margin-top:8px;font-size:.9rem;color:var(--mut)}
+.zr input{min-width:0;min-height:40px;padding:0 14px;border-radius:99px;border:1.5px solid var(--line);background:rgba(0,0,0,.25);color:var(--ink);font:inherit;font-size:.92rem;text-align:center}
+.zr input::placeholder{color:var(--mut)}
+.zres{margin-top:12px;padding:12px;border-radius:16px;background:rgba(0,0,0,.22);text-align:center;font-size:.92rem;line-height:1.7}
+.zres b{display:block;font-size:1.45rem;color:var(--ac)}
+.ck{display:grid;gap:6px}
+.ck button{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);font-size:.92rem;text-align:right;line-height:1.6}
+.ck button small{display:block;font-size:.8rem;font-weight:400;color:var(--mut)}
+.ck button em{font-style:normal;font-weight:600;color:var(--ac);white-space:nowrap}
+.ck button.on{background:var(--ac);color:#1a1408;font-weight:600}
+.ck button.on small,.ck button.on em{color:#1a1408}
+.ck button.on::after{content:'✓'}
 </style>
 </head>
 <body data-p="night">
@@ -361,10 +383,32 @@ input{user-select:text;-webkit-user-select:text}
   <section class="sc" data-p="d"><h3><span>أدعية مأثورة</span><span id="dnm"></span></h3><p class="duat" id="dt"></p><div class="chips" style="justify-content:center"><button class="chip" id="dnext">دعاء آخر ↻</button><button class="chip" id="dc">نسخ</button><button class="chip" id="da">أضف للمسبحة</button></div></section>
   <section class="sc" data-p="m"><h3>أسماء الله الحسنى</h3><p class="nmv" id="nm"></p><div class="chips" style="justify-content:center"><button class="chip" id="nn">اسم آخر ↻</button><button class="chip" id="ncp">نسخ</button></div></section>
   <section class="sc" data-p="m"><h3><span>تسبيحك آخر ٧ أيام</span><span id="wkt"></span></h3><div class="bars" id="bars"></div></section>
+  <section class="sc" data-p="b"><h3><span>خطة ختمة القرآن</span><span id="khc"></span></h3>
+    <div class="kbar"><i id="khb"></i></div>
+    <p class="khn" id="khn"></p><p class="mutp" id="khd" style="margin-top:4px"></p>
+    <div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="kh1">+١ صفحة</button><button class="chip" id="kh5">+٥</button><button class="chip" id="kh20">+٢٠</button><button class="chip" id="khm" aria-label="إنقاص صفحة">−١</button></div>
+    <div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="khdays"></button><button class="chip" id="khnew">ختمة جديدة</button></div></section>
+  <section class="sc" data-p="b"><h3><span>قضاء الصلوات الفائتة</span><span id="qdt"></span></h3>
+    <div class="qd" id="qdl"></div>
+    <div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="qd1">+ يوم فائت</button><button class="chip" id="qd30">+ شهر فائت</button><button class="chip" id="qdm">قضيت يومًا كاملًا</button></div>
+    <p class="mutp">اضغط − بعد قضاء كل صلاة، أو + لإضافة صلاة فائتة</p></section>
+  <section class="sc" data-p="m"><h3>حاسبة الزكاة</h3>
+    <div class="zr"><label for="zc1">نقد ومدخرات</label><input id="zc1" inputmode="decimal" placeholder="٠" autocomplete="off"></div>
+    <div class="zr"><label for="zg">ذهب تملكه (جرام)</label><input id="zg" inputmode="decimal" placeholder="٠" autocomplete="off"></div>
+    <div class="zr"><span>عيار الذهب</span><div class="chips" id="zka" style="justify-content:center"><button class="chip" data-k="24">٢٤</button><button class="chip" data-k="21">٢١</button><button class="chip" data-k="18">١٨</button></div></div>
+    <div class="zr"><label for="zp">سعر جرام ذهب عيار ٢٤</label><input id="zp" inputmode="decimal" placeholder="أدخل السعر" autocomplete="off"></div>
+    <div class="zr"><label for="zd">ديون مستحقة عليك</label><input id="zd" inputmode="decimal" placeholder="٠" autocomplete="off"></div>
+    <div class="zres" id="zres"></div>
+    <p class="mutp">النصاب = ٨٥ جرام ذهب عيار ٢٤، ويُشترط مرور عام هجري كامل على المال. للفتوى في حالتك راجع أهل العلم.</p></section>
   <section class="sc" data-p="m"><h3>نسخة احتياطية لبياناتك</h3><div class="chips"><button class="chip" id="bkc">نسخ احتياطي</button><button class="chip" id="bkr">استعادة</button></div><textarea class="bk" id="bk" placeholder="الصق هنا النسخة الاحتياطية ثم اضغط استعادة" aria-label="النسخة الاحتياطية"></textarea></section>
   <section class="sc" data-p="c"><h3>الإعدادات</h3><div class="chips"><button class="chip" id="oa"></button><button class="chip" id="ov"></button></div></section>
   <section class="sc" data-p="c"><h3><span>مؤقت النوم</span><span id="sst"></span></h3><div class="chips" id="sl"><button class="chip" data-m="15">١٥ د</button><button class="chip" data-m="30">٣٠ د</button><button class="chip" data-m="60">ساعة</button><button class="chip" data-m="90">ساعة ونصف</button></div></section>
   <section class="sc" data-p="c"><h3>سرعة التشغيل</h3><div class="chips" id="sp"><button class="chip" data-r="0.85">٠٫٨٥×</button><button class="chip on" data-r="1">١×</button><button class="chip" data-r="1.25">١٫٢٥×</button><button class="chip" data-r="1.5">١٫٥×</button></div></section>
+  <section class="sc" data-p="d"><h3>الأذكار بعد الصلاة</h3><div class="ck" id="pa"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="par">بدء صلاة جديدة ↻</button></div></section>
+  <section class="sc" data-p="b"><h3><span>نوافل اليوم</span><span id="nfc"></span></h3><div class="ck" id="nf"></div></section>
+  <section class="sc" data-p="b"><h3><span>سنن الجمعة</span><span id="jmc"></span></h3><div class="ck" id="jm"></div><p class="mutp">تُصفَّر تلقائيًا كل أسبوع</p></section>
+  <section class="sc" data-p="m"><h3>العد التنازلي للمناسبات</h3><div class="qd" id="cdl"></div><p class="mutp">حسب تقويم أم القرى، وقد تختلف بيوم عن الرؤية الشرعية</p></section>
+  <section class="sc" data-p="m"><h3>سجل الصدقات</h3><div class="add"><input id="sdi" inputmode="decimal" placeholder="مبلغ الصدقة" aria-label="مبلغ الصدقة" autocomplete="off"><button class="chip" id="sda">إضافة</button><button class="chip" id="sdu">تراجع</button></div><p class="mutp" id="sdt"></p></section>
 </aside>
 
 <script>
@@ -400,7 +444,8 @@ const MY_AUDIO = [
 	{ title: 'سورة ابراهيم',				file: 'audio/014.mp3',				type: 'quran' },
 	{ title: 'سورة الحجر',					file: 'audio/015.mp3',				type: 'quran' },
 	{ title: 'سورة الحج',					file: 'audio/022.mp3',				type: 'quran' },
-	{ title: 'سورة الزخرف',					file: 'audio/043.mp3',				type: 'quran' },	
+	{ title: 'سورة الزخرف',					file: 'audio/043.mp3',				type: 'quran' },
+
 	{ title: 'سورة ق',						file: 'audio/050.mp3',				type: 'quran' },
 	{ title: 'سورة النجم',					file: 'audio/053.mp3',				type: 'quran' },
 	{ title: 'سورة الرحمن',					file: 'audio/055.mp3',				type: 'quran' },
@@ -670,7 +715,7 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
 (function(){
   const ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}},sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},ar=n=>(+n).toLocaleString('ar-EG'),vb=p=>{try{!window.NOVIB&&navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
   const sh=$('sheet'),bd=$('sbd');
-  const open=o=>{sh.classList.toggle('open',o);bd.classList.toggle('open',o);$('svc').classList.toggle('active',o);sh.setAttribute('aria-hidden',String(!o));if(o){prayers();wr();fs();tr();bars();if(ld('stab')==='d')nextDua();if(ld('stab')==='m')nextName()}};
+  const open=o=>{sh.classList.toggle('open',o);bd.classList.toggle('open',o);$('svc').classList.toggle('active',o);sh.setAttribute('aria-hidden',String(!o));if(o){window.svx&&svx();prayers();wr();fs();tr();bars();qdR();khR();if(ld('stab')==='d')nextDua();if(ld('stab')==='m')nextName()}};
   $('svc').onclick=()=>open(!sh.classList.contains('open'));bd.onclick=$('sx').onclick=()=>open(false);
   addEventListener('keydown',e=>{if(e.key==='Escape')open(false)});
   /* ذكر اليوم */
@@ -696,7 +741,7 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
   $('tdel').onclick=()=>{cu=cu.filter(x=>x!==dn);delete TC[dn];dn=D0[0];tr()};
   tr();
   /* أدعية مأثورة: دعاء جديد في كل مرة تفتح فيها التبويب (بدون تكرار حتى تنتهي القائمة) */
-  const DU=[['الاستيقاظ','الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور'],['النوم','باسمك اللهم أموت وأحيا'],['دخول المنزل','بسم الله ولجنا، وبسم الله خرجنا، وعلى ربنا توكلنا'],['الخروج من المنزل','بسم الله، توكلت على الله، ولا حول ولا قوة إلا بالله'],['بعد الطعام','الحمد لله الذي أطعمني هذا ورزقنيه من غير حول مني ولا قوة'],['الركوب والسفر','سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون'],['دخول المسجد','اللهم افتح لي أبواب رحمتك'],['الخروج من المسجد','اللهم إني أسألك من فضلك'],['الهم والحزن','اللهم إني أعوذ بك من الهم والحزن، والعجز والكسل، والبخل والجبن، وضلع الدين وغلبة الرجال'],['دعاء الكرب','لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم، لا إله إلا الله رب السماوات ورب الأرض ورب العرش الكريم'],['دعاء جامع','ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار'],['تثبيت القلب','يا مقلب القلوب ثبت قلبي على دينك'],['سيد الاستغفار','اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء بذنبي فاغفر لي، فإنه لا يغفر الذنوب إلا أنت'],['العفو والعافية','اللهم إني أسألك العفو والعافية في الدنيا والآخرة'],['للوالدين','رب ارحمهما كما ربياني صغيرا'],['زيادة العلم','رب زدني علما'],['دخول الخلاء','اللهم إني أعوذ بك من الخبث والخبائث'],['لبس الثوب','الحمد لله الذي كساني هذا ورزقنيه من غير حول مني ولا قوة'],['نزول المطر','اللهم صيبا نافعا'],['عند الغضب','أعوذ بالله من الشيطان الرجيم'],['أذكار الصباح','اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور'],['الرضا','رضيت بالله ربا وبالإسلام دينا وبمحمد صلى الله عليه وسلم نبيا'],['للمريض','اللهم رب الناس أذهب الباس، اشف أنت الشافي، لا شفاء إلا شفاؤك، شفاء لا يغادر سقما'],['تيسير الأمر','رب اشرح لي صدري ويسر لي أمري']];
+  const DU=[['الاستيقاظ','الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور'],['النوم','باسمك اللهم أموت وأحيا'],['دخول المنزل','بسم الله ولجنا، وبسم الله خرجنا، وعلى ربنا توكلنا'],['الخروج من المنزل','بسم الله، توكلت على الله، ولا حول ولا قوة إلا بالله'],['بعد الطعام','الحمد لله الذي أطعمني هذا ورزقنيه من غير حول مني ولا قوة'],['الركوب والسفر','سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون'],['دخول المسجد','اللهم افتح لي أبواب رحمتك'],['الخروج من المسجد','اللهم إني أسألك من فضلك'],['الهم والحزن','اللهم إني أعوذ بك من الهم والحزن، والعجز والكسل، والبخل والجبن، وضلع الدين وغلبة الرجال'],['دعاء الكرب','لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم، لا إله إلا الله رب السماوات ورب الأرض ورب العرش الكريم'],['دعاء جامع','ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار'],['تثبيت القلب','يا مقلب القلوب ثبت قلبي على دينك'],['سيد الاستغفار','اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء بذنبي فاغفر لي، فإنه لا يغفر الذنوب إلا أنت'],['العفو والعافية','اللهم إني أسألك العفو والعافية في الدنيا والآخرة'],['للوالدين','رب ارحمهما كما ربياني صغيرا'],['زيادة العلم','رب زدني علما'],['دخول الخلاء','اللهم إني أعوذ بك من الخبث والخبائث'],['لبس الثوب','الحمد لله الذي كساني هذا ورزقنيه من غير حول مني ولا قوة'],['نزول المطر','اللهم صيبا نافعا'],['عند الغضب','أعوذ بالله من الشيطان الرجيم'],['أذكار الصباح','اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور'],['الرضا','رضيت بالله ربا وبالإسلام دينا وبمحمد صلى الله عليه وسلم نبيا'],['للمريض','اللهم رب الناس أذهب الباس، اشف أنت الشافي، لا شفاء إلا شفاؤك، شفاء لا يغادر سقما'],['تيسير الأمر','رب اشرح لي صدري ويسر لي أمري'],['من القرآن: الاستغفار','ربنا ظلمنا أنفسنا وإن لم تغفر لنا وترحمنا لنكونن من الخاسرين'],['من القرآن: العفو','ربنا لا تؤاخذنا إن نسينا أو أخطأنا'],['من القرآن: الذرية','ربنا هب لنا من أزواجنا وذرياتنا قرة أعين واجعلنا للمتقين إماما'],['من القرآن: الصلاة','رب اجعلني مقيم الصلاة ومن ذريتي ربنا وتقبل دعاء'],['من القرآن: الهداية','ربنا لا تزغ قلوبنا بعد إذ هديتنا وهب لنا من لدنك رحمة إنك أنت الوهاب'],['من القرآن: الفقر إلى الله','رب إني لما أنزلت إلي من خير فقير'],['من القرآن: الحماية','رب أعوذ بك من همزات الشياطين وأعوذ بك رب أن يحضرون'],['من القرآن: القلب السليم','ربنا اغفر لنا ولإخواننا الذين سبقونا بالإيمان ولا تجعل في قلوبنا غلا للذين آمنوا ربنا إنك رءوف رحيم'],['من القرآن: الشكر','رب أوزعني أن أشكر نعمتك التي أنعمت علي وعلى والدي وأن أعمل صالحا ترضاه']];
   let du=0;
   function nextDua(){let b=[];try{b=JSON.parse(ld('dub'))||[]}catch(e){}b=b.filter(i=>i<DU.length);
     if(!b.length){b=DU.map((_,i)=>i);for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}if(b[b.length-1]===+ld('dul'))[b[0],b[b.length-1]]=[b[b.length-1],b[0]]}
@@ -754,6 +799,63 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
   {const r=+ld('rate');if(r>0)setRate(r)}
   /* مؤقت النوم: يُحفظ وقت الانتهاء ويُستأنف إن كان لم ينتهِ */
   {const m=ld('slm'),e=+ld('sle');if(m&&e>Date.now()){const b=$('sl').querySelector('[data-m="'+m+'"]');if(b){b.classList.add('on');se=e;st=setInterval(()=>{const r=se-Date.now();if(r<=0){stop();fade()}else $('sst').textContent='يتوقف بعد '+Math.floor(r/6e4)+':'+String(Math.floor(r%6e4/1e3)).padStart(2,'0')},1000)}}}
+  /* ===== قضاء الصلوات الفائتة ===== */
+  let QD={};try{QD=JSON.parse(ld('qd'))||{}}catch(e){}
+  const qv=k=>Math.max(0,Math.floor(+QD[k])||0);
+  function qdR(){$('qdl').innerHTML=PR.map(([k,n])=>`<div class="qr"><span>${n}</span><span class="qb"><button class="chip" data-k="${k}" data-d="-1" aria-label="قضيت صلاة ${n}">−</button><b>${ar(qv(k))}</b><button class="chip" data-k="${k}" data-d="1" aria-label="إضافة صلاة ${n} فائتة">+</button></span></div>`).join('');
+    const t=PR.reduce((a,[k])=>a+qv(k),0);$('qdt').textContent=t?'المتبقي: '+ar(t):'لا صلوات فائتة ✓'}
+  const qdAll=d=>{PR.forEach(([k])=>{QD[k]=Math.max(0,qv(k)+d)});sv('qd',JSON.stringify(QD));vb(10);qdR()};
+  $('qdl').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;QD[k]=Math.max(0,qv(k)+(+b.dataset.d));sv('qd',JSON.stringify(QD));vb(10);qdR()};
+  $('qd1').onclick=()=>qdAll(1);$('qd30').onclick=()=>qdAll(30);$('qdm').onclick=()=>qdAll(-1);
+  /* ===== خطة ختمة القرآن ===== */
+  const KT=604,KDs=[7,15,30,60,90];
+  let kd=+ld('kd')||30,kp=Math.min(KT,Math.max(0,+ld('kp')||0)),kn=+ld('kn')||0,ks=+ld('ks')||0,khArm=0;
+  function khR(){const pct=kp/KT;$('khb').style.width=(pct*100).toFixed(1)+'%';$('khc').textContent=kn?'ختمات مكتملة: '+ar(kn):'';$('khdays').textContent='المدة: '+ar(kd)+' يومًا';
+    if(kp>=KT){$('khn').textContent='ما شاء الله، أتممت الختمة 🎉';$('khd').textContent='تقبّل الله منك، ابدأ ختمة جديدة متى شئت';return}
+    $('khn').textContent='قرأت '+ar(kp)+' من '+ar(KT)+' صفحة ('+ar(Math.floor(pct*100))+'٪)';
+    if(!ks){$('khd').textContent='الورد المقترح: '+ar(Math.ceil(KT/kd))+' صفحة يوميًا لتختم في '+ar(kd)+' يومًا';return}
+    const el=Math.floor((Date.now()-ks)/864e5),left=Math.max(1,kd-el),per=Math.ceil((KT-kp)/left);
+    $('khd').textContent=el>=kd?'انتهت المدة المخططة، الورد المقترح اليوم: '+ar(per)+' صفحة':'المطلوب يوميًا: '+ar(per)+' صفحة • باقٍ '+ar(left)+' يومًا'}
+  const khAdd=n=>{if(!ks){ks=new Date().setHours(0,0,0,0);sv('ks',ks)}kp=Math.min(KT,Math.max(0,kp+n));sv('kp',kp);vb(10);khR()};
+  $('kh1').onclick=()=>khAdd(1);$('kh5').onclick=()=>khAdd(5);$('kh20').onclick=()=>khAdd(20);$('khm').onclick=()=>khAdd(-1);
+  $('khdays').onclick=()=>{kd=KDs[(KDs.indexOf(kd)+1)%KDs.length];sv('kd',kd);khR()};
+  $('khnew').onclick=()=>{if(kp>0&&kp<KT&&!khArm){$('khnew').textContent='اضغط للتأكيد';khArm=setTimeout(()=>{khArm=0;$('khnew').textContent='ختمة جديدة'},2500);return}
+    clearTimeout(khArm);khArm=0;if(kp>=KT){kn++;sv('kn',kn)}kp=0;ks=0;sv('kp',0);sv('ks',0);$('khnew').textContent='ختمة جديدة';khR()};
+  /* ===== حاسبة الزكاة ===== */
+  let zk=+ld('zkr')||21;
+  const pn=v=>{v=String(v).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[٬,\s]/g,'').replace('٫','.');const n=parseFloat(v);return isFinite(n)&&n>0?n:0};
+  const fm=n=>n.toLocaleString('ar-EG',{maximumFractionDigits:2});
+  function zcalc(){const cash=pn($('zc1').value),g=pn($('zg').value),price=pn($('zp').value),debt=pn($('zd').value);
+    $('zka').querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',+c.dataset.k===zk));
+    const R=$('zres');
+    if(!price){R.innerHTML='أدخل سعر جرام الذهب (عيار ٢٤) لمعرفة النصاب وحساب الزكاة';return}
+    const total=cash+g*zk/24*price-debt,nisab=85*price;
+    if(total<=0)R.innerHTML='صافي مالك لا يُوجب الزكاة';
+    else if(total<nisab)R.innerHTML='صافي مالك <b>'+fm(total)+'</b>لم يبلغ النصاب ('+fm(nisab)+')، فلا زكاة عليك الآن';
+    else R.innerHTML='الزكاة الواجبة (٢٫٥٪)<b>'+fm(total*.025)+'</b>من صافي مال '+fm(total)+' (النصاب '+fm(nisab)+')'}
+  ['zc1','zg','zp','zd'].forEach(i=>$(i).addEventListener('input',()=>{if(i==='zp')sv('zpr',$('zp').value);zcalc()}));
+  $('zka').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;zk=+b.dataset.k;sv('zkr',zk);zcalc()};
+  {const v=ld('zpr');if(v)$('zp').value=v}
+  /* ===== خدمات إضافية ===== */
+  const wkn=()=>Math.floor((Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5)-2)/7),dky=()=>new Date().toDateString();
+  const ck=(id,I,key,cid,txt)=>{const el=$(id),g=()=>(ld(key())||'').split(',').filter(Boolean),
+    r=()=>{const s=g();el.innerHTML=I.map((x,i)=>`<button class="${s.includes(i+'')?'on':''}" data-i="${i}" aria-pressed="${s.includes(i+'')}"><span>${x[0]}${x[1]?`<small>${x[1]}</small>`:''}</span>${x[2]?`<em>${x[2]}</em>`:''}</button>`).join('');if(cid)$(cid).textContent=txt(s.length)};
+    el.onclick=e=>{const b=e.target.closest('button');if(!b)return;const s=g(),i=b.dataset.i,k=s.indexOf(i);k<0?s.push(i):s.splice(k,1);sv(key(),s.join(','));vb(10);r()};return r};
+  const PA=[['الاستغفار','أستغفر الله','٣'],['التسليم','اللهم أنت السلام ومنك السلام، تباركت يا ذا الجلال والإكرام','١'],['التسبيح','سبحان الله','٣٣'],['التحميد','الحمد لله','٣٣'],['التكبير','الله أكبر','٣٣'],['تمام المئة','لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير','١'],['آية الكرسي','','١'],['المعوذات','الإخلاص والفلق والناس (٣ مرات بعد الفجر والمغرب)','١']];
+  const NF=[['السنن الرواتب','١٢ ركعة مع الفرائض'],['صلاة الضحى',''],['الوتر',''],['قيام الليل',''],['أذكار الصباح',''],['أذكار المساء','']];
+  const JM=[['الاغتسال والتطيب','والسواك'],['التبكير إلى المسجد',''],['قراءة سورة الكهف',''],['الإكثار من الصلاة على النبي ﷺ',''],['الدعاء في ساعة الإجابة','']];
+  const RF=[ck('pa',PA,()=>'pa'+dky()),ck('nf',NF,()=>'nf'+dky(),'nfc',n=>ar(n)+' من '+ar(NF.length)),ck('jm',JM,()=>'jm'+wkn(),'jmc',n=>ar(n)+' من '+ar(JM.length))];
+  $('par').onclick=()=>{sv('pa'+dky(),'');vb(10);RF[0]()};
+  const CD=[['بداية رمضان',9,1],['عيد الفطر',10,1],['يوم عرفة',12,9],['عيد الأضحى',12,10],['رأس السنة الهجرية',1,1],['يوم عاشوراء',1,10]];let cdK='';
+  function cdR(){if(cdK===dky())return;cdK=dky();const f={},d=new Date();d.setHours(12,0,0,0);
+    for(let i=0;i<400&&Object.keys(f).length<CD.length;i++){const[m,x]=hijriMD(d);CD.forEach(([n,a,b])=>{if(m===a&&x===b&&f[n]==null)f[n]=i});d.setDate(d.getDate()+1)}
+    $('cdl').innerHTML=CD.filter(([n])=>f[n]!=null).sort((a,b)=>f[a[0]]-f[b[0]]).map(([n])=>`<div class="qr"><span>${n}</span><b>${f[n]?ar(f[n])+' يومًا':'اليوم'}</b></div>`).join('')||'<p class="mutp">تعذّر حساب التاريخ الهجري على هذا المتصفح</p>'}
+  const sk=()=>{const d=new Date();return 'sdq'+d.getFullYear()+'-'+d.getMonth()},sg=()=>{try{return(JSON.parse(ld(sk()))||[]).filter(x=>x>0)}catch(e){return[]}};
+  const sR=()=>{const a=sg();$('sdt').textContent=a.length?'صدقات هذا الشهر: '+ar(a.length)+' • المجموع '+fm(a.reduce((x,y)=>x+y,0)):'لم تسجّل صدقة هذا الشهر بعد'};
+  $('sda').onclick=()=>{const v=pn($('sdi').value);if(!v)return;const a=sg();a.push(v);sv(sk(),JSON.stringify(a));$('sdi').value='';vb(10);sR()};
+  $('sdu').onclick=()=>{const a=sg();a.pop();sv(sk(),JSON.stringify(a));vb(10);sR()};
+  window.svx=()=>{RF.forEach(f=>f());cdR();sR()};svx();
+  qdR();khR();zcalc();
   /* طلب تخزين دائم كي لا يمسح المتصفح البيانات تلقائيًا */
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 })();
