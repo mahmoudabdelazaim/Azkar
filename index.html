@@ -338,6 +338,10 @@ textarea{user-select:text;-webkit-user-select:text}
 .stabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px!important;font-size:.74rem!important;min-height:34px!important}
 .hc{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.hc span{padding:4px 0;border-radius:10px;background:rgba(0,0,0,.18);font-size:.85rem;line-height:1.2}.hc small{display:block;font-size:.58rem;opacity:.7}.hc .h{background:none;color:var(--mut);font-size:.7rem;padding:0}.hc .t{background:var(--ac);color:#1a1408;font-weight:700}.hc .w{outline:1.5px solid var(--ac)}
 .hm{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.hm span{aspect-ratio:1;border-radius:8px;background:var(--ac);color:#1a1408;font-size:.62rem;display:grid;place-items:center}.hm span.z{background:rgba(255,255,255,.08);color:var(--mut)}.hm span.t{outline:2px solid rgba(255,255,255,.6)}
+.chrow{display:flex;gap:6px;align-items:flex-start}.chrow>.chips{flex:1}
+.plus{width:34px;height:34px;min-height:0;padding:0;border-radius:50%;font-size:1.25rem;line-height:1;display:grid;place-items:center;flex:none;transition:transform .2s,background .2s}
+.plus.on{transform:rotate(45deg);background:var(--ac);color:#1a1408}
+.cx{display:none!important}.cx.open{display:flex!important}
 </style>
 </head>
 <body data-p="night">
@@ -1220,6 +1224,72 @@ if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coor
  // Dated personal journal
  const today=day();$('worshipDate').value=today;function journalLoad(){const k='worshipjournal-'+$('worshipDate').value;$('worshipJournal').value=get(k,'')} $('worshipDate').addEventListener('change',journalLoad);$('worshipJournal').addEventListener('input',()=>put('worshipjournal-'+$('worshipDate').value,$('worshipJournal').value));journalLoad();
  $('sleepDuaCopy')?.addEventListener('click',()=>{const t='باسمك اللهم أموت وأحيا';if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).catch(()=>{})});
+})();
+</script>
+<script>
+/* زر + بدل كلمة «إضافة»: يظهر خانة الإدخال عند الضغط */
+(function(){
+  const d=document;
+  ['tadd','sda','hba','favdhAdd','hifzAdd','reviewAdd','worshipAdd','eva'].forEach(id=>{
+    const b=d.getElementById(id);if(!b)return;
+    let row=b.closest('.add'),extra=null;
+    if(id==='eva'){row=d.getElementById('evt').closest('.add');extra=b.closest('.chips')}
+    if(!row||row.dataset.px)return;row.dataset.px='1';
+    const plus=d.createElement('button');plus.type='button';plus.className='chip plus';plus.textContent='＋';plus.setAttribute('aria-label','إضافة');plus.setAttribute('aria-expanded','false');
+    const grp=[row,extra].filter(Boolean);grp.forEach(x=>x.classList.add('cx'));
+    if(id==='tadd'){const dz=d.getElementById('dz'),w=d.createElement('div');w.className='chrow';dz.parentNode.insertBefore(w,dz);w.appendChild(dz);w.appendChild(plus)}
+    else{const w=d.createElement('div');w.style.cssText='display:flex;justify-content:center;margin-top:10px';w.appendChild(plus);row.parentNode.insertBefore(w,row)}
+    const set=o=>{grp.forEach(x=>x.classList.toggle('open',o));plus.classList.toggle('on',o);plus.setAttribute('aria-expanded',String(o))};
+    plus.onclick=()=>{const o=!row.classList.contains('open');set(o);if(o){const i=row.querySelector('input');i&&i.focus()}};
+    b.textContent='✓';b.setAttribute('aria-label','تأكيد');
+    b.addEventListener('click',()=>setTimeout(()=>{const i=row.querySelector('input');if(i&&!i.value)set(false)},0));
+  });
+})();
+</script>
+<script>
+/* اتجاه القبلة: تحديد الموقع والبوصلة */
+(function(){
+  const d=document,$=i=>d.getElementById(i),ar=n=>String(n).replace(/\d/g,x=>'٠١٢٣٤٥٦٧٨٩'[x]);
+  const arrow=$('qiblaArrow'),info=$('qiblaInfo'),bl=$('qiblaLocate'),bc=$('qiblaCompass');
+  if(!arrow||!info||!bl||!bc)return;
+  const K=[21.4225,39.8262],rad=x=>x*Math.PI/180;
+  let qb=null,hd=null,on=false,buzz=0,tm=0;
+  const setArrow=a=>{arrow.style.transform='rotate('+(a-90)+'deg)'};setArrow(0);
+  const calc=(la,lo)=>{const p1=rad(la),p2=rad(K[0]),dl=rad(K[1]-lo);
+    const th=Math.atan2(Math.sin(dl)*Math.cos(p2),Math.cos(p1)*Math.sin(p2)-Math.sin(p1)*Math.cos(p2)*Math.cos(dl));
+    const a=Math.sin((p2-p1)/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;
+    return [(th*180/Math.PI+360)%360,6371*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))]};
+  const draw=()=>{if(qb==null)return;
+    if(hd==null){setArrow(qb);return}
+    const rel=(qb-hd+360)%360;setArrow(rel);
+    const hit=rel<6||rel>354;
+    info.textContent=hit?'✓ أنت تواجه القبلة':'وجّه الهاتف حتى يشير السهم إلى الأعلى';
+    if(hit&&Date.now()-buzz>2500){buzz=Date.now();navigator.vibrate&&navigator.vibrate(60)}};
+  const locate=()=>new Promise(res=>{
+    if(!navigator.geolocation){info.textContent='هذا المتصفح لا يدعم تحديد الموقع';return res(false)}
+    info.textContent='جارٍ تحديد موقعك…';
+    navigator.geolocation.getCurrentPosition(p=>{const[b,dist]=calc(p.coords.latitude,p.coords.longitude);qb=b;
+      info.textContent='اتجاه القبلة '+ar(Math.round(b))+'° من الشمال، وتبعد الكعبة نحو '+ar(Math.round(dist))+' كم';draw();res(true)},
+    e=>{info.textContent=e.code===1?'تم رفض إذن الموقع، فعّله من إعدادات المتصفح ثم أعد المحاولة':'تعذّر تحديد الموقع، تأكد من تشغيل الموقع وأن الصفحة مفتوحة عبر https';res(false)},
+    {enableHighAccuracy:true,timeout:12000,maximumAge:6e4})});
+  const onOri=e=>{let a=null;
+    if(typeof e.webkitCompassHeading==='number')a=e.webkitCompassHeading;
+    else if(e.absolute===true&&e.alpha!=null)a=360-e.alpha;
+    if(a==null)return;clearTimeout(tm);
+    a=(a+((screen.orientation&&screen.orientation.angle)||0)+360)%360;hd=a;draw()};
+  const stop=()=>{on=false;hd=null;removeEventListener('deviceorientationabsolute',onOri,true);removeEventListener('deviceorientation',onOri,true);bc.textContent='تفعيل البوصلة';clearTimeout(tm);draw()};
+  bl.onclick=()=>{locate()};
+  bc.onclick=async()=>{
+    if(on){stop();return}
+    let ok=true;
+    if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
+      try{ok=(await DeviceOrientationEvent.requestPermission())==='granted'}catch(x){ok=false}}
+    if(!ok){info.textContent='لم يُسمح باستخدام حساس الاتجاه، فعّله من إعدادات المتصفح';return}
+    if(qb==null&&!(await locate()))return;
+    on=true;bc.textContent='إيقاف البوصلة';
+    addEventListener('deviceorientationabsolute',onOri,true);addEventListener('deviceorientation',onOri,true);
+    info.textContent='وجّه الهاتف حتى يشير السهم إلى الأعلى';
+    tm=setTimeout(()=>{if(on&&hd==null){info.textContent='لا يتوفر حساس اتجاه في هذا الجهاز أو المتصفح، والسهم يوضح الاتجاه من الشمال';on=false;bc.textContent='تفعيل البوصلة'}},2500)};
 })();
 </script>
 </body>
