@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a1124">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="حصن المسلم">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#0a1124" name="theme-color"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="حصن المسلم" name="apple-mobile-web-app-title"/>
 <title>حِصْنُ المُسْلِمِ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Aref+Ruqaa:wght@700&family=IBM+Plex+Sans+Arabic:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&amp;family=Aref+Ruqaa:wght@700&amp;family=IBM+Plex+Sans+Arabic:wght@500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 @property --t{syntax:'<color>';inherits:true;initial-value:#0a1124}
 @property --b{syntax:'<color>';inherits:true;initial-value:#1d2c52}
@@ -308,7 +309,7 @@ input{user-select:text;-webkit-user-select:text}
 .ck.gd{grid-template-columns:repeat(6,1fr)}.ck.gd button{justify-content:center;padding:8px 0}.ck.gd button.on::after{content:""}
 .sc h3{position:relative;padding-inline-end:22px;cursor:pointer}.sc h3::after{content:'▾';position:absolute;inset-inline-end:0;opacity:.5}
 .sheet{overflow-y:auto;scrollbar-width:none}.sheet::-webkit-scrollbar{display:none}
-.stabs{grid-template-columns:repeat(6,1fr);gap:4px}.stabs button{font-size:.76rem;padding:0 2px}
+.stabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.stabs button{font-size:.82rem;padding:0 4px}
 .svcg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .svcg .sc{margin:0!important}
 .svcg .sc.show.cl{display:flex;align-items:center;justify-content:center;min-height:76px;padding:10px 8px;cursor:pointer;transition:transform .15s}
@@ -331,143 +332,173 @@ textarea{user-select:text;-webkit-user-select:text}
 .svcg{grid-template-columns:repeat(3,1fr);gap:6px}
 .svcg .sc.show.cl{min-height:44px;padding:5px 4px;border-radius:14px}
 .svcg .sc .ic{font-size:1rem}.svcg .sc.cl h3{font-size:.7rem;gap:0;line-height:1.3}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.seg .chip{padding:6px 12px;min-height:0;font-size:.82rem}.seg .chip.on{background:var(--ac);color:#1a1408;font-weight:600;border-color:transparent}
+.sp{display:none}.sp.on{display:block}
+.stabs{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:4px!important}
+.stabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px!important;font-size:.74rem!important;min-height:34px!important}
+.hc{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.hc span{padding:4px 0;border-radius:10px;background:rgba(0,0,0,.18);font-size:.85rem;line-height:1.2}.hc small{display:block;font-size:.58rem;opacity:.7}.hc .h{background:none;color:var(--mut);font-size:.7rem;padding:0}.hc .t{background:var(--ac);color:#1a1408;font-weight:700}.hc .w{outline:1.5px solid var(--ac)}
+.hm{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.hm span{aspect-ratio:1;border-radius:8px;background:var(--ac);color:#1a1408;font-size:.62rem;display:grid;place-items:center}.hm span.z{background:rgba(255,255,255,.08);color:var(--mut)}.hm span.t{outline:2px solid rgba(255,255,255,.6)}
 </style>
 </head>
 <body data-p="night">
-<div class="bg" id="stars" aria-hidden="true"><span class="shoot"></span></div>
-<div id="wxsky" aria-hidden="true"></div><div id="wxfog" aria-hidden="true"></div>
-<div class="cel" id="sun" aria-hidden="true"></div>
-<div class="cel" id="moon" aria-hidden="true"><svg viewBox="0 0 100 100"><defs>
-<radialGradient id="mh"><stop offset="0" stop-color="#dfe8ff" stop-opacity=".5"/><stop offset=".35" stop-color="#b8c8f0" stop-opacity=".16"/><stop offset="1" stop-color="#b8c8f0" stop-opacity="0"/></radialGradient>
-<radialGradient id="mb" cx=".42" cy=".4" r=".65"><stop offset="0" stop-color="#f6f3ea"/><stop offset=".7" stop-color="#e2ded1"/><stop offset="1" stop-color="#aaa79d"/></radialGradient>
-<radialGradient id="ms"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".42"/></radialGradient>
-<clipPath id="md"><circle cx="50" cy="50" r="47"/></clipPath>
-<filter id="mbl"><feGaussianBlur stdDeviation="1.2"/></filter>
-<filter id="mm" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.3"/></filter>
-<filter id="mg"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="5"/><feColorMatrix values="0 0 0 0 .35 0 0 0 0 .35 0 0 0 0 .38 0 0 0 .9 -.25"/></filter>
-<mask id="ml" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><path id="mp" fill="#fff" filter="url(#mbl)"/></mask>
-<g id="mt"><circle cx="50" cy="50" r="47" fill="url(#mb)"/>
-<g fill="#7b7875" opacity=".55" filter="url(#mm)"><ellipse cx="40" cy="33" rx="11" ry="9"/><circle cx="56" cy="34" r="6.5"/><ellipse cx="63" cy="46" rx="9" ry="7"/><ellipse cx="77" cy="38" rx="4.5" ry="3.5"/><ellipse cx="24" cy="48" rx="8" ry="14"/><ellipse cx="42" cy="66" rx="8" ry="5.5"/><circle cx="28" cy="66" r="4"/><ellipse cx="72" cy="58" rx="5" ry="6"/></g>
-<g fill="#000" fill-opacity=".07" stroke="#fff" stroke-opacity=".3" stroke-width=".5"><circle cx="36" cy="47" r="2.4"/><circle cx="30" cy="38" r="1.8"/><circle cx="58" cy="62" r="3"/><circle cx="70" cy="72" r="2.2"/><circle cx="50" cy="52" r="1.6"/><circle cx="82" cy="52" r="2"/><circle cx="22" cy="70" r="2.6"/><circle cx="62" cy="80" r="2"/><circle cx="35" cy="78" r="1.7"/></g>
-<g stroke="#fff" stroke-opacity=".28" stroke-width=".5"><path d="M45 84L20 94M45 84L60 97M45 84L38 62M45 84L70 74"/></g><circle cx="45" cy="84" r="2.3" fill="#fff"/>
-<rect width="100" height="100" filter="url(#mg)" opacity=".22"/><circle cx="50" cy="50" r="47" fill="url(#ms)"/></g></defs>
-<circle id="mhalo" cx="50" cy="50" r="90" fill="url(#mh)"/>
-<g clip-path="url(#md)"><circle cx="50" cy="50" r="47" fill="#0b1226" opacity=".4"/><use href="#mt" opacity=".1"/><use href="#mt" mask="url(#ml)"/></g></svg></div>
-
-<div class="bg" id="clouds" aria-hidden="true"></div>
-<div class="bg" id="birds" aria-hidden="true"></div>
-
-<svg class="dunes" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path style="fill:color-mix(in srgb,var(--t) 35%,#000)" opacity=".35" d="M0 62C60 30 120 52 200 40S340 22 400 48V120H0Z"/><path style="fill:color-mix(in srgb,var(--t) 20%,#000)" opacity=".55" d="M0 88C80 66 150 94 240 78S360 64 400 84V120H0Z"/></svg>
-
-<canvas id="wxfx" aria-hidden="true"></canvas><div id="wxflash" aria-hidden="true"></div>
-<div id="wx" hidden></div>
-
+<div aria-hidden="true" class="bg" id="stars"><span class="shoot"></span></div>
+<div aria-hidden="true" id="wxsky"></div><div aria-hidden="true" id="wxfog"></div>
+<div aria-hidden="true" class="cel" id="sun"></div>
+<div aria-hidden="true" class="cel" id="moon"><svg viewbox="0 0 100 100"><defs>
+<radialgradient id="mh"><stop offset="0" stop-color="#dfe8ff" stop-opacity=".5"></stop><stop offset=".35" stop-color="#b8c8f0" stop-opacity=".16"></stop><stop offset="1" stop-color="#b8c8f0" stop-opacity="0"></stop></radialgradient>
+<radialgradient cx=".42" cy=".4" id="mb" r=".65"><stop offset="0" stop-color="#f6f3ea"></stop><stop offset=".7" stop-color="#e2ded1"></stop><stop offset="1" stop-color="#aaa79d"></stop></radialgradient>
+<radialgradient id="ms"><stop offset=".6" stop-color="#000" stop-opacity="0"></stop><stop offset="1" stop-color="#000" stop-opacity=".42"></stop></radialgradient>
+<clippath id="md"><circle cx="50" cy="50" r="47"></circle></clippath>
+<filter id="mbl"><fegaussianblur stddeviation="1.2"></fegaussianblur></filter>
+<filter height="160%" id="mm" width="160%" x="-30%" y="-30%"><fegaussianblur stddeviation="2.3"></fegaussianblur></filter>
+<filter id="mg"><feturbulence basefrequency=".8" numoctaves="3" seed="5" type="fractalNoise"></feturbulence><fecolormatrix values="0 0 0 0 .35 0 0 0 0 .35 0 0 0 0 .38 0 0 0 .9 -.25"></fecolormatrix></filter>
+<mask height="100" id="ml" maskunits="userSpaceOnUse" width="100" x="0" y="0"><path fill="#fff" filter="url(#mbl)" id="mp"></path></mask>
+<g id="mt"><circle cx="50" cy="50" fill="url(#mb)" r="47"></circle>
+<g fill="#7b7875" filter="url(#mm)" opacity=".55"><ellipse cx="40" cy="33" rx="11" ry="9"></ellipse><circle cx="56" cy="34" r="6.5"></circle><ellipse cx="63" cy="46" rx="9" ry="7"></ellipse><ellipse cx="77" cy="38" rx="4.5" ry="3.5"></ellipse><ellipse cx="24" cy="48" rx="8" ry="14"></ellipse><ellipse cx="42" cy="66" rx="8" ry="5.5"></ellipse><circle cx="28" cy="66" r="4"></circle><ellipse cx="72" cy="58" rx="5" ry="6"></ellipse></g>
+<g fill="#000" fill-opacity=".07" stroke="#fff" stroke-opacity=".3" stroke-width=".5"><circle cx="36" cy="47" r="2.4"></circle><circle cx="30" cy="38" r="1.8"></circle><circle cx="58" cy="62" r="3"></circle><circle cx="70" cy="72" r="2.2"></circle><circle cx="50" cy="52" r="1.6"></circle><circle cx="82" cy="52" r="2"></circle><circle cx="22" cy="70" r="2.6"></circle><circle cx="62" cy="80" r="2"></circle><circle cx="35" cy="78" r="1.7"></circle></g>
+<g stroke="#fff" stroke-opacity=".28" stroke-width=".5"><path d="M45 84L20 94M45 84L60 97M45 84L38 62M45 84L70 74"></path></g><circle cx="45" cy="84" fill="#fff" r="2.3"></circle>
+<rect filter="url(#mg)" height="100" opacity=".22" width="100"></rect><circle cx="50" cy="50" fill="url(#ms)" r="47"></circle></g></defs>
+<circle cx="50" cy="50" fill="url(#mh)" id="mhalo" r="90"></circle>
+<g clip-path="url(#md)"><circle cx="50" cy="50" fill="#0b1226" opacity=".4" r="47"></circle><use href="#mt" opacity=".1"></use><use href="#mt" mask="url(#ml)"></use></g></svg></div>
+<div aria-hidden="true" class="bg" id="clouds"></div>
+<div aria-hidden="true" class="bg" id="birds"></div>
+<svg aria-hidden="true" class="dunes" preserveaspectratio="none" viewbox="0 0 400 120"><path d="M0 62C60 30 120 52 200 40S340 22 400 48V120H0Z" opacity=".35" style="fill:color-mix(in srgb,var(--t) 35%,#000)"></path><path d="M0 88C80 66 150 94 240 78S360 64 400 84V120H0Z" opacity=".55" style="fill:color-mix(in srgb,var(--t) 20%,#000)"></path></svg>
+<canvas aria-hidden="true" id="wxfx"></canvas><div aria-hidden="true" id="wxflash"></div>
+<div hidden="" id="wx"></div>
 <main class="app" id="app">
-  <header class="top">
-    <button class="dbtn" id="hbtn" aria-expanded="false" aria-controls="dpop"><span id="hijri"></span><i class="chev" aria-hidden="true">▾</i></button>
-    <div class="cd" id="pbtn" role="button" tabindex="0" aria-expanded="false" aria-controls="ppop"><span id="nx-name"></span><b id="nx-cd">--:--:--</b></div>
-    <div class="pop" id="dpop" hidden></div><div class="pop" id="ppop" hidden></div>
-  </header>
-
-  <section class="info">
-    <h1 class="title" id="title">جاري التحضير</h1>
-      </section>
-
-  <div class="ctl-wrap">
-    <audio id="audio" preload="metadata"></audio>
-    <div class="ctl">
-      <button class="big" id="b-prev" aria-label="السابق"><svg viewBox="0 0 24 24"><path d="M5 5.5v13L16 12z"/><rect x="17.3" y="5.5" width="2.4" height="13" rx="1"/></svg></button>
-      <div class="orb">
-        <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="tr" cx="50" cy="50" r="48"/><circle class="pr" id="ring" cx="50" cy="50" r="48"/></svg>
-        <span class="halo"></span><span class="halo h2"></span><span class="halo h3"></span>
-        <button class="play" id="b-play" aria-label="تشغيل أو إيقاف">
-          <svg class="i1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="i2" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>
-        </button>
-        <span class="why" id="why"></span>
-        <p class="hint" id="hint" aria-live="polite"></p>
-      </div>
-      <button class="big" id="b-next" aria-label="التالي"><svg viewBox="0 0 24 24"><path d="M19 5.5v13L8 12z"/><rect x="4.3" y="5.5" width="2.4" height="13" rx="1"/></svg></button>
-    </div>
-    <div class="time" id="time">0:00 / 0:00</div>
-  </div>
-
-  <nav class="cat" id="cat">
-    <button class="on" data-m="now">الآن</button>
-    <button data-m="quran">قرآن</button>
-    <button data-m="adhkar">أذكار</button>
-    <button class="svc" id="svc" aria-label="الخدمات">خدمات</button>
-  </nav>
+<header class="top">
+<button aria-controls="dpop" aria-expanded="false" class="dbtn" id="hbtn"><span id="hijri"></span><i aria-hidden="true" class="chev">▾</i></button>
+<div aria-controls="ppop" aria-expanded="false" class="cd" id="pbtn" role="button" tabindex="0"><span id="nx-name"></span><b id="nx-cd">--:--:--</b></div>
+<div class="pop" hidden="" id="dpop"></div><div class="pop" hidden="" id="ppop"></div>
+</header>
+<section class="info">
+<h1 class="title" id="title">جاري التحضير</h1>
+</section>
+<div class="ctl-wrap">
+<audio id="audio" preload="metadata"></audio>
+<div class="ctl">
+<button aria-label="السابق" class="big" id="b-prev"><svg viewbox="0 0 24 24"><path d="M5 5.5v13L16 12z"></path><rect height="13" rx="1" width="2.4" x="17.3" y="5.5"></rect></svg></button>
+<div class="orb">
+<svg aria-hidden="true" class="ring" viewbox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="48"></circle><circle class="pr" cx="50" cy="50" id="ring" r="48"></circle></svg>
+<span class="halo"></span><span class="halo h2"></span><span class="halo h3"></span>
+<button aria-label="تشغيل أو إيقاف" class="play" id="b-play">
+<svg class="i1" viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+<svg class="i2" viewbox="0 0 24 24"><rect height="14" rx="1.2" width="4" x="6" y="5"></rect><rect height="14" rx="1.2" width="4" x="14" y="5"></rect></svg>
+</button>
+<span class="why" id="why"></span>
+<p aria-live="polite" class="hint" id="hint"></p>
+</div>
+<button aria-label="التالي" class="big" id="b-next"><svg viewbox="0 0 24 24"><path d="M19 5.5v13L8 12z"></path><rect height="13" rx="1" width="2.4" x="4.3" y="5.5"></rect></svg></button>
+</div>
+<div class="time" id="time">0:00 / 0:00</div>
+</div>
+<nav class="cat" id="cat">
+<button class="on" data-m="now">الآن</button>
+<button data-m="quran">قرآن</button>
+<button data-m="adhkar">أذكار</button>
+<button aria-label="الخدمات" class="svc" id="svc">خدمات</button>
+</nav>
 </main>
 <div class="sbd" id="sbd"></div>
-<aside class="sheet" id="sheet" aria-hidden="true" aria-label="الخدمات">
-  <div class="sh-h"><span>الخدمات</span><button id="sx" aria-label="إغلاق">✕</button></div>
-  <nav class="stabs" id="stabs"><button data-t="t">مسبحة</button><button data-t="b">عبادات</button><button data-t="s">صيام</button><button data-t="d">أدعية</button><button data-t="m">مزيد</button><button data-t="c">تحكم</button></nav>
-  <section class="sc" data-p="d"><h3>ذكر اليوم</h3><p class="zk" id="zk"></p><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="zc">نسخ</button></div></section>
-  <section class="sc" data-p="t"><h3>المسبحة</h3><div class="chips" id="dz"></div>
-    <div class="add"><input id="tin" maxlength="60" placeholder="أضف ذكرًا خاصًا بك…" aria-label="ذكر جديد"><button class="chip" id="tadd">إضافة</button></div>
-    <div class="tas" id="tas"><button id="tbtn" aria-label="تسبيحة"><b id="tn">٠</b><small id="tp"></small></button></div>
-    <div class="chips" style="justify-content:center"><button class="chip" id="tgt"></button><button class="chip" id="trs">تصفير</button><button class="chip" id="tdel" hidden>حذف هذا الذكر</button></div><p class="mutp" id="tday"></p></section>
-  <section class="sc" data-p="b"><h3><span>متتبع الصلوات اليوم</span><span id="pc"></span></h3><div class="pt" id="pt"></div><p class="mutp" id="ps"></p></section>
-  <section class="sc" data-p="b"><h3><span>ورد القرآن اليوم</span><span id="wrd"></span></h3><div class="row2"><button class="chip" id="wm" aria-label="إنقاص">−</button><b id="wn">٠</b><button class="chip" id="wp" aria-label="زيادة">+</button><button class="chip" id="wg"></button></div></section>
-  <section class="sc" data-p="b"><h3><span>صيام اليوم</span><span id="fc"></span></h3><div class="chips"><button class="chip" id="fb">أنا صائم اليوم</button></div></section>
-  <section class="sc" data-p="d"><h3><span>أدعية مأثورة</span><span id="dnm"></span></h3><p class="duat" id="dt"></p><div class="chips" style="justify-content:center"><button class="chip" id="dnext">دعاء آخر ↻</button><button class="chip" id="dc">نسخ</button><button class="chip" id="da">أضف للمسبحة</button></div></section>
-  <section class="sc" data-p="m"><h3>أسماء الله الحسنى</h3><p class="nmv" id="nm"></p><div class="chips" style="justify-content:center"><button class="chip" id="nn">اسم آخر ↻</button><button class="chip" id="ncp">نسخ</button></div></section>
-  <section class="sc" data-p="m"><h3><span>تسبيحك آخر ٧ أيام</span><span id="wkt"></span></h3><div class="bars" id="bars"></div></section>
-  <section class="sc" data-p="b"><h3><span>خطة ختمة القرآن</span><span id="khc"></span></h3>
-    <div class="kbar"><i id="khb"></i></div>
-    <p class="khn" id="khn"></p><p class="mutp" id="khd" style="margin-top:4px"></p>
-    <div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="kh1">+١ صفحة</button><button class="chip" id="kh5">+٥</button><button class="chip" id="kh20">+٢٠</button><button class="chip" id="khm" aria-label="إنقاص صفحة">−١</button></div>
-    <div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="khdays"></button><button class="chip" id="khnew">ختمة جديدة</button></div></section>
-  <section class="sc" data-p="b"><h3><span>قضاء الصلوات الفائتة</span><span id="qdt"></span></h3>
-    <div class="qd" id="qdl"></div>
-    <div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="qd1">+ يوم فائت</button><button class="chip" id="qd30">+ شهر فائت</button><button class="chip" id="qdm">قضيت يومًا كاملًا</button></div>
-    <p class="mutp">اضغط − بعد قضاء كل صلاة، أو + لإضافة صلاة فائتة</p></section>
-  <section class="sc" data-p="m"><h3>حاسبة الزكاة</h3>
-    <div class="zr"><label for="zc1">نقد ومدخرات</label><input id="zc1" inputmode="decimal" placeholder="٠" autocomplete="off"></div>
-    <div class="zr"><label for="zg">ذهب تملكه (جرام)</label><input id="zg" inputmode="decimal" placeholder="٠" autocomplete="off"></div>
-    <div class="zr"><span>عيار الذهب</span><div class="chips" id="zka" style="justify-content:center"><button class="chip" data-k="24">٢٤</button><button class="chip" data-k="21">٢١</button><button class="chip" data-k="18">١٨</button></div></div>
-    <div class="zr"><label for="zp">سعر جرام ذهب عيار ٢٤</label><input id="zp" inputmode="decimal" placeholder="أدخل السعر" autocomplete="off"></div>
-    <div class="zr"><label for="zd">ديون مستحقة عليك</label><input id="zd" inputmode="decimal" placeholder="٠" autocomplete="off"></div>
-    <div class="zres" id="zres"></div>
-    <p class="mutp">النصاب = ٨٥ جرام ذهب عيار ٢٤، ويُشترط مرور عام هجري كامل على المال. للفتوى في حالتك راجع أهل العلم.</p></section>
-  <section class="sc" data-p="m"><h3>نسخة احتياطية لبياناتك</h3><div class="chips"><button class="chip" id="bkc">نسخ احتياطي</button><button class="chip" id="bkr">استعادة</button></div><textarea class="bk" id="bk" placeholder="الصق هنا النسخة الاحتياطية ثم اضغط استعادة" aria-label="النسخة الاحتياطية"></textarea></section>
-  <section class="sc" data-p="c"><h3>الإعدادات</h3><div class="chips"><button class="chip" id="oa"></button><button class="chip" id="ov"></button></div></section>
-  <section class="sc" data-p="c"><h3><span>مؤقت النوم</span><span id="sst"></span></h3><div class="chips" id="sl"><button class="chip" data-m="15">١٥ د</button><button class="chip" data-m="30">٣٠ د</button><button class="chip" data-m="60">ساعة</button><button class="chip" data-m="90">ساعة ونصف</button></div></section>
-  <section class="sc" data-p="c"><h3>سرعة التشغيل</h3><div class="chips" id="sp"><button class="chip" data-r="0.85">٠٫٨٥×</button><button class="chip on" data-r="1">١×</button><button class="chip" data-r="1.25">١٫٢٥×</button><button class="chip" data-r="1.5">١٫٥×</button></div></section>
-  <section class="sc" data-p="d"><h3>الأذكار بعد الصلاة</h3><div class="ck" id="pa"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="par">بدء صلاة جديدة ↻</button></div></section>
-  <section class="sc" data-p="b"><h3><span>نوافل اليوم</span><span id="nfc"></span></h3><div class="ck" id="nf"></div></section>
-  <section class="sc" data-p="b"><h3><span>سنن الجمعة</span><span id="jmc"></span></h3><div class="ck" id="jm"></div><p class="mutp">تُصفَّر تلقائيًا كل أسبوع</p></section>
-  <section class="sc" data-p="m"><h3>العد التنازلي للمناسبات</h3><div class="qd" id="cdl"></div><p class="mutp">حسب تقويم أم القرى، وقد تختلف بيوم عن الرؤية الشرعية</p></section>
-  <section class="sc" data-p="m"><h3>سجل الصدقات</h3><div class="add"><input id="sdi" inputmode="decimal" placeholder="مبلغ الصدقة" aria-label="مبلغ الصدقة" autocomplete="off"><button class="chip" id="sda">إضافة</button><button class="chip" id="sdu">تراجع</button></div><p class="mutp" id="sdt"></p></section>
-  <section class="sc" data-p="d"><h3><span>حديث اليوم</span><span id="hdn"></span></h3><p class="duat" id="hdt"></p><div class="chips" style="justify-content:center"><button class="chip" id="hdx">حديث آخر ↻</button><button class="chip" id="hdc">نسخ</button></div></section>
-  <section class="sc" data-p="b"><h3><span>قضاء الصيام</span><span id="qsc"></span></h3><div class="row2"><button class="chip" id="qsm" aria-label="إنقاص">−</button><b id="qsn">٠</b><button class="chip" id="qsp" aria-label="زيادة">+</button></div><p class="mutp">عدد الأيام المتبقية عليك، اضغط − بعد قضاء كل يوم</p></section>
-  <section class="sc" data-p="b"><h3><span>عادات الخير</span><span id="hbc"></span></h3><div class="ck" id="hb"></div><div class="add"><input id="hbi" maxlength="40" placeholder="أضف عادة (مثل: صلة رحم)" aria-label="عادة جديدة"><button class="chip" id="hba">إضافة</button></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="hbd">حذف آخر عادة</button></div></section>
-  <section class="sc" data-p="m"><h3>أوقات الليل</h3><div class="qd" id="nt"></div><p class="mutp">الثلث الأخير وقت فاضل للدعاء والقيام، ويُحسب من المغرب إلى الفجر</p></section>
-  <section class="sc" data-p="d"><h3>أذكار النوم</h3><div class="ck" id="zn"></div></section>
-  <section class="sc" data-p="d"><h3>دعاء الاستخارة</h3><p class="mutp">يُصلّي المسلم ركعتين من غير الفريضة، ثم يدعو بهذا الدعاء</p><p class="duat" id="isk" style="white-space:pre-line"></p><div class="chips" style="justify-content:center"><button class="chip" id="iskc">نسخ</button></div></section>
-  <section class="sc" data-p="d"><h3>دفتر دعواتي</h3><textarea id="dfd" maxlength="2000" rows="4" placeholder="اكتب دعواتك وحاجاتك هنا، وتُحفظ تلقائيًا على جهازك" aria-label="دفتر دعواتي" style="width:100%;min-height:110px;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical"></textarea></section>
-  <section class="sc" data-p="m"><h3>الصيام المستحب القادم</h3><div class="qd" id="sy"></div><p class="mutp">الأيام البيض: ١٣ و١٤ و١٥ من كل شهر هجري (ويُستثنى ١٣ ذي الحجة)</p></section>
-  <section class="sc" data-p="d"><h3>أذكار المناسبات</h3><input id="mnq" placeholder="ابحث: النوم، المسجد، الطعام، السفر…" aria-label="بحث في الأذكار" autocomplete="off" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;margin-bottom:8px"><div class="ck mn" id="mnl"></div><p class="mutp" id="mnh">اضغط على الذكر لنسخه</p></section>
-  <section class="sc" data-p="b"><h3>سجل الختمات</h3><div class="row2"><button class="chip" id="ktu" aria-label="إنقاص">−</button><b id="ktn">٠</b><button class="chip" id="ktp">+ ختمة</button></div><p class="mutp" id="ktd"></p></section>
-  <section class="sc" data-p="b"><h3><span>صيام ست من شوال</span><span id="swc"></span></h3><div class="ck" id="sw"></div><p class="mutp">تُحفظ لكل سنة هجرية</p></section>
-  <section class="sc" data-p="m"><h3>مؤقت التدبر والورد</h3><div id="tmd" role="timer" style="text-align:center;font-size:2.2rem;font-weight:700;margin:6px 0">١٠:٠٠</div><div class="chips" style="justify-content:center"><button class="chip" data-m="5">٥ د</button><button class="chip" data-m="10">١٠ د</button><button class="chip" data-m="15">١٥ د</button><button class="chip" data-m="30">٣٠ د</button></div><div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="tms">ابدأ</button><button class="chip" id="tmx">إيقاف</button></div></section>
-  <section class="sc" data-p="m"><h3>محوّل التاريخ إلى الهجري</h3><input type="date" id="cvd" aria-label="اختر التاريخ الميلادي" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit"><p class="duat" id="cvr"></p></section>
-  <section class="sc" data-p="d"><h3>أذكار الصباح والمساء</h3><div class="ck" id="sb"></div><p class="mutp">تُصفَّر يوميًا. وفي المساء تقول: أمسينا وأمسى الملك لله</p></section>
-  <section class="sc" data-p="b"><h3><span>صيام رمضان</span><span id="rgc"></span></h3><div class="ck gd" id="rg"></div><p class="mutp">تُحفظ لكل سنة هجرية</p></section>
-  <section class="sc" data-p="m"><h3><span>اختبر معلوماتك</span><span id="qzs"></span></h3><p class="duat" id="qzq"></p><div class="ck" id="qzo"></div><p class="mutp" id="qzr"></p><div class="chips" style="justify-content:center"><button class="chip" id="qzn">ابدأ من جديد ↻</button></div></section>
-  <section class="sc" data-p="m"><h3>ساعات الصيام</h3><div class="qd" id="fq"></div><p class="mutp">من الفجر إلى المغرب حسب موقعك</p></section>
-  <section class="sc" data-p="m"><h3>دفتر الفوائد</h3><textarea id="dff" maxlength="3000" rows="4" placeholder="سجّل فائدة سمعتها أو آية استوقفتك، وتُحفظ تلقائيًا" aria-label="دفتر الفوائد" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical;min-height:110px"></textarea></section>
-  <section class="sc" data-p="b"><h3>خطوات الوضوء</h3><div class="qd"><div class="qr"><span>١. النية والتسمية</span><b>بسم الله</b></div><div class="qr"><span>٢. غسل الكفين</span><b>٣ مرات</b></div><div class="qr"><span>٣. المضمضة والاستنشاق</span><b>٣ مرات</b></div><div class="qr"><span>٤. غسل الوجه</span><b>٣ مرات</b></div><div class="qr"><span>٥. غسل اليدين إلى المرفقين</span><b>٣ مرات</b></div><div class="qr"><span>٦. مسح الرأس والأذنين</span><b>مرة</b></div><div class="qr"><span>٧. غسل الرجلين إلى الكعبين</span><b>٣ مرات</b></div><div class="qr"><span>٨. الذكر بعد الوضوء</span><b>الشهادتان</b></div></div></section>
-  <section class="sc" data-p="b"><h3>ركعات الصلوات</h3><div class="qd"><div class="qr"><span>الفجر</span><b>٢ فرض (٢ سنة قبلها)</b></div><div class="qr"><span>الظهر</span><b>٤ فرض (٤ سنة قبلها و٢ بعدها)</b></div><div class="qr"><span>العصر</span><b>٤ فرض</b></div><div class="qr"><span>المغرب</span><b>٣ فرض (٢ سنة بعدها)</b></div><div class="qr"><span>العشاء</span><b>٤ فرض (٢ سنة بعدها)</b></div><div class="qr"><span>الوتر</span><b>ركعة فأكثر</b></div></div></section>
-  <section class="sc" data-p="m"><h3>أركان الإسلام والإيمان</h3><p class="mutp" style="margin:0 0 6px;text-align:start;color:var(--ac);font-weight:600">أركان الإسلام (٥)</p><div class="qd"><div class="qr"><span>١. الشهادتان: شهادة أن لا إله إلا الله وأن محمدًا رسول الله</span></div><div class="qr"><span>٢. إقام الصلاة</span></div><div class="qr"><span>٣. إيتاء الزكاة</span></div><div class="qr"><span>٤. صوم رمضان</span></div><div class="qr"><span>٥. حج البيت لمن استطاع إليه سبيلًا</span></div></div><div style="height:10px"></div><p class="mutp" style="margin:0 0 6px;text-align:start;color:var(--ac);font-weight:600">أركان الإيمان (٦)</p><div class="qd"><div class="qr"><span>١. الإيمان بالله</span></div><div class="qr"><span>٢. الإيمان بالملائكة</span></div><div class="qr"><span>٣. الإيمان بالكتب</span></div><div class="qr"><span>٤. الإيمان بالرسل</span></div><div class="qr"><span>٥. الإيمان باليوم الآخر</span></div><div class="qr"><span>٦. الإيمان بالقدر خيره وشره</span></div></div></section>
-  <section class="sc" data-p="t"><h3>الصلاة على النبي ﷺ</h3><div class="tas" id="sat"><button id="sbtn" aria-label="صلاة على النبي"><b id="saln">٠</b><small>صلِّ على النبي ﷺ</small></button></div><div class="chips" style="justify-content:center"><button class="chip" id="sgt"></button><button class="chip" id="salr">تصفير</button></div><p class="mutp" id="sald"></p></section>
-  <section class="sc" data-p="b"><h3>مواقيت الغد</h3><div class="qd" id="tmw"></div></section>
-  <section class="sc" data-p="b"><h3><span>تحدي ٣٠ يومًا</span><span id="chc"></span></h3><input id="chn" maxlength="30" placeholder="اسم التحدي (مثل: ورد يومي أو قيام)" aria-label="اسم التحدي" autocomplete="off" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;margin-bottom:8px"><div class="ck gd" id="chg"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="chr">بدء تحدٍّ جديد ↻</button></div></section>
-  <section class="sc" data-p="s"><h3>حاسبة زكاة الفطر</h3><div class="add"><input id="zfn" inputmode="numeric" placeholder="عدد الأفراد" aria-label="عدد الأفراد" autocomplete="off"><input id="zfp" inputmode="decimal" placeholder="قيمة الفطرة للفرد" aria-label="قيمة الفطرة للفرد" autocomplete="off"></div><p class="duat" id="zfr"></p><p class="mutp">حدّد القيمة أو الصاع حسب فتوى دار الإفتاء في بلدك</p></section>
-  <section class="sc" data-p="s"><h3>الأشهر الهجرية</h3><div class="qd" id="hm"></div><p class="mutp">الأشهر الحرم: محرم ورجب وذو القعدة وذو الحجة</p></section>
-</aside>
+<aside aria-hidden="true" aria-label="الخدمات" class="sheet" id="sheet">
+<div class="sh-h"><span>الخدمات</span><button aria-label="إغلاق" id="sx">✕</button></div>
+<nav class="stabs" id="stabs"><button data-t="t">تسبيح</button><button data-t="b">الصلاة</button><button data-t="s">الصيام</button><button data-t="d">الأذكار</button><button data-t="m">القرآن</button><button data-t="c">أدوات</button></nav>
+<section class="sc" data-p="d"><h3>ذكر اليوم</h3><p class="zk" id="zk"></p><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="zc">نسخ</button></div></section>
+<section class="sc" data-p="t"><h3>المسبحة</h3><div class="chips" id="dz"></div>
+<div class="add"><input aria-label="ذكر جديد" id="tin" maxlength="60" placeholder="أضف ذكرًا خاصًا بك…"/><button class="chip" id="tadd">إضافة</button></div>
+<div class="tas" id="tas"><button aria-label="تسبيحة" id="tbtn"><b id="tn">٠</b><small id="tp"></small></button></div>
+<div class="chips" style="justify-content:center"><button class="chip" id="tgt"></button><button class="chip" id="trs">تصفير</button><button class="chip" hidden="" id="tdel">حذف هذا الذكر</button></div><p class="mutp" id="tday"></p></section>
+<section class="sc" data-p="b"><h3><span>متتبع الصلوات اليوم</span><span id="pc"></span></h3><div class="pt" id="pt"></div><p class="mutp" id="ps"></p></section>
+<section class="sc" data-p="b"><h3><span>ورد القرآن اليوم</span><span id="wrd"></span></h3><div class="row2"><button aria-label="إنقاص" class="chip" id="wm">−</button><b id="wn">٠</b><button aria-label="زيادة" class="chip" id="wp">+</button><button class="chip" id="wg"></button></div></section>
+<section class="sc" data-p="b"><h3><span>صيام اليوم</span><span id="fc"></span></h3><div class="chips"><button class="chip" id="fb">أنا صائم اليوم</button></div></section>
+<section class="sc" data-p="d"><h3><span>أدعية مأثورة</span><span id="dnm"></span></h3><p class="duat" id="dt"></p><div class="chips" style="justify-content:center"><button class="chip" id="dnext">دعاء آخر ↻</button><button class="chip" id="dc">نسخ</button><button class="chip" id="da">أضف للمسبحة</button></div></section>
+<section class="sc" data-p="m"><h3>أسماء الله الحسنى</h3><p class="nmv" id="nm"></p><div class="chips" style="justify-content:center"><button class="chip" id="nn">اسم آخر ↻</button><button class="chip" id="ncp">نسخ</button></div></section>
+<section class="sc" data-p="m"><h3><span>تسبيحك آخر ٧ أيام</span><span id="wkt"></span></h3><div class="bars" id="bars"></div></section>
+<section class="sc" data-p="b"><h3><span>خطة ختمة القرآن</span><span id="khc"></span></h3>
+<div class="kbar"><i id="khb"></i></div>
+<p class="khn" id="khn"></p><p class="mutp" id="khd" style="margin-top:4px"></p>
+<div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="kh1">+١ صفحة</button><button class="chip" id="kh5">+٥</button><button class="chip" id="kh20">+٢٠</button><button aria-label="إنقاص صفحة" class="chip" id="khm">−١</button></div>
+<div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="khdays"></button><button class="chip" id="khnew">ختمة جديدة</button></div></section>
+<section class="sc" data-p="b"><h3><span>قضاء الصلوات الفائتة</span><span id="qdt"></span></h3>
+<div class="qd" id="qdl"></div>
+<div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="qd1">+ يوم فائت</button><button class="chip" id="qd30">+ شهر فائت</button><button class="chip" id="qdm">قضيت يومًا كاملًا</button></div>
+<p class="mutp">اضغط − بعد قضاء كل صلاة، أو + لإضافة صلاة فائتة</p></section>
+<section class="sc" data-p="m"><h3>حاسبة الزكاة</h3>
+<div class="zr"><label for="zc1">نقد ومدخرات</label><input autocomplete="off" id="zc1" inputmode="decimal" placeholder="٠"/></div>
+<div class="zr"><label for="zg">ذهب تملكه (جرام)</label><input autocomplete="off" id="zg" inputmode="decimal" placeholder="٠"/></div>
+<div class="zr"><span>عيار الذهب</span><div class="chips" id="zka" style="justify-content:center"><button class="chip" data-k="24">٢٤</button><button class="chip" data-k="21">٢١</button><button class="chip" data-k="18">١٨</button></div></div>
+<div class="zr"><label for="zp">سعر جرام ذهب عيار ٢٤</label><input autocomplete="off" id="zp" inputmode="decimal" placeholder="أدخل السعر"/></div>
+<div class="zr"><label for="zd">ديون مستحقة عليك</label><input autocomplete="off" id="zd" inputmode="decimal" placeholder="٠"/></div>
+<div class="zres" id="zres"></div>
+<p class="mutp">النصاب = ٨٥ جرام ذهب عيار ٢٤، ويُشترط مرور عام هجري كامل على المال. للفتوى في حالتك راجع أهل العلم.</p></section>
+<section class="sc" data-p="m"><h3>نسخة احتياطية لبياناتك</h3><div class="chips"><button class="chip" id="bkc">نسخ احتياطي</button><button class="chip" id="bkr">استعادة</button></div><textarea aria-label="النسخة الاحتياطية" class="bk" id="bk" placeholder="الصق هنا النسخة الاحتياطية ثم اضغط استعادة"></textarea></section>
+<section class="sc" data-p="c"><h3>الإعدادات</h3><div class="chips"><button class="chip" id="oa"></button><button class="chip" id="ov"></button></div></section>
+<section class="sc" data-p="c"><h3><span>مؤقت النوم</span><span id="sst"></span></h3><div class="chips" id="sl"><button class="chip" data-m="15">١٥ د</button><button class="chip" data-m="30">٣٠ د</button><button class="chip" data-m="60">ساعة</button><button class="chip" data-m="90">ساعة ونصف</button></div></section>
+<section class="sc" data-p="c"><h3>سرعة التشغيل</h3><div class="chips" id="sp"><button class="chip" data-r="0.85">٠٫٨٥×</button><button class="chip on" data-r="1">١×</button><button class="chip" data-r="1.25">١٫٢٥×</button><button class="chip" data-r="1.5">١٫٥×</button></div></section>
+<section class="sc" data-p="d"><h3>الأذكار بعد الصلاة</h3><div class="ck" id="pa"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="par">بدء صلاة جديدة ↻</button></div></section>
+<section class="sc" data-p="b"><h3><span>نوافل اليوم</span><span id="nfc"></span></h3><div class="ck" id="nf"></div></section>
+<section class="sc" data-p="b"><h3><span>سنن الجمعة</span><span id="jmc"></span></h3><div class="ck" id="jm"></div><p class="mutp">تُصفَّر تلقائيًا كل أسبوع</p></section>
+<section class="sc" data-p="m"><h3>العد التنازلي للمناسبات</h3><div class="qd" id="cdl"></div><p class="mutp">حسب تقويم أم القرى، وقد تختلف بيوم عن الرؤية الشرعية</p></section>
+<section class="sc" data-p="m"><h3>سجل الصدقات</h3><div class="add"><input aria-label="مبلغ الصدقة" autocomplete="off" id="sdi" inputmode="decimal" placeholder="مبلغ الصدقة"/><button class="chip" id="sda">إضافة</button><button class="chip" id="sdu">تراجع</button></div><p class="mutp" id="sdt"></p></section>
+<section class="sc" data-p="d"><h3><span>حديث اليوم</span><span id="hdn"></span></h3><p class="duat" id="hdt"></p><div class="chips" style="justify-content:center"><button class="chip" id="hdx">حديث آخر ↻</button><button class="chip" id="hdc">نسخ</button></div></section>
+<section class="sc" data-p="b"><h3><span>قضاء الصيام</span><span id="qsc"></span></h3><div class="row2"><button aria-label="إنقاص" class="chip" id="qsm">−</button><b id="qsn">٠</b><button aria-label="زيادة" class="chip" id="qsp">+</button></div><p class="mutp">عدد الأيام المتبقية عليك، اضغط − بعد قضاء كل يوم</p></section>
+<section class="sc" data-p="b"><h3><span>عادات الخير</span><span id="hbc"></span></h3><div class="ck" id="hb"></div><div class="add"><input aria-label="عادة جديدة" id="hbi" maxlength="40" placeholder="أضف عادة (مثل: صلة رحم)"/><button class="chip" id="hba">إضافة</button></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="hbd">حذف آخر عادة</button></div></section>
+<section class="sc" data-p="m"><h3>أوقات الليل</h3><div class="qd" id="nt"></div><p class="mutp">الثلث الأخير وقت فاضل للدعاء والقيام، ويُحسب من المغرب إلى الفجر</p></section>
+<section class="sc" data-p="d"><h3>أذكار النوم</h3><div class="ck" id="zn"></div></section>
+<section class="sc" data-p="d"><h3>دعاء الاستخارة</h3><p class="mutp">يُصلّي المسلم ركعتين من غير الفريضة، ثم يدعو بهذا الدعاء</p><p class="duat" id="isk" style="white-space:pre-line"></p><div class="chips" style="justify-content:center"><button class="chip" id="iskc">نسخ</button></div></section>
+<section class="sc" data-p="d"><h3>دفتر دعواتي</h3><textarea aria-label="دفتر دعواتي" id="dfd" maxlength="2000" placeholder="اكتب دعواتك وحاجاتك هنا، وتُحفظ تلقائيًا على جهازك" rows="4" style="width:100%;min-height:110px;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical"></textarea></section>
+<section class="sc" data-p="m"><h3>الصيام المستحب القادم</h3><div class="qd" id="sy"></div><p class="mutp">الأيام البيض: ١٣ و١٤ و١٥ من كل شهر هجري (ويُستثنى ١٣ ذي الحجة)</p></section>
+<section class="sc" data-p="d"><h3>أذكار المناسبات</h3><input aria-label="بحث في الأذكار" autocomplete="off" id="mnq" placeholder="ابحث: النوم، المسجد، الطعام، السفر…" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;margin-bottom:8px"/><div class="ck mn" id="mnl"></div><p class="mutp" id="mnh">اضغط على الذكر لنسخه</p></section>
+<section class="sc" data-p="b"><h3>سجل الختمات</h3><div class="row2"><button aria-label="إنقاص" class="chip" id="ktu">−</button><b id="ktn">٠</b><button class="chip" id="ktp">+ ختمة</button></div><p class="mutp" id="ktd"></p></section>
+<section class="sc" data-p="b"><h3><span>صيام ست من شوال</span><span id="swc"></span></h3><div class="ck" id="sw"></div><p class="mutp">تُحفظ لكل سنة هجرية</p></section>
+<section class="sc" data-p="m"><h3>مؤقت التدبر والورد</h3><div id="tmd" role="timer" style="text-align:center;font-size:2.2rem;font-weight:700;margin:6px 0">١٠:٠٠</div><div class="chips" style="justify-content:center"><button class="chip" data-m="5">٥ د</button><button class="chip" data-m="10">١٠ د</button><button class="chip" data-m="15">١٥ د</button><button class="chip" data-m="30">٣٠ د</button></div><div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="tms">ابدأ</button><button class="chip" id="tmx">إيقاف</button></div></section>
+<section class="sc" data-p="m"><h3>محوّل التاريخ إلى الهجري</h3><input aria-label="اختر التاريخ الميلادي" id="cvd" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit" type="date"/><p class="duat" id="cvr"></p></section>
+<section class="sc" data-p="d"><h3>أذكار الصباح والمساء</h3><div class="ck" id="sb"></div><p class="mutp">تُصفَّر يوميًا. وفي المساء تقول: أمسينا وأمسى الملك لله</p></section>
+<section class="sc" data-p="b"><h3><span>صيام رمضان</span><span id="rgc"></span></h3><div class="ck gd" id="rg"></div><p class="mutp">تُحفظ لكل سنة هجرية</p></section>
+<section class="sc" data-p="m"><h3><span>اختبر معلوماتك</span><span id="qzs"></span></h3><p class="duat" id="qzq"></p><div class="ck" id="qzo"></div><p class="mutp" id="qzr"></p><div class="chips" style="justify-content:center"><button class="chip" id="qzn">ابدأ من جديد ↻</button></div></section>
+<section class="sc" data-p="m"><h3>ساعات الصيام</h3><div class="qd" id="fq"></div><p class="mutp">من الفجر إلى المغرب حسب موقعك</p></section>
+<section class="sc" data-p="m"><h3>دفتر الفوائد</h3><textarea aria-label="دفتر الفوائد" id="dff" maxlength="3000" placeholder="سجّل فائدة سمعتها أو آية استوقفتك، وتُحفظ تلقائيًا" rows="4" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical;min-height:110px"></textarea></section>
+<section class="sc" data-p="b"><h3>خطوات الوضوء</h3><div class="qd"><div class="qr"><span>١. النية والتسمية</span><b>بسم الله</b></div><div class="qr"><span>٢. غسل الكفين</span><b>٣ مرات</b></div><div class="qr"><span>٣. المضمضة والاستنشاق</span><b>٣ مرات</b></div><div class="qr"><span>٤. غسل الوجه</span><b>٣ مرات</b></div><div class="qr"><span>٥. غسل اليدين إلى المرفقين</span><b>٣ مرات</b></div><div class="qr"><span>٦. مسح الرأس والأذنين</span><b>مرة</b></div><div class="qr"><span>٧. غسل الرجلين إلى الكعبين</span><b>٣ مرات</b></div><div class="qr"><span>٨. الذكر بعد الوضوء</span><b>الشهادتان</b></div></div></section>
+<section class="sc" data-p="b"><h3>ركعات الصلوات</h3><div class="qd"><div class="qr"><span>الفجر</span><b>٢ فرض (٢ سنة قبلها)</b></div><div class="qr"><span>الظهر</span><b>٤ فرض (٤ سنة قبلها و٢ بعدها)</b></div><div class="qr"><span>العصر</span><b>٤ فرض</b></div><div class="qr"><span>المغرب</span><b>٣ فرض (٢ سنة بعدها)</b></div><div class="qr"><span>العشاء</span><b>٤ فرض (٢ سنة بعدها)</b></div><div class="qr"><span>الوتر</span><b>ركعة فأكثر</b></div></div></section>
+<section class="sc" data-p="m"><h3>أركان الإسلام والإيمان</h3><p class="mutp" style="margin:0 0 6px;text-align:start;color:var(--ac);font-weight:600">أركان الإسلام (٥)</p><div class="qd"><div class="qr"><span>١. الشهادتان: شهادة أن لا إله إلا الله وأن محمدًا رسول الله</span></div><div class="qr"><span>٢. إقام الصلاة</span></div><div class="qr"><span>٣. إيتاء الزكاة</span></div><div class="qr"><span>٤. صوم رمضان</span></div><div class="qr"><span>٥. حج البيت لمن استطاع إليه سبيلًا</span></div></div><div style="height:10px"></div><p class="mutp" style="margin:0 0 6px;text-align:start;color:var(--ac);font-weight:600">أركان الإيمان (٦)</p><div class="qd"><div class="qr"><span>١. الإيمان بالله</span></div><div class="qr"><span>٢. الإيمان بالملائكة</span></div><div class="qr"><span>٣. الإيمان بالكتب</span></div><div class="qr"><span>٤. الإيمان بالرسل</span></div><div class="qr"><span>٥. الإيمان باليوم الآخر</span></div><div class="qr"><span>٦. الإيمان بالقدر خيره وشره</span></div></div></section>
+<section class="sc" data-p="t"><h3>الصلاة على النبي ﷺ</h3><div class="tas" id="sat"><button aria-label="صلاة على النبي" id="sbtn"><b id="saln">٠</b><small>صلِّ على النبي ﷺ</small></button></div><div class="chips" style="justify-content:center"><button class="chip" id="sgt"></button><button class="chip" id="salr">تصفير</button></div><p class="mutp" id="sald"></p></section>
+<section class="sc" data-p="b"><h3>مواقيت الغد</h3><div class="qd" id="tmw"></div></section>
+<section class="sc" data-p="b"><h3><span>تحدي ٣٠ يومًا</span><span id="chc"></span></h3><input aria-label="اسم التحدي" autocomplete="off" id="chn" maxlength="30" placeholder="اسم التحدي (مثل: ورد يومي أو قيام)" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;margin-bottom:8px"/><div class="ck gd" id="chg"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="chr">بدء تحدٍّ جديد ↻</button></div></section>
+<section class="sc" data-p="s"><h3>حاسبة زكاة الفطر</h3><div class="add"><input aria-label="عدد الأفراد" autocomplete="off" id="zfn" inputmode="numeric" placeholder="عدد الأفراد"/><input aria-label="قيمة الفطرة للفرد" autocomplete="off" id="zfp" inputmode="decimal" placeholder="قيمة الفطرة للفرد"/></div><p class="duat" id="zfr"></p><p class="mutp">حدّد القيمة أو الصاع حسب فتوى دار الإفتاء في بلدك</p></section>
+<section class="sc" data-p="s"><h3>الأشهر الهجرية</h3><div class="qd" id="hm"></div><p class="mutp">الأشهر الحرم: محرم ورجب وذو القعدة وذو الحجة</p></section>
 
+
+<section class="sc" data-p="m"><h3><span>حاسبة ورد الختمة</span></h3><div class="zr"><label for="kpages">عدد الصفحات المتبقية</label><input id="kpages" inputmode="numeric" value="604"/></div><div class="zr"><label for="kdays">عدد الأيام المتاحة</label><input id="kdays" inputmode="numeric" value="30"/></div><div class="zres" id="kresult">أدخل عدد الصفحات والأيام لحساب وردك اليومي</div><p class="mutp">الحساب تقريبي على أساس مصحف من ٦٠٤ صفحات.</p></section>
+<section class="sc" data-p="d"><h3><span>أذكار الاستيقاظ</span></h3><div class="ck" id="wakeList"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="wakeReset">إعادة تعيين</button></div></section>
+
+<section class="sc" data-p="d"><h3>مفضلة الأذكار</h3><p class="mutp">احفظ الأذكار التي تريد الرجوع إليها على هذا الجهاز.</p><div class="add"><input id="favdhIn" maxlength="300" placeholder="اكتب ذكرًا أو دعاءً"/><button class="chip" id="favdhAdd">حفظ</button></div><div class="ck" id="favdhList" style="margin-top:10px"></div></section>
+<section class="sc" data-p="b"><h3>متابعة حفظ القرآن</h3><div class="zr"><label for="hifzSurah">السورة أو المقطع</label><input id="hifzSurah" maxlength="80" placeholder="مثال: سورة الملك"/></div><div class="add"><input id="hifzPages" inputmode="numeric" placeholder="صفحات حفظتها اليوم"/><button class="chip" id="hifzAdd">تسجيل</button></div><div class="zres" id="hifzSummary"></div><div class="ck" id="hifzLog" style="margin-top:8px"></div><div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="hifzClear">مسح سجل الحفظ</button></div></section>
+<section class="sc" data-p="b"><h3>جدول مراجعة المحفوظ</h3><p class="mutp">علّم ما راجعته اليوم، وتُحفظ العلامات لهذا اليوم فقط.</p><div class="ck" id="reviewList"></div><div class="add"><input id="reviewIn" maxlength="70" placeholder="أضف سورة للمراجعة"/><button class="chip" id="reviewAdd">إضافة</button></div><p class="mutp" id="reviewStatus"></p></section>
+<section class="sc" data-p="d"><h3>دفتر تدبر الآيات</h3><div class="zr"><label for="tadabburRef">السورة / الآية</label><input id="tadabburRef" maxlength="100" placeholder="اسم السورة ورقم الآية"/></div><textarea id="tadabburNote" maxlength="2500" placeholder="اكتب ما فهمته أو ما تريد مراجعته…" rows="4" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical"></textarea><div class="chips" style="justify-content:center;margin-top:8px"><button class="chip" id="tadabburSave">حفظ الفائدة</button></div><div class="ck" id="tadabburList" style="margin-top:10px"></div></section>
+<section class="sc" data-p="b"><h3>محاسبة النفس اليومية</h3><p class="mutp">مراجعة شخصية هادئة تساعدك على تحديد ما تريد تحسينه غدًا.</p><div class="ck" id="muhasabaList"></div><textarea id="muhasabaNote" maxlength="1000" placeholder="ما الأمر الذي أريد تحسينه غدًا؟" rows="3" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;margin-top:8px"></textarea></section>
+<section class="sc" data-p="m"><h3>دفتر الامتنان</h3><p class="mutp">اكتب ثلاثة أشياء تشعر بالامتنان لها اليوم.</p><div class="ck" style="gap:8px"><input id="grat1" maxlength="180" placeholder="الأمر الأول" style="width:100%;box-sizing:border-box;border-radius:14px;padding:10px;background:rgba(0,0,0,.18);border:1px solid var(--line);color:inherit;font:inherit"/><input id="grat2" maxlength="180" placeholder="الأمر الثاني" style="width:100%;box-sizing:border-box;border-radius:14px;padding:10px;background:rgba(0,0,0,.18);border:1px solid var(--line);color:inherit;font:inherit"/><input id="grat3" maxlength="180" placeholder="الأمر الثالث" style="width:100%;box-sizing:border-box;border-radius:14px;padding:10px;background:rgba(0,0,0,.18);border:1px solid var(--line);color:inherit;font:inherit"/></div><p class="mutp" id="gratSaved"></p></section>
+<section class="sc" data-p="b"><h3>أعمال خير مقترحة</h3><p class="duat" id="goodDeedText">اختر اقتراحًا لعمل خير بسيط.</p><div class="chips" style="justify-content:center"><button class="chip" id="goodDeedNext">اقتراح آخر</button><button class="chip" id="goodDeedDone">أنجزته</button></div><p class="mutp" id="goodDeedCount"></p></section>
+<section class="sc" data-p="b"><h3>متابعة السنن الرواتب</h3><p class="mutp">علّم السنن التي أديتها اليوم. تختلف بعض التفاصيل الفقهية؛ اتبع ما تعلمته من أهل العلم.</p><div class="ck" id="rawatibList"></div><p class="mutp" id="rawatibStatus"></p></section>
+<section class="sc" data-p="b"><h3>خطة قيام الليل</h3><div class="zr"><label for="qiyamGoal">هدف القيام بالدقائق</label><input id="qiyamGoal" max="300" min="1" type="number" value="15"/></div><div class="zres" id="qiyamTime">لم يبدأ المؤقت بعد.</div><div class="chips" style="justify-content:center"><button class="chip" id="qiyamStart">ابدأ المؤقت</button><button class="chip" id="qiyamStop">إنهاء وتسجيل</button><button class="chip" id="qiyamReset">إعادة</button></div><p class="mutp" id="qiyamTotal"></p></section>
+<section class="sc" data-p="m"><h3>خطة الصدقة الشهرية</h3><div class="zr"><label for="sadaqaTarget">الهدف الشهري</label><input id="sadaqaTarget" min="0" placeholder="المبلغ" type="number"/></div><div class="zr"><label for="sadaqaCurrent">ما تصدقت به</label><input id="sadaqaCurrent" min="0" placeholder="المبلغ" type="number"/></div><div class="kbar"><i id="sadaqaBar"></i></div><p class="zres" id="sadaqaResult"></p><p class="mutp">هذا منظم شخصي للتخطيط وليس حاسبة زكاة.</p></section>
+<section class="sc" data-p="m"><h3>دليل صلاة المسافر</h3><div class="qd"><div class="qr"><span>القصر</span><b>تُقصر الصلاة الرباعية إلى ركعتين عند تحقق شروط السفر.</b></div><div class="qr"><span>الفجر والمغرب</span><b>لا تُقصران.</b></div><div class="qr"><span>الجمع</span><b>قد يُشرع جمع الظهر والعصر أو المغرب والعشاء وفق أحكام السفر.</b></div><div class="qr"><span>تنبيه</span><b>تختلف بعض التفاصيل بحسب المذهب وظروف السفر؛ اسأل عالمًا موثوقًا عن حالتك.</b></div></div></section>
+<section class="sc" data-p="d"><h3>أذكار دخول المنزل والخروج</h3><div class="ck" id="homeAdhkar"></div><p class="mutp">اضغط على النص لنسخه. راجع مصدرًا موثوقًا عند الحاجة إلى تخريج الذكر.</p></section>
+<section class="sc" data-p="b"><h3>خطة عبادتي الشخصية</h3><p class="mutp">اختر أهدافًا واقعية تناسب يومك، ويمكنك تعديلها بإضافة هدف.</p><div class="ck" id="worshipPlan"></div><div class="add"><input id="worshipIn" maxlength="70" placeholder="أضف هدفًا شخصيًا"/><button class="chip" id="worshipAdd">إضافة</button></div><p class="mutp" id="worshipStatus"></p></section>
+<section class="sc" data-p="t"><h3>عداد التوبة والاستغفار</h3><p class="duat">أستغفر الله وأتوب إليه</p><div class="tas"><button aria-label="زيادة عدد الاستغفار" id="repentTap"><b id="repentCount">٠</b><small>عدد اليوم</small></button></div><div class="chips" style="justify-content:center"><button class="chip" id="repentGoal">الهدف: ١٠٠</button><button class="chip" id="repentUndo">تراجع</button><button class="chip" id="repentReset">تصفير</button></div><div class="kbar"><i id="repentBar"></i></div></section>
+<section class="sc" data-p="m"><h3>متابعة ورد القراءة الأسبوعي</h3><p class="mutp">سجّل إنجازك لكل يوم من أيام الأسبوع.</p><div class="ck gd" id="weeklyRead"></div><p class="mutp" id="weeklyReadStatus"></p><div class="chips" style="justify-content:center"><button class="chip" id="weeklyReadReset">إعادة الأسبوع</button></div></section>
+<section class="sc" data-p="b"><h3>الاستعداد للصلاة</h3><div class="ck" id="prayerReady"></div><p class="mutp" id="prayerReadyStatus"></p><div class="chips" style="justify-content:center"><button class="chip" id="prayerReadyReset">إعادة القائمة</button></div></section>
+<section class="sc" data-p="m"><h3>حاسبة حفظ القرآن</h3><div class="zr"><label for="memorizePages">الصفحات المطلوب حفظها</label><input id="memorizePages" min="0" type="number" value="20"/></div><div class="zr"><label for="memorizeDaily">صفحات الحفظ يوميًا</label><input id="memorizeDaily" min="1" type="number" value="1"/></div><div class="zres" id="memorizeResult"></div><p class="mutp">تقدير حسابي لا يحدد مقدارًا مناسبًا للجميع؛ راعِ وقت المراجعة والتثبيت.</p></section>
+<section class="sc" data-p="m"><h3>سجل إنجازات العبادة</h3><div class="zr"><label for="worshipDate">التاريخ</label><input id="worshipDate" type="date"/></div><textarea id="worshipJournal" maxlength="2000" placeholder="دوّن ما أنجزته وما تريد الاستمرار عليه…" rows="4" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical"></textarea><p class="mutp">يُحفظ السجل محليًا على هذا الجهاز.</p></section>
+
+<section class="sc" data-p="m"><h3>اتجاه القبلة</h3><div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0"><div id="qiblaDial" style="width:190px;height:190px;border:2px solid var(--line);border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle,rgba(255,255,255,.08),rgba(0,0,0,.16))"><span style="position:absolute;top:8px;font-weight:700;color:var(--ac)">N</span><span style="position:absolute;bottom:8px">S</span><span style="position:absolute;left:10px">W</span><span style="position:absolute;right:10px">E</span><div id="qiblaArrow" style="font-size:3.6rem;color:#e45b53;transform:rotate(0deg);transition:transform .2s;line-height:1">➤</div></div><p class="duat" id="qiblaInfo">اضغط لتحديد موقعك وحساب اتجاه القبلة.</p><div class="chips" style="justify-content:center"><button class="chip" id="qiblaLocate">تحديد الموقع</button><button class="chip" id="qiblaCompass">تفعيل البوصلة</button></div></div><p class="mutp">تحتاج إلى السماح بالموقع وحساس الاتجاه. قد تتأثر الدقة بمعايرة الهاتف أو وجود معادن ومغناطيس قريب.</p></section>
+<section class="sc" data-p="s"><h3>أحكام الصيام</h3><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">ما يُفطِّر</p><div class="qd"><div class="qr"><span>الأكل والشرب عمدًا</span></div><div class="qr"><span>الجماع</span></div><div class="qr"><span>القيء عمدًا</span></div><div class="qr"><span>الحيض والنفاس</span></div><div class="qr"><span>إنزال المني بشهوة</span></div></div><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">ما لا يُفطِّر</p><div class="qd"><div class="qr"><span>الأكل والشرب نسيانًا</span></div><div class="qr"><span>السواك</span></div><div class="qr"><span>الاغتسال</span></div><div class="qr"><span>الاحتلام</span></div><div class="qr"><span>المضمضة دون مبالغة</span></div></div><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">أيام لا يُصام فيها</p><div class="qd"><div class="qr"><span>يوم عيد الفطر وعيد الأضحى</span></div><div class="qr"><span>أيام التشريق</span><b style="font-size:.8rem;min-width:0">١١ و١٢ و١٣ ذي الحجة</b></div></div><p class="mutp">في حالات المرض والسفر والحمل راجع أهل العلم</p></section><section class="sc" data-p="m"><h3>تجويد مبسّط</h3><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">النون الساكنة والتنوين</p><div class="qd"><div class="qr"><span>الإظهار</span><b style="font-size:.8rem;min-width:0">عند: ء هـ ع ح غ خ</b></div><div class="qr"><span>الإدغام</span><b style="font-size:.8rem;min-width:0">عند حروف «يرملون»</b></div><div class="qr"><span>الإقلاب</span><b style="font-size:.8rem;min-width:0">عند الباء</b></div><div class="qr"><span>الإخفاء</span><b style="font-size:.8rem;min-width:0">عند باقي الحروف</b></div></div><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">الميم الساكنة</p><div class="qd"><div class="qr"><span>الإخفاء الشفوي</span><b style="font-size:.8rem;min-width:0">عند الباء</b></div><div class="qr"><span>الإدغام الشفوي</span><b style="font-size:.8rem;min-width:0">عند الميم</b></div><div class="qr"><span>الإظهار الشفوي</span><b style="font-size:.8rem;min-width:0">عند باقي الحروف</b></div></div><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">أحكام أخرى</p><div class="qd"><div class="qr"><span>المد الطبيعي</span><b style="font-size:.8rem;min-width:0">حركتان</b></div><div class="qr"><span>القلقلة</span><b style="font-size:.8rem;min-width:0">حروف «قطب جد»</b></div></div></section>
+  <section class="sc" data-p="m"><h3>فهرس السور</h3><input id="srq" placeholder="ابحث باسم السورة أو رقمها" aria-label="بحث عن سورة" autocomplete="off" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;margin-bottom:8px"><div class="qd" id="srl"></div></section>
+  <section class="sc" data-p="m"><h3>الأنبياء في القرآن</h3><div class="chips" id="anb" style="justify-content:center"></div><p class="mutp">خمسة وعشرون نبيًا ورسولًا ذُكروا بأسمائهم، وأولو العزم: نوح وإبراهيم وموسى وعيسى ومحمد ﷺ</p></section>
+  <section class="sc" data-p="s"><h3><span>التقويم الهجري</span><span id="hcn"></span></h3><div class="hc" id="hcg"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="hcp">السابق</button><button class="chip" id="hct">اليوم</button><button class="chip" id="hcx">التالي</button></div><p class="mutp">اليوم الحالي مظلَّل، والأيام البيض مؤطَّرة، والرقم الصغير هو التاريخ الميلادي</p></section>
+<section class="sc" data-p="m"><h3>أعمال الحج والعمرة</h3><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">العمرة</p><div class="qd"><div class="qr"><span>١. الإحرام من الميقات</span></div><div class="qr"><span>٢. الطواف بالبيت</span><b style="font-size:.8rem;min-width:0">٧ أشواط</b></div><div class="qr"><span>٣. السعي بين الصفا والمروة</span><b style="font-size:.8rem;min-width:0">٧ أشواط</b></div><div class="qr"><span>٤. الحلق أو التقصير</span></div></div><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">الحج</p><div class="qd"><div class="qr"><span>٨ ذو الحجة (التروية)</span><b style="font-size:.8rem;min-width:0">الإحرام والتوجه إلى منى</b></div><div class="qr"><span>٩ (يوم عرفة)</span><b style="font-size:.8rem;min-width:0">الوقوف بعرفة ثم مزدلفة</b></div><div class="qr"><span>١٠ (يوم النحر)</span><b style="font-size:.8rem;min-width:0">رمي جمرة العقبة والنحر والحلق وطواف الإفاضة</b></div><div class="qr"><span>١١ إلى ١٣ (التشريق)</span><b style="font-size:.8rem;min-width:0">رمي الجمرات الثلاث والمبيت بمنى</b></div><div class="qr"><span>عند المغادرة</span><b style="font-size:.8rem;min-width:0">طواف الوداع</b></div></div><p class="mutp">تختلف الصور بحسب نوع النسك (تمتع أو قران أو إفراد)، فاتبع إرشاد حملتك وأهل العلم</p></section>
+  <section class="sc" data-p="s"><h3>صيام التطوع</h3><p class="mutp" style="margin:0 0 6px">الاثنان والخميس هذا الأسبوع</p><div class="ck" id="vfw"></div><p class="mutp" style="margin:12px 0 6px">الأيام البيض هذا الشهر الهجري</p><div class="ck" id="vfb"></div></section>
+  <section class="sc" data-p="s"><h3>مواعيدي</h3><div class="add"><input id="evt" maxlength="40" placeholder="اسم الموعد" aria-label="اسم الموعد" autocomplete="off"><input id="evd" type="date" aria-label="تاريخ الموعد"></div><div class="chips" style="justify-content:center;margin:8px 0"><button class="chip" id="eva">إضافة</button></div><div class="qd" id="evl"></div><p class="mutp">اضغط على الموعد لحذفه</p></section>
+</aside>
 <script>
 /* ==========================================================================
    ✏️  مكتبتي الصوتية: أضف ملفاتك هنا
@@ -780,7 +811,7 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
   const zi=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5)%Z.length;$('zk').textContent=Z[zi];
   $('zc').onclick=async()=>{try{await navigator.clipboard.writeText(Z[zi]);$('zc').textContent='تم النسخ ✓'}catch(e){$('zc').textContent='تعذر النسخ'}setTimeout(()=>$('zc').textContent='نسخ',1800)};
   /* المسبحة: أذكار مخصصة تُحفظ في المتصفح حتى بعد إغلاق الصفحة */
-  const D0=['سبحان الله','الحمد لله','الله أكبر','أستغفر الله'],G=[33,99,100],esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const D0=['سبحان الله','الحمد لله','الله أكبر','أستغفر الله','الصلاة على النبي ﷺ'],G=[33,99,100],esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   let cu=[],TC={};try{cu=JSON.parse(ld('cu'))||[]}catch(e){}try{TC=JSON.parse(ld('tcs'))||{}}catch(e){}
   let tg=+ld('tg')||33,dn=ld('dn')||D0[0];
   const L=()=>D0.concat(cu),tdk=()=>'tt'+new Date().toDateString();
@@ -942,7 +973,7 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
     $('sy').innerHTML=R.map(([k,t])=>`<div class="qr"><span>${k}</span><b>${t}</b></div>`).join('')};
   const sx2=window.svx;window.svx=()=>{sx2();znr();syR()};svx();
   /* ===== خدمات إضافية (٤) ===== */
-  const MN=[['عند الاستيقاظ','الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور'],['دخول الخلاء','اللهم إني أعوذ بك من الخبث والخبائث'],['الخروج من الخلاء','غفرانك'],['بعد الوضوء','أشهد أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمدًا عبده ورسوله'],['الخروج من المنزل','بسم الله، توكلت على الله، ولا حول ولا قوة إلا بالله'],['دخول المسجد','اللهم افتح لي أبواب رحمتك'],['الخروج من المسجد','اللهم إني أسألك من فضلك'],['قبل الطعام','بسم الله'],['بعد الطعام','الحمد لله الذي أطعمني هذا ورزقنيه من غير حول مني ولا قوة'],['ركوب الدابة أو السيارة','سبحان الذي سخر لنا هذا وما كنا له مقرنين، وإنا إلى ربنا لمنقلبون'],['عند المطر','اللهم صيبًا نافعًا'],['عند رؤية الهلال','اللهم أهله علينا بالأمن والإيمان، والسلامة والإسلام، ربي وربك الله'],['دعاء الكرب','لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم، لا إله إلا الله رب السماوات ورب الأرض ورب العرش الكريم'],['سيد الاستغفار','اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء لك بذنبي، فاغفر لي فإنه لا يغفر الذنوب إلا أنت'],['عند سماع الأذان (بعده)','اللهم رب هذه الدعوة التامة والصلاة القائمة، آتِ محمدًا الوسيلة والفضيلة، وابعثه مقامًا محمودًا الذي وعدته'],['عند الفطر','ذهب الظمأ وابتلت العروق وثبت الأجر إن شاء الله'],['ليلة القدر','اللهم إنك عفو تحب العفو فاعف عني'],['عند الغضب','أعوذ بالله من الشيطان الرجيم'],['زيارة المريض','لا بأس، طهور إن شاء الله'],['دخول المنزل','بسم الله ولجنا، وبسم الله خرجنا، وعلى ربنا توكلنا'],['لبس الثوب الجديد','اللهم لك الحمد أنت كسوتنيه، أسألك من خيره وخير ما صنع له، وأعوذ بك من شره وشر ما صنع له'],['عند العطاس','الحمد لله'],['تهنئة المتزوج','بارك الله لك، وبارك عليك، وجمع بينكما في خير']];
+  const MN=[['عند الاستيقاظ','الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور'],['دخول الخلاء','اللهم إني أعوذ بك من الخبث والخبائث'],['الخروج من الخلاء','غفرانك'],['بعد الوضوء','أشهد أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمدًا عبده ورسوله'],['الخروج من المنزل','بسم الله، توكلت على الله، ولا حول ولا قوة إلا بالله'],['دخول المسجد','اللهم افتح لي أبواب رحمتك'],['الخروج من المسجد','اللهم إني أسألك من فضلك'],['قبل الطعام','بسم الله'],['بعد الطعام','الحمد لله الذي أطعمني هذا ورزقنيه من غير حول مني ولا قوة'],['ركوب الدابة أو السيارة','سبحان الذي سخر لنا هذا وما كنا له مقرنين، وإنا إلى ربنا لمنقلبون'],['عند المطر','اللهم صيبًا نافعًا'],['عند رؤية الهلال','اللهم أهله علينا بالأمن والإيمان، والسلامة والإسلام، ربي وربك الله'],['دعاء الكرب','لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم، لا إله إلا الله رب السماوات ورب الأرض ورب العرش الكريم'],['سيد الاستغفار','اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء لك بذنبي، فاغفر لي فإنه لا يغفر الذنوب إلا أنت'],['عند سماع الأذان (بعده)','اللهم رب هذه الدعوة التامة والصلاة القائمة، آتِ محمدًا الوسيلة والفضيلة، وابعثه مقامًا محمودًا الذي وعدته'],['عند الفطر','ذهب الظمأ وابتلت العروق وثبت الأجر إن شاء الله'],['ليلة القدر','اللهم إنك عفو تحب العفو فاعف عني'],['عند الغضب','أعوذ بالله من الشيطان الرجيم'],['زيارة المريض','لا بأس، طهور إن شاء الله'],['دخول المنزل','بسم الله ولجنا، وبسم الله خرجنا، وعلى ربنا توكلنا'],['لبس الثوب الجديد','اللهم لك الحمد أنت كسوتنيه، أسألك من خيره وخير ما صنع له، وأعوذ بك من شره وشر ما صنع له'],['عند العطاس','الحمد لله'],['تهنئة المتزوج','بارك الله لك، وبارك عليك، وجمع بينكما في خير'],['التلبية','لبيك اللهم لبيك، لبيك لا شريك لك لبيك، إن الحمد والنعمة لك والملك، لا شريك لك'],['تكبيرات العيد','الله أكبر الله أكبر، لا إله إلا الله، والله أكبر الله أكبر، ولله الحمد'],['عند ذبح الأضحية','بسم الله والله أكبر'],['عند المصيبة','إنا لله وإنا إليه راجعون، اللهم أجرني في مصيبتي وأخلفني خيرًا منها'],['التعزية','إن لله ما أخذ وله ما أعطى، وكل شيء عنده بأجل مسمى'],['زيارة القبور','السلام عليكم أهل الديار من المؤمنين والمسلمين، وإنا إن شاء الله بكم لاحقون، نسأل الله لنا ولكم العافية'],['كفارة المجلس','سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك'],['تثبيت القلب','يا مقلب القلوب ثبت قلبي على دينك'],['قضاء الدين','اللهم اكفني بحلالك عن حرامك، وأغنني بفضلك عمن سواك'],['في الصلاة: دعاء الاستفتاح','سبحانك اللهم وبحمدك، وتبارك اسمك، وتعالى جدك، ولا إله غيرك'],['في الصلاة: الركوع','سبحان ربي العظيم'],['في الصلاة: الرفع من الركوع','سمع الله لمن حمده، ربنا ولك الحمد'],['في الصلاة: السجود','سبحان ربي الأعلى'],['في الصلاة: بين السجدتين','رب اغفر لي، رب اغفر لي'],['في الصلاة: التشهد','التحيات لله والصلوات والطيبات، السلام عليك أيها النبي ورحمة الله وبركاته، السلام علينا وعلى عباد الله الصالحين، أشهد أن لا إله إلا الله وأشهد أن محمدًا عبده ورسوله'],['في الصلاة: الصلاة الإبراهيمية','اللهم صل على محمد وعلى آل محمد، كما صليت على إبراهيم وعلى آل إبراهيم، إنك حميد مجيد، اللهم بارك على محمد وعلى آل محمد، كما باركت على إبراهيم وعلى آل إبراهيم، إنك حميد مجيد']];
   const mnR=()=>{const q=$('mnq').value.trim(),L=MN.filter(x=>!q||(x[0]+x[1]).includes(q));$('mnl').innerHTML=L.length?L.map(x=>`<button data-t="${MN.indexOf(x)}"><span>${x[0]}<small>${x[1]}</small></span></button>`).join(''):'<p class="mutp">لا نتائج</p>'};
   $('mnq').oninput=mnR;mnR();
   $('mnl').onclick=async e=>{const b=e.target.closest('button');if(!b)return;const h=$('mnh');try{await navigator.clipboard.writeText(MN[b.dataset.t][1]);h.textContent='تم النسخ ✓'}catch(x){h.textContent='تعذر النسخ'}setTimeout(()=>h.textContent='اضغط على الذكر لنسخه',1500)};
@@ -991,29 +1022,126 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
   const HM=[['محرم','حرام · عاشوراء ١٠'],['صفر',''],['ربيع الأول',''],['ربيع الآخر',''],['جمادى الأولى',''],['جمادى الآخرة',''],['رجب','حرام'],['شعبان',''],['رمضان','شهر الصيام'],['شوال','ست من شوال'],['ذو القعدة','حرام'],['ذو الحجة','حرام · عرفة ٩ والأضحى ١٠']];
   const hmR=()=>{const cur=(hijriMD(new Date())[0]||0)-1;$('hm').innerHTML=HM.map(([n,x],i)=>`<div class="qr"${i===cur?' style="outline:1.5px solid var(--ac)"':''}><span>${n}${i===cur?' ◂ الحالي':''}</span><b style="font-size:.8rem;min-width:0">${x}</b></div>`).join('')};
 
-  const LAY={t:[['المسبحة','📿'],['تسبيحك آخر ٧ أيام','📊'],['الصلاة على النبي ﷺ','🌹']],
-   b:[['متتبع الصلوات اليوم','🕌'],['ورد القرآن اليوم','📖'],['خطة ختمة القرآن','🗓️'],['سجل الختمات','📚'],['قضاء الصلوات الفائتة','⏳'],['نوافل اليوم','🌿'],['سنن الجمعة','🕋'],['عادات الخير','✅'],['أوقات الليل','🌌'],['مواقيت الغد','🌄'],['تحدي ٣٠ يومًا','🏆']],
-   s:[['صيام اليوم','🌙'],['صيام رمضان','🌛'],['قضاء الصيام','🔁'],['صيام ست من شوال','⭐'],['الصيام المستحب القادم','📌'],['ساعات الصيام','⏱️'],['العد التنازلي للمناسبات','🎉'],['حاسبة زكاة الفطر','🌾'],['الأشهر الهجرية','🗓️']],
-   d:[['ذكر اليوم','✨'],['أدعية مأثورة','🤲'],['الأذكار بعد الصلاة','🤍'],['أذكار الصباح والمساء','🌅'],['أذكار النوم','😴'],['أذكار المناسبات','🗂️'],['دعاء الاستخارة','🧭'],['حديث اليوم','📜'],['دفتر دعواتي','📝']],
-   m:[['أسماء الله الحسنى','🌟'],['حاسبة الزكاة','💰'],['سجل الصدقات','🪙'],['مؤقت التدبر والورد','⏲️'],['محوّل التاريخ إلى الهجري','📅'],['اختبر معلوماتك','❓'],['دفتر الفوائد','✍️'],['أركان الإسلام والإيمان','🧱'],['خطوات الوضوء','💧'],['ركعات الصلوات','🔢']],
-   c:[['الإعدادات','⚙️'],['مؤقت النوم','💤'],['سرعة التشغيل','⏩'],['نسخة احتياطية لبياناتك','💾']]};
+  /* ===== خدمات إضافية (٩) ===== */
+  const AY=[7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43, 52, 99, 128, 111, 110, 98, 135, 112, 78, 118, 64, 77, 227, 93, 88, 69, 60, 34, 30, 73, 54, 45, 83, 182, 88, 75, 85, 54, 53, 89, 59, 37, 35, 38, 29, 18, 45, 60, 49, 62, 55, 78, 96, 29, 22, 24, 13, 14, 11, 11, 18, 12, 12, 30, 52, 52, 44, 28, 28, 20, 56, 40, 31, 50, 40, 46, 42, 29, 19, 36, 25, 22, 17, 19, 26, 30, 20, 15, 21, 11, 8, 8, 19, 5, 8, 8, 11, 11, 8, 3, 9, 5, 4, 7, 3, 6, 3, 5, 4, 5, 6],nrm=x=>String(x).replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+  const srR=()=>{const q=$('srq').value.trim(),nq=nrm(q),num=pn(q);let L=[];
+    if(q)L=SUR.map((n,i)=>[i,n]).filter(([i,n])=>num?i+1===num:nrm(n).includes(nq)).slice(0,12);
+    $('srl').innerHTML=L.length?L.map(([i,n])=>`<div class="qr"><span>${ar(i+1)}. سورة ${esc(n)}</span><b style="font-size:.85rem;min-width:0">${ar(AY[i])} آية</b></div>`).join(''):`<p class="mutp">${q?'لا نتائج':'اكتب اسم السورة أو رقمها'}</p>`};
+  $('srq').oninput=srR;srR();
+  $('anb').innerHTML=['آدم','إدريس','نوح','هود','صالح','إبراهيم','لوط','إسماعيل','إسحاق','يعقوب','يوسف','أيوب','شعيب','موسى','هارون','ذو الكفل','داود','سليمان','إلياس','اليسع','يونس','زكريا','يحيى','عيسى','محمد ﷺ'].map(n=>`<span class="chip" style="cursor:default">${n}</span>`).join('');
+  const HNM=['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+  let hcA=new Date(),hcF=null,hcL=null;hcA.setHours(12,0,0,0);
+  const hcR=()=>{const f=new Date(hcA);for(let i=0;i<31&&hijriMD(f)[1]>1;i++)f.setDate(f.getDate()-1);
+    const m=hijriMD(f)[0],C=[],e=new Date(f);for(let i=0;i<31;i++){const[mm,dd]=hijriMD(e);if(mm!==m)break;C.push([dd,new Date(e)]);e.setDate(e.getDate()+1)}
+    hcF=f;hcL=e;const td=new Date().toDateString();
+    $('hcn').textContent=HNM[m-1]+' '+f.toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{year:'numeric'});
+    $('hcg').innerHTML=['سب','أح','اث','ثل','أر','خم','جم'].map(x=>`<span class="h">${x}</span>`).join('')+'<i></i>'.repeat((f.getDay()+1)%7)+C.map(([dd,dt])=>`<span class="${dt.toDateString()===td?'t':dd>=13&&dd<=15&&!(m===12&&dd===13)?'w':''}">${ar(dd)}<small>${dt.getDate()}</small></span>`).join('')};
+  $('hcp').onclick=()=>{hcA=new Date(hcF);hcA.setDate(hcA.getDate()-1);hcR()};
+  $('hcx').onclick=()=>{hcA=new Date(hcL);hcR()};
+  $('hct').onclick=()=>{hcA=new Date();hcA.setHours(12,0,0,0);hcR()};
+  /* ===== خدمات إضافية (١٠) ===== */
+  const vfwr=ck('vfw',[['الاثنين'],['الخميس']],()=>'vw'+wkn()),vfbr=ck('vfb',[['اليوم ١٣'],['اليوم ١٤'],['اليوم ١٥']],()=>'vb'+hy()+'-'+hijriMD(new Date())[0]);
+  const htR=()=>{const el=$('hmp');if(!el)return;const g=k=>(ld(k)||'').split(',').filter(Boolean).length,C=[];let full=0;
+    for(let i=27;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const n=Math.min(5,g('pt'+d.toDateString()));if(n===5)full++;C.push(`<span class="${n?'':'z'}${i?'':' t'}" style="${n?'opacity:'+(0.25+n/5*0.75).toFixed(2):''}" title="${n} من 5">${d.getDate()}</span>`)}
+    el.innerHTML=C.join('');$('hml').textContent='آخر ٢٨ يومًا: أتممت الصلوات الخمس في '+ar(full)+' يومًا. كلما اشتد اللون زادت الصلوات المؤداة.'};
+  let EV=[];try{EV=JSON.parse(ld('evs'))||[]}catch(e){}
+  const evR=()=>{const t0=new Date();t0.setHours(12,0,0,0);const L=EV.map((x,i)=>[i,x,Math.round((new Date(x.d+'T12:00:00')-t0)/864e5)]).sort((a,b)=>Math.abs(a[2])-Math.abs(b[2])).sort((a,b)=>(a[2]<0)-(b[2]<0));
+    $('evl').innerHTML=L.length?L.map(([i,x,n])=>`<div class="qr" data-i="${i}" style="cursor:pointer"><span>${esc(x.t)}</span><b style="font-size:.85rem;min-width:0">${n>0?'بعد '+ar(n)+' يومًا':n===0?'اليوم':'مضى '+ar(-n)+' يومًا'}</b></div>`).join(''):'<p class="mutp">لا مواعيد بعد</p>'};
+  $('eva').onclick=()=>{const t=$('evt').value.trim(),d=$('evd').value;if(!t||!d||EV.length>=30)return;EV.push({t,d});sv('evs',JSON.stringify(EV));$('evt').value='';vb(10);evR()};
+  $('evl').onclick=e=>{const r=e.target.closest('[data-i]');if(!r)return;if(confirm('حذف هذا الموعد؟')){EV.splice(+r.dataset.i,1);sv('evs',JSON.stringify(EV));evR()}};
+  evR();
+  const GR=[
+   ['t','المسبحة','📿'],
+   ['c','إنجازاتي','📈',[['اليوم','@today'],['الشهر','@heat'],['التسبيح ٧ أيام','تسبيحك آخر ٧ أيام'],['يومياتي','سجل إنجازات العبادة']]],
+   ['b','الصلوات','🕌',[['اليوم','متتبع الصلوات اليوم'],['القضاء','قضاء الصلوات الفائتة'],['أذكار بعدها','الأذكار بعد الصلاة']]],
+   ['b','النوافل والسنن','🌿',[['نوافل اليوم','نوافل اليوم'],['الرواتب','متابعة السنن الرواتب'],['الجمعة','سنن الجمعة'],['قيام الليل','خطة قيام الليل']]],
+   ['b','الوضوء والصلاة','💧',[['الوضوء','خطوات الوضوء'],['الاستعداد','الاستعداد للصلاة'],['الركعات','ركعات الصلوات'],['المسافر','دليل صلاة المسافر']]],
+   ['b','المواقيت والقبلة','🧭',[['غدًا','مواقيت الغد'],['الضحى والليل','أوقات الليل'],['القبلة','اتجاه القبلة']]],
+   ['s','صيام اليوم','🌙',[['اليوم','صيام اليوم'],['الساعات','ساعات الصيام']]],
+   ['s','متابعة الصيام','🌛',[['رمضان','صيام رمضان'],['ست شوال','صيام ست من شوال'],['القضاء','قضاء الصيام'],['المستحب','الصيام المستحب القادم'],['الأحكام','أحكام الصيام'],['التطوع','صيام التطوع']]],
+   ['s','الزكاة والصدقات','💰',[['زكاة المال','حاسبة الزكاة'],['زكاة الفطر','حاسبة زكاة الفطر'],['سجل الصدقات','سجل الصدقات'],['خطة شهرية','خطة الصدقة الشهرية']]],
+   ['s','التقويم والمناسبات','📅',[['التقويم','التقويم الهجري'],['المناسبات','العد التنازلي للمناسبات'],['الأشهر','الأشهر الهجرية'],['المحوّل','محوّل التاريخ إلى الهجري'],['مواعيدي','مواعيدي']]],
+   ['d','أذكار اليوم','🌅',[['الصباح والمساء','أذكار الصباح والمساء'],['النوم','أذكار النوم'],['الاستيقاظ','أذكار الاستيقاظ']]],
+   ['d','أذكار المناسبات','🗂️',[['المناسبات','أذكار المناسبات'],['الاستخارة','دعاء الاستخارة'],['المنزل','أذكار دخول المنزل والخروج'],['مفضلتي','مفضلة الأذكار']]],
+   ['d','نفحة اليوم','✨',[['ذكر','ذكر اليوم'],['دعاء','أدعية مأثورة'],['حديث','حديث اليوم'],['الأسماء','أسماء الله الحسنى']]],
+   ['m','ورد القرآن','📖',[['اليوم','ورد القرآن اليوم'],['الأسبوع','متابعة ورد القراءة الأسبوعي'],['الختمات','سجل الختمات'],['المؤقت','مؤقت التدبر والورد']]],
+   ['m','الختمة والحفظ','📘',[['خطة الختمة','خطة ختمة القرآن'],['حاسبة الورد','حاسبة ورد الختمة'],['متابعة الحفظ','متابعة حفظ القرآن'],['المراجعة','جدول مراجعة المحفوظ'],['حاسبة الحفظ','حاسبة حفظ القرآن']]],
+   ['m','الدفاتر','✍️',[['فوائد','دفتر الفوائد'],['تدبر','دفتر تدبر الآيات'],['امتنان','دفتر الامتنان'],['محاسبة','محاسبة النفس اليومية'],['دعواتي','دفتر دعواتي']]],
+   ['m','عادات الخير','✅',[['عاداتي','عادات الخير'],['اقتراحات','أعمال خير مقترحة'],['تحدي ٣٠','تحدي ٣٠ يومًا'],['خطتي','خطة عبادتي الشخصية']]],
+   ['m','تعلّم واختبر','❓',[['اختبار','اختبر معلوماتك'],['الأركان','أركان الإسلام والإيمان'],['التجويد','تجويد مبسّط'],['فهرس السور','فهرس السور'],['الأنبياء','الأنبياء في القرآن'],['الحج والعمرة','أعمال الحج والعمرة']]],
+   ['c','التشغيل','⚙️',[['الإعدادات','الإعدادات'],['مؤقت النوم','مؤقت النوم'],['السرعة','سرعة التشغيل']]],
+   ['c','نسخة احتياطية لبياناتك','💾']
+  ];
   const sh2=$('sheet'),svc=document.createElement('div');svc.className='svcg';svc.id='svcg';
-  const AL=[...sh2.querySelectorAll('.sc')],TT=new Map(AL.map(x=>[x,((x.querySelector('h3 span')||x.querySelector('h3')).textContent||'').trim()])),US=new Set();
-  Object.entries(LAY).forEach(([t,L])=>L.forEach(([n,ic])=>{const sc=AL.find(x=>TT.get(x)===n);if(!sc)return;US.add(sc);sc.dataset.p=t;sc.querySelector('h3').insertAdjacentHTML('afterbegin',`<span class="ic" aria-hidden="true">${ic}</span>`);svc.appendChild(sc)}));
-  AL.filter(x=>!US.has(x)).forEach(x=>svc.appendChild(x));sh2.appendChild(svc);AL.forEach(x=>x.classList.add('cl'));
+  const AL=[...sh2.querySelectorAll('.sc')],ttl=x=>((x.querySelector('h3 span')||x.querySelector('h3')).textContent||'').trim(),BY=new Map(AL.map(x=>[ttl(x),x])),US=new Set();
+  let SGP={};try{SGP=JSON.parse(ld('sgp'))||{}}catch(e){}
+  const nz=x=>String(x).replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+  const icn=(h,ic)=>h.insertAdjacentHTML('afterbegin',`<span class="ic" aria-hidden="true">${ic}</span>`);
+  GR.forEach(([t,title,ic,P])=>{
+    if(!P){const o=BY.get(title);if(!o)return;US.add(o);o.dataset.p=t;o.dataset.kw=title;icn(o.querySelector('h3'),ic);svc.appendChild(o);return}
+    const sc=document.createElement('section'),bar=document.createElement('div'),L=[];sc.className='sc';sc.dataset.p=t;bar.className='seg';
+    sc.innerHTML=`<h3><span class="ic" aria-hidden="true">${ic}</span><span>${title}</span></h3>`;sc.appendChild(bar);
+    P.forEach(([lab,src])=>{const pl=document.createElement('div');pl.className='sp';
+      if(src==='@today')pl.innerHTML='<div class="qd" id="dsh"></div>';else if(src==='@heat')pl.innerHTML='<div class="hm" id="hmp"></div><p class="mutp" id="hml"></p>';
+      else{const o=BY.get(src);if(!o)return;US.add(o);const h=o.querySelector('h3'),ex=[...h.children].slice(1);
+        if(ex.length){const r=document.createElement('p');r.className='mutp';ex.forEach(n=>r.appendChild(n));pl.appendChild(r)}
+        [...o.children].filter(c=>c!==h).forEach(c=>pl.appendChild(c))}
+      pl.dataset.k=L.length;const b=document.createElement('button');b.className='chip';b.textContent=lab;b.dataset.k=L.length;bar.appendChild(b);sc.appendChild(pl);L.push(lab)});
+    const a=Math.min(+SGP[title]||0,L.length-1);bar.children[a]&&bar.children[a].classList.add('on');sc.querySelector(`.sp[data-k="${a}"]`)&&sc.querySelector(`.sp[data-k="${a}"]`).classList.add('on');
+    sc.dataset.kw=title+' '+L.join(' ');sc.dataset.g=title;svc.appendChild(sc)});
+  const hold=document.createElement('div');hold.hidden=true;hold.id='hold';document.body.appendChild(hold);
+  ['عداد التوبة والاستغفار','الصلاة على النبي ﷺ'].forEach(n=>{const o=BY.get(n);if(o){US.add(o);hold.appendChild(o)}});
+  AL.filter(x=>US.has(x)&&!svc.contains(x)&&!hold.contains(x)).forEach(x=>x.remove());
+  AL.filter(x=>!US.has(x)).forEach(x=>{x.dataset.kw=ttl(x);svc.appendChild(x)});
+  sh2.appendChild(svc);[...svc.children].forEach(x=>x.classList.add('cl'));
+  svc.addEventListener('click',e=>{const b=e.target.closest('.seg .chip');if(!b)return;const sc=b.closest('.sc'),k=b.dataset.k;
+    sc.querySelectorAll('.seg .chip,.sp').forEach(x=>x.classList.toggle('on',x.dataset.k===k));SGP[sc.dataset.g]=+k;sv('sgp',JSON.stringify(SGP));vb(8);dshR();htR()});
+  const dshR=()=>{const el=$('dsh');if(!el)return;const D=new Date().toDateString(),g=k=>(ld(k)||'').split(',').filter(Boolean).length,
+    R=[['الصلوات الخمس',g('pt'+D),5],['النوافل',g('nf'+D),6],['أذكار الصباح',g('sb'+D),7],['أذكار النوم',g('zn'+D),5]],p=Math.round(R.reduce((a,[,n,m])=>a+Math.min(1,n/m),0)/R.length*100);
+    el.innerHTML=`<div class="qr"><span>إنجاز اليوم</span><b>${ar(p)}٪</b></div><div class="kbar" style="margin:4px 0 8px"><i style="width:${p}%"></i></div>`+R.map(([k,n,m])=>`<div class="qr"><span>${k}</span><b style="font-size:.9rem">${ar(n)} من ${ar(m)}</b></div>`).join('')+(($('ps')&&$('ps').textContent)?`<p class="mutp">${esc($('ps').textContent)}</p>`:'')+`<div class="qr"><span>تسبيح اليوم</span><b style="font-size:.9rem">${ar(+ld('tt'+D)||0)}</b></div><div class="qr"><span>ورد القرآن</span><b style="font-size:.9rem">${ar(+ld('wd'+D)||0)} صفحة</b></div>`};
   const curT=()=>(($('stabs').querySelector('.on'))||{dataset:{t:'t'}}).dataset.t;
   window.svTab=t=>{const L=[...svc.querySelectorAll('.sc')].filter(x=>x.dataset.p===t);L.forEach(x=>x.classList.add('cl'));if(L.length===1)L[0].classList.remove('cl');svc.classList.toggle('ho',L.length===1);sh2.scrollTop=0};
   svc.addEventListener('click',e=>{const sc=e.target.closest('.sc');if(!sc)return;const cl=sc.classList.contains('cl');
     if(!cl&&(!e.target.closest('h3')||e.target.closest('button,input,a,textarea,select')))return;
     svc.querySelectorAll('.sc:not(.cl)').forEach(x=>x.classList.add('cl'));if(cl)sc.classList.remove('cl');
     svc.classList.toggle('ho',!!svc.querySelector('.sc:not(.cl)'));sh2.scrollTop=0;vb(8)});
-  const sx6=window.svx;window.svx=()=>{sx6();salR();tmR();hmR();chr();svTab(curT())};svx();
+  const sx6=window.svx;window.svx=()=>{sx6();salR();tmR();hmR();chr();hcR();vfwr();vfbr();dshR();htR();svTab(curT())};svx();
   qdR();khR();zcalc();
   /* طلب تخزين دائم كي لا يمسح المتصفح البيانات تلقائيًا */
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 })();
 recalc();tick();setInterval(tick,1000);load(pick());
 if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude;lng=p.coords.longitude;recalc();tick();window.loadWx&&loadWx()},()=>{},{timeout:6000,maximumAge:36e5});
+</script>
+<script>
+/* خدمات إضافية تعمل محليًا وتحفظ تقدمك على الجهاز */
+(()=>{const $=id=>document.getElementById(id),ar=n=>Number(n).toLocaleString('ar-EG');
+ const dayKey=new Date().toLocaleDateString('en-CA');
+ const get=(k,d)=>{try{const v=JSON.parse(localStorage.getItem('hisn-extra-'+k));return v??d}catch(e){return d}};
+ const put=(k,v)=>{try{localStorage.setItem('hisn-extra-'+k,JSON.stringify(v))}catch(e){}};
+ let ist=get('ist-'+dayKey,0),goal=get('istgoal',100);
+ function istR(){if(!$('istn'))return;$('istn').textContent=ar(ist);$('istg').textContent='الهدف: '+ar(goal);$('istbar').style.width=Math.min(100,ist/goal*100)+'%'}
+ $('istbtn')?.addEventListener('click',()=>{ist++;put('ist-'+dayKey,ist);istR()});
+ $('istr')?.addEventListener('click',()=>{ist=0;put('ist-'+dayKey,ist);istR()});
+ $('istg')?.addEventListener('click',()=>{goal=goal===100?300:goal===300?1000:100;put('istgoal',goal);istR()});istR();
+ const defaults=['صلاة الفجر','أذكار الصباح','ورد القرآن','صلة الرحم','صدقة أو عمل خير'];
+ let tasks=get('tasks-'+dayKey,defaults.map(t=>({t,done:false})));
+ function taskR(){if(!$('daytasks'))return;$('daytasks').innerHTML=tasks.map((x,i)=>`<button class="${x.done?'on':''}" data-i="${i}"><span>${x.t}</span><em>${x.done?'تم':'لم يتم'}</em></button>`).join('');$('daytaskstatus').textContent=`أنجزت ${ar(tasks.filter(x=>x.done).length)} من ${ar(tasks.length)}`;put('tasks-'+dayKey,tasks)}
+ $('daytasks')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;tasks[+b.dataset.i].done=!tasks[+b.dataset.i].done;taskR()});
+ $('daytaskadd')?.addEventListener('click',()=>{const v=$('daytaskin').value.trim();if(!v)return;tasks.push({t:v,done:false});$('daytaskin').value='';taskR()});taskR();
+ function khCalc(){const p=Math.max(0,Number($('kpages').value)||0),d=Math.max(1,Number($('kdays').value)||1);$('kresult').innerHTML=`وردك اليومي: <b>${ar(Math.ceil(p/d))} صفحة</b><br>تقريبًا ${ar(Math.ceil(p/d/20))} صفحات بعد كل صلاة إذا وزّعته على ٥ صلوات.`}
+ ['kpages','kdays'].forEach(id=>$(id)?.addEventListener('input',khCalc));khCalc();
+ const wakes=['الحمد لله الذي أحيانا بعدما أماتنا وإليه النشور','لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير','سبحان الله وبحمده'];
+ let wake=get('wake-'+dayKey,[]);
+ function wakeR(){if(!$('wakeList'))return;$('wakeList').innerHTML=wakes.map((x,i)=>`<button class="${wake.includes(i)?'on':''}" data-i="${i}"><span>${x}</span><em>${wake.includes(i)?'تم':'قراءة'}</em></button>`).join('');put('wake-'+dayKey,wake)}
+ $('wakeList')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const i=+b.dataset.i;wake=wake.includes(i)?wake.filter(x=>x!==i):[...wake,i];wakeR()});
+ $('wakeReset')?.addEventListener('click',()=>{wake=[];wakeR()});wakeR();
+ const qs=[['كم عدد أركان الإسلام؟',['٣','٥','٦'],1],['ما السورة التي تُقرأ في كل ركعة؟',['الفاتحة','الإخلاص','الناس'],0],['كم عدد الصلوات المفروضة يوميًا؟',['٣','٤','٥'],2],['ما الشهر الذي يصومه المسلمون فرضًا؟',['شعبان','رمضان','محرم'],1],['ما أطول سورة في القرآن؟',['آل عمران','البقرة','النساء'],1]];
+ let qi=0,answered=false;
+ function quizR(){if(!$('quizquestion'))return;answered=false;$('quizquestion').textContent=qs[qi][0];$('quizanswers').innerHTML=qs[qi][1].map((x,i)=>`<button data-i="${i}">${x}</button>`).join('');$('quizfeedback').textContent='اختر إجابة للمتابعة.'}
+ $('quizanswers')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b||answered)return;answered=true;const ok=+b.dataset.i===qs[qi][2];b.classList.add('on');$('quizfeedback').textContent=ok?'إجابة صحيحة.':'الإجابة الصحيحة: '+qs[qi][1][qs[qi][2]];});
+ $('quiznext')?.addEventListener('click',()=>{qi=(qi+1)%qs.length;quizR()});quizR();
+})();
 </script>
 <script>
 /* ملء الشاشة: أول لمسة تفعّل وضع ملء الشاشة حيث يدعمه المتصفح، وتلميح للآيفون */
@@ -1050,6 +1178,48 @@ if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coor
     const a=d.getElementById('audio'),p=d.getElementById('b-play');
     if(a&&p&&a.paused)p.click();
     s.classList.add('out');setTimeout(()=>s.remove(),450)};
+})();
+</script>
+<script>
+/* مجموعة موسعة من الخدمات المحلية: تُحفظ البيانات على الجهاز دون اتصال */
+(()=>{
+ const $=id=>document.getElementById(id), day=()=>new Date().toLocaleDateString('en-CA'), ar=n=>Number(n||0).toLocaleString('ar-EG');
+ const get=(k,d)=>{try{const x=JSON.parse(localStorage.getItem('hisn-extra2-'+k));return x===null||x===undefined?d:x}catch(e){return d}}, put=(k,v)=>{try{localStorage.setItem('hisn-extra2-'+k,JSON.stringify(v))}catch(e){}};
+ const ck=(id,items,key,dayScoped=true)=>{const el=$(id);if(!el)return;const k=key+(dayScoped?'-'+day():'');let vals=get(k,[]);const render=()=>{el.innerHTML=items.map((t,i)=>`<button type="button" class="${vals.includes(i)?'on':''}" data-i="${i}"><span>${t}</span><em>${vals.includes(i)?'تم':'لم يتم'}</em></button>`).join('');put(k,vals)};el.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const i=+b.dataset.i;vals=vals.includes(i)?vals.filter(x=>x!==i):[...vals,i];render();const st=$(id+'Status');if(st)st.textContent=`أُنجز ${ar(vals.length)} من ${ar(items.length)}`});render();return {render,get:()=>vals};};
+ // Favorite adhkar, user-managed
+ let fav=get('favorites',[]);function favR(){const el=$('favdhList');if(!el)return;el.innerHTML=fav.length?fav.map((x,i)=>`<button type="button" data-i="${i}"><span>${x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span><em>نسخ / حذف</em></button>`).join(''):'<p class="mutp">لا توجد أذكار محفوظة بعد.</p>';put('favorites',fav)}
+ $('favdhAdd')?.addEventListener('click',()=>{const v=$('favdhIn').value.trim();if(!v)return;fav.unshift(v);$('favdhIn').value='';favR()});$('favdhList')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const i=+b.dataset.i;if(e.shiftKey){fav.splice(i,1);favR();return}const v=fav[i];if(navigator.clipboard?.writeText)navigator.clipboard.writeText(v).catch(()=>{});else{const t=document.createElement('textarea');t.value=v;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(_){}t.remove()}if(confirm('تم طلب نسخ الذكر. هل تريد حذفه من المفضلة؟')){fav.splice(i,1);favR()}});favR();
+ // Quran memorization log
+ let hlog=get('hifzlog',[]);function hifzR(){if(!$('hifzLog'))return;$('hifzSummary').textContent=`إجمالي الصفحات المسجلة: ${ar(hlog.reduce((a,x)=>a+x.p,0))} صفحة · عدد الجلسات: ${ar(hlog.length)}`;$('hifzLog').innerHTML=hlog.slice(0,12).map((x,i)=>`<button data-i="${i}"><span>${x.s} — ${ar(x.p)} صفحة <small>${x.d}</small></span><em>حذف</em></button>`).join('');put('hifzlog',hlog)}
+ $('hifzAdd')?.addEventListener('click',()=>{const s=$('hifzSurah').value.trim()||'حفظ قرآن',p=Math.floor(+$('hifzPages').value);if(!p||p<1)return;hlog.unshift({s,p,d:day()});$('hifzPages').value='';hifzR()});$('hifzLog')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){hlog.splice(+b.dataset.i,1);hifzR()}});$('hifzClear')?.addEventListener('click',()=>{if(confirm('مسح سجل الحفظ بالكامل؟')){hlog=[];hifzR()}});hifzR();
+ // Review list
+ const reviewItems=['الفاتحة','قصار السور','ما حفظته هذا الأسبوع'];let reviewCustom=get('reviewCustom',[]);let reviewState=get('review-'+day(),[]);function reviewR(){const all=reviewItems.concat(reviewCustom);$('reviewList').innerHTML=all.map((x,i)=>`<button class="${reviewState.includes(i)?'on':''}" data-i="${i}"><span>${x}</span><em>${reviewState.includes(i)?'تمت المراجعة':'مراجعة'}</em></button>`).join('');$('reviewStatus').textContent=`تمت مراجعة ${ar(reviewState.length)} من ${ar(all.length)}`;put('review-'+day(),reviewState)}$('reviewList')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const i=+b.dataset.i;reviewState=reviewState.includes(i)?reviewState.filter(x=>x!==i):reviewState.concat(i);reviewR()});$('reviewAdd')?.addEventListener('click',()=>{const v=$('reviewIn').value.trim();if(v){reviewCustom.push(v);put('reviewCustom',reviewCustom);$('reviewIn').value='';reviewR()}});reviewR();
+ // Tadabbur notes
+ let tad=get('tadabbur',[]);function tadR(){$('tadabburList').innerHTML=tad.map((x,i)=>`<button data-i="${i}"><span><b>${x.ref.replace(/</g,'&lt;')}</b><small>${x.note.replace(/</g,'&lt;')}</small></span><em>حذف</em></button>`).join('')||'<p class="mutp">لم تحفظ فوائد بعد.</p>';put('tadabbur',tad)}$('tadabburSave')?.addEventListener('click',()=>{const ref=$('tadabburRef').value.trim(),note=$('tadabburNote').value.trim();if(!ref&&!note)return;tad.unshift({ref:ref||'تدبر',note});$('tadabburNote').value='';tadR()});$('tadabburList')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){tad.splice(+b.dataset.i,1);tadR()}});tadR();
+ // Daily self-accountability and gratitude
+ const muh=ck('muhasabaList',['حافظت على الصلوات المفروضة','قرأت شيئًا من القرآن','حفظت لساني عن الأذى','أحسنت إلى شخص','استغفرت وتبت من تقصيري']);const mk='muhnote-'+day();$('muhasabaNote').value=get(mk,'');$('muhasabaNote').addEventListener('input',e=>put(mk,e.target.value));['grat1','grat2','grat3'].forEach(id=>{$(id).value=get(id+'-'+day(),'');$(id).addEventListener('input',()=>{put(id+'-'+day(),$(id).value);$('gratSaved').textContent='يُحفظ تلقائيًا على هذا الجهاز.'})});
+ // Good deeds
+ const deeds=['اتصل بقريب للاطمئنان عليه','ساعد شخصًا في أمر يسير','تصدّق بما تستطيع','أزل شيئًا مؤذيًا من الطريق','اشكر شخصًا أحسن إليك','اقرأ بضع آيات بتدبر','قدّم مساعدة في المنزل','ادعُ بظهر الغيب لمن تحب','سامح عن زلة يسيرة إن استطعت','تعلم فائدة نافعة وشاركها'];let di=0,done=get('gooddeeds-'+day(),0);function deedR(){$('goodDeedText').textContent=deeds[di];$('goodDeedCount').textContent=`أعمال الخير التي سجلت إنجازها اليوم: ${ar(done)}`}$('goodDeedNext')?.addEventListener('click',()=>{di=(di+1)%deeds.length;deedR()});$('goodDeedDone')?.addEventListener('click',()=>{done++;put('gooddeeds-'+day(),done);deedR()});deedR();
+ ck('rawatibList',['سنة الفجر','سنة الظهر القبلية','سنة الظهر البعدية','سنة المغرب','سنة العشاء']);
+ // Qiyam timer: only runs while page remains open
+ let qstart=0,qinterval=null,qtotal=get('qiyamtotal-'+day(),0);function qiyamR(){const elapsed=qstart?Math.floor((Date.now()-qstart)/1000):0;$('qiyamTime').textContent=qstart?`${ar(Math.floor(elapsed/60))} دقيقة و${ar(elapsed%60)} ثانية`:'لم يبدأ المؤقت بعد.';$('qiyamTotal').textContent=`إجمالي الدقائق المسجلة اليوم: ${ar(qtotal)}`} $('qiyamStart')?.addEventListener('click',()=>{if(!qstart){qstart=Date.now();qinterval=setInterval(qiyamR,1000);qiyamR()}});$('qiyamStop')?.addEventListener('click',()=>{if(qstart){qtotal+=Math.max(1,Math.round((Date.now()-qstart)/60000));put('qiyamtotal-'+day(),qtotal);qstart=0;clearInterval(qinterval);qinterval=null;qiyamR()}});$('qiyamReset')?.addEventListener('click',()=>{qstart=0;clearInterval(qinterval);qinterval=null;qiyamR()});qiyamR();
+ // Monthly sadaqa planner
+ function sadaqaR(){const t=Math.max(0,+$('sadaqaTarget').value||0),c=Math.max(0,+$('sadaqaCurrent').value||0);$('sadaqaResult').textContent=t?`أنجزت ${ar(Math.min(c,t))} من ${ar(t)} · المتبقي ${ar(Math.max(0,t-c))}`:`أدخل الهدف والمبلغ الحالي.`;$('sadaqaBar').style.width=(t?Math.min(100,c/t*100):0)+'%';put('sadaqaT',t);put('sadaqaC',c)}['sadaqaTarget','sadaqaCurrent'].forEach(id=>{$(id).value=get(id==='sadaqaTarget'?'sadaqaT':'sadaqaC','');$(id).addEventListener('input',sadaqaR)});sadaqaR();
+ // Household adhkar; tap to copy
+ const home=[['دخول المنزل','بسم الله ولجنا، وبسم الله خرجنا، وعلى الله ربنا توكلنا'],['الخروج من المنزل','بسم الله، توكلت على الله، ولا حول ولا قوة إلا بالله']];$('homeAdhkar').innerHTML=home.map((x,i)=>`<button data-i="${i}"><span><b>${x[0]}</b><small>${x[1]}</small></span><em>نسخ</em></button>`).join('');$('homeAdhkar').addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const text=home[+b.dataset.i][1];if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).catch(()=>{});});
+ // Personal worship plan
+ let wp=get('worship-plan', ['صلاة الفجر في وقتها','ورد يومي من القرآن','أذكار الصباح والمساء','صلة الرحم','صدقة أو عمل خير'].map(t=>({t,done:false})));function wpR(){$('worshipPlan').innerHTML=wp.map((x,i)=>`<button class="${x.done?'on':''}" data-i="${i}"><span>${x.t.replace(/</g,'&lt;')}</span><em>${x.done?'تم':'لم يتم'}</em></button>`).join('');$('worshipStatus').textContent=`أنجزت ${ar(wp.filter(x=>x.done).length)} من ${ar(wp.length)}`;put('worship-plan',wp)}$('worshipPlan')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){wp[+b.dataset.i].done=!wp[+b.dataset.i].done;wpR()}});$('worshipAdd')?.addEventListener('click',()=>{const v=$('worshipIn').value.trim();if(v){wp.push({t:v,done:false});$('worshipIn').value='';wpR()}});wpR();
+ // Repentance counter
+ let rep=get('rep-'+day(),0),rg=get('repgoal',100);function repR(){$('repentCount').textContent=ar(rep);$('repentGoal').textContent='الهدف: '+ar(rg);$('repentBar').style.width=Math.min(100,rep/rg*100)+'%';put('rep-'+day(),rep)}$('repentTap')?.addEventListener('click',()=>{rep++;repR()});$('repentUndo')?.addEventListener('click',()=>{rep=Math.max(0,rep-1);repR()});$('repentReset')?.addEventListener('click',()=>{rep=0;repR()});$('repentGoal')?.addEventListener('click',()=>{rg=rg===100?300:rg===300?1000:100;put('repgoal',rg);repR()});repR();
+ // Weekly reading tracker
+ const wd=['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];let wk=get('weeklyread-'+new Date().getFullYear()+'-'+Math.ceil((Date.now()-new Date(new Date().getFullYear(),0,1))/604800000),[]);function wkR(){$('weeklyRead').innerHTML=wd.map((x,i)=>`<button class="${wk.includes(i)?'on':''}" data-i="${i}">${x}</button>`).join('');$('weeklyReadStatus').textContent=`أتممت الورد في ${ar(wk.length)} من ٧ أيام`;put('weeklyread-'+new Date().getFullYear()+'-'+Math.ceil((Date.now()-new Date(new Date().getFullYear(),0,1))/604800000),wk)}$('weeklyRead')?.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(b){const i=+b.dataset.i;wk=wk.includes(i)?wk.filter(x=>x!==i):wk.concat(i);wkR()}});$('weeklyReadReset')?.addEventListener('click',()=>{wk=[];wkR()});wkR();
+ // Prayer preparation checklist
+ const ready=ck('prayerReady',['دخل وقت الصلاة','الوضوء','طهارة المكان والملابس','استقبال القبلة','إبعاد الهاتف والمشتتات']);$('prayerReadyReset')?.addEventListener('click',()=>{localStorage.removeItem('hisn-extra2-'+('prayerReady-'+day()));location.reload()});
+ // Memorization estimator
+ function memR(){const p=Math.max(0,+$('memorizePages').value||0),d=Math.max(1,+$('memorizeDaily').value||1);$('memorizeResult').textContent=`المدة التقديرية: ${ar(Math.ceil(p/d))} يومًا، دون احتساب أيام المراجعة أو الانقطاع.`}['memorizePages','memorizeDaily'].forEach(id=>$(id)?.addEventListener('input',memR));memR();
+ // Dated personal journal
+ const today=day();$('worshipDate').value=today;function journalLoad(){const k='worshipjournal-'+$('worshipDate').value;$('worshipJournal').value=get(k,'')} $('worshipDate').addEventListener('change',journalLoad);$('worshipJournal').addEventListener('input',()=>put('worshipjournal-'+$('worshipDate').value,$('worshipJournal').value));journalLoad();
+ $('sleepDuaCopy')?.addEventListener('click',()=>{const t='باسمك اللهم أموت وأحيا';if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).catch(()=>{})});
 })();
 </script>
 </body>
