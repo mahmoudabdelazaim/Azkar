@@ -413,6 +413,13 @@ body.lite #wxfx,body.lite #birds,body.lite #clouds,body.lite .shoot,body.lite #w
 .sk{position:fixed;z-index:60;pointer-events:none;transform:translate(-50%,-4px);font:700 1.05rem 'IBM Plex Sans Arabic',system-ui,sans-serif;color:var(--ac);text-shadow:0 2px 10px rgba(0,0,0,.65);animation:skr .75s ease-out forwards}
 @keyframes skr{0%{opacity:0;transform:translate(-50%,6px) scale(.8)}20%{opacity:1;transform:translate(-50%,-6px) scale(1.12)}100%{opacity:0;transform:translate(-50%,-36px) scale(1)}}
 </style>
+<style id="big17">
+/* v17: أزرار أكبر لسهولة اللمس أثناء القيادة */
+.big2{width:clamp(66px,20.5vw,96px);height:clamp(112px,33vw,152px);border-radius:34px}
+.big2 .hf svg{height:44%}
+.big2 .hs svg{height:62%}
+@media (orientation:landscape) and (max-height:540px){.big2{width:82px;height:104px}}
+</style>
 </head>
 <body data-p="night">
 <div aria-hidden="true" class="bg" id="stars"><span class="shoot"></span></div>
