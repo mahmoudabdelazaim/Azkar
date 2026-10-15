@@ -542,6 +542,9 @@ body[data-p=fajr] #stabs [data-t=dhk],body[data-p=morning] #stabs [data-t=dhk],b
 </style>
 
 <style id="fvleft">
+#drm{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.6)}#drm[hidden]{display:none}
+#drm .drc{width:100%;max-width:420px;max-height:82vh;overflow:auto;padding:16px;border-radius:20px;background:rgba(8,14,28,.97);border:1.5px solid var(--ac);color:var(--ink);text-align:start}
+#drm .drc h3{margin:0 0 4px;font-size:1.1rem}
 .chip.nbad{border-color:#e0605a!important;color:#ff9b95!important;background:rgba(224,96,90,.14)!important}
 .sth{margin:14px 0 6px!important;text-align:start;color:var(--ac)!important;font-weight:600}.sp>.sth:first-child{margin-top:0!important}
 
@@ -2310,7 +2313,7 @@ const mp=mk('qur','🗺️','خريطة الحفظ','<div class="zr" style="grid
 let H=(ld('hf31')||'').padEnd(114,'0').slice(0,114).split('');const mr=()=>{$('mpg').innerHTML=H.map((v,i)=>`<button class="mc s${v}" data-i="${i}" aria-label="سورة ${i+1}">${ar(i+1)}</button>`).join('');$('mpc').textContent='محفوظ '+ar(H.filter(x=>x==='2').length)+' من ١١٤ · قيد الحفظ '+ar(H.filter(x=>x==='1').length)};
 $('mpg').onclick=e=>{const b=e.target.closest('.mc');if(!b)return;const i=+b.dataset.i;H[i]=String((+H[i]+1)%3);sv('hf31',H.join(''));vb(8);mr()};mr();
 /* التنبيهات والتذكير (ضمن الإعدادات) */
-let N=Object.assign({on:(()=>{try{return ld('ap_nud')==='0'&&!ld('ntf31')?0:1}catch(e){return 1}})(),adhan:0,pre:1,pm:10,sab:1,mas:1,kahf:1,wk:1,mt:0,wb:0,zk:1},J('ntf31',{}));
+let N=Object.assign({on:(()=>{try{return ld('ap_nud')==='0'&&!ld('ntf31')?0:1}catch(e){return 1}})(),adhan:0,pre:1,pm:10,sab:1,mas:1,kahf:1,wk:1,dr:1,mt:0,wb:0,zk:1},J('ntf31',{}));
 if(N.pre>1){N.pm=N.pre;N.pre=1}if(![5,10,15,30].includes(N.pm))N.pm=10;
 const NG=$('ntg'),nb=(k,t)=>`<button class="chip ${N[k]?'on':''}" data-k="${k}">${t}</button>`,nh=t=>`<p class="mutp sth">${t}</p>`;
 let npm='';
@@ -2322,7 +2325,7 @@ const nr=()=>{if(!NG)return;const sup='Notification' in window,p=sup?Notificatio
  +(N.pre?`<p class="mutp" style="margin:8px 0 6px;text-align:start">قبل الصلاة بـ</p><div class="chips">${[5,10,15,30].map(m=>`<button class="chip ${N.pm===m?'on':''}" data-m="${m}">${ar(m)} د</button>`).join('')}</div>`:'')
  +nh('الأذكار')+`<div class="chips">${nb('sab','أذكار الصباح')}${nb('mas','أذكار المساء')}</div>`
  +nh('الجمعة والصيام والزكاة')+`<div class="chips">${nb('kahf','سورة الكهف')}${nb('mt','صيام الاثنين والخميس')}${nb('wb','الأيام البيض')}${nb('zk','حول الزكاة')}</div>`
- +nh('المتابعة')+`<div class="chips">${nb('wk','التقرير الأسبوعي')}</div></div>`
+ +nh('المتابعة')+`<div class="chips">${nb('wk','التقرير الأسبوعي')}${nb('dr','تقرير اليوم (بعد العشاء بساعة)')}</div></div>`
  +`<p class="mutp">تظهر التنبيهات داخل التطبيق، وكإشعارات للجهاز إن سمحت بها. تعمل ما دام التطبيق مفتوحًا (ولو في الخلفية)، ولا يستطيع ملف HTML وحده إرسال إشعار والتطبيق مغلق.</p>`};
 if(NG)NG.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const k=b.dataset.k;
  if(b.dataset.m)N.pm=+b.dataset.m;
@@ -2336,15 +2339,49 @@ if(NG)NG.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)re
   return}
  else if(k==='on'){N.on=N.on?0:1;if(N.on&&'Notification' in window&&Notification.permission==='default'){try{Notification.requestPermission().then(nr)}catch(x){}}}
  else N[k]=N[k]?0:1;
- sv('ntf31',JSON.stringify(N));vb(8);nr()});nr();
+ sv('ntf31',JSON.stringify(N));vb(8);nr();try{qr()}catch(x){}});nr();
 addEventListener('focus',nr);document.addEventListener('visibilitychange',()=>{if(!document.hidden)nr()});
 {const sg=svc.querySelector(':scope>.sc[data-g="الإعدادات"]');if(sg)sg.dataset.kw+=' الأذان تنبيه إشعار تذكير الاهتزاز النقر صوت سرعة مؤقت النوم خط لون وضع خفيف نسخ استعادة'}
 const bn=document.createElement('div');bn.className='nt31';document.body.appendChild(bn);
-let sent=J('nsent31',{});const fire=(id,title,body,act)=>{const k=D()+id;if(sent[k])return false;sent={...Object.fromEntries(Object.entries(sent).filter(([x])=>x.startsWith(D()))),[k]:1};sv('nsent31',JSON.stringify(sent));vb([60,40,60]);let ok=0;try{if('Notification' in window&&Notification.permission==='granted'){new Notification(title,{body,lang:'ar',dir:'rtl',tag:k});ok=1}}catch(e){}
- if(!ok||document.visibilityState==='visible'){if(window.apToast)apToast(title+(body?' — '+body:''),act&&act[0],act&&act[1]);else{bn.innerHTML=`<b>${title}</b><span>${body}</span>`;bn.classList.add('on');setTimeout(()=>bn.classList.remove('on'),7000)}}return true};
+let sent=J('nsent31',{});const fire=(id,title,body,act,cb)=>{const k=D()+id;if(sent[k])return false;sent={...Object.fromEntries(Object.entries(sent).filter(([x])=>x.startsWith(D()))),[k]:1};sv('nsent31',JSON.stringify(sent));vb([60,40,60]);let ok=0;try{if('Notification' in window&&Notification.permission==='granted'){new Notification(title,{body,lang:'ar',dir:'rtl',tag:k});ok=1}}catch(e){}
+ if(!ok||document.visibilityState==='visible'){if(window.apToast)apToast(title+(body?' — '+body:''),act&&act[0],act&&act[1]);else{bn.innerHTML=`<b>${title}</b><span>${body}</span>`;bn.classList.add('on');setTimeout(()=>bn.classList.remove('on'),7000)}}cb&&cb();return true};
 const inW=(t,m=0,w=90e3)=>{const d=Date.now()-(+t-m*6e4);return d>=0&&d<w};
+/* ===== تقرير اليوم: من بعد العشاء بساعة حتى الفجر ===== */
+const NFN=['السنن الرواتب','صلاة الضحى','الوتر','قيام الليل'];
+const drWin=(n=new Date())=>{try{if(typeof T==='undefined'||!T||!T.isha||!T.fajr)return null;const DY=864e5;
+ if(n<T.fajr){const y=calcTimes(new Date(+n-DY)),st=new Date(+y.isha+36e5);return n>=st?{st,end:T.fajr,ds:[new Date(+n-DY),n],tom:n}:null}
+ const st=new Date(+T.isha+36e5);if(n<st)return null;const tm=new Date(+n+DY),f=calcTimes(tm).fajr;return n<f?{st,end:f,ds:[n],tom:tm}:null}catch(e){return null}};
+const hij=d=>{try{const q=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'numeric'}).formatToParts(d),g=t=>+(q.find(x=>x.type===t)||{}).value;return{d:g('day'),m:g('month')}}catch(e){return{d:0,m:0}}};
+const fastKind=d=>{const h=hij(d),w=d.getDay();if(h.m===9)return'صيام رمضان (فرض)';if((h.m===10&&h.d===1)||(h.m===12&&h.d>=10&&h.d<=13))return'';
+ if(h.m===12&&h.d===9)return'يوم عرفة';if(h.m===1&&h.d===10)return'يوم عاشوراء';if(h.m===1&&h.d===9)return'تاسوعاء';
+ if(h.d>=13&&h.d<=15)return'من الأيام البيض';if(w===1)return'يوم الاثنين';if(w===4)return'يوم الخميس';return''};
+const drBuild=W=>{W=W||drWin()||{ds:[new Date()],tom:new Date(Date.now()+864e5)};const ks=W.ds.map(d=>d.toDateString());
+ const set=pf=>{const x=new Set();ks.forEach(k=>(ld(pf+k)||'').split(',').filter(Boolean).forEach(v=>x.add(v)));return x},sum=pf=>ks.reduce((a,k)=>a+(+ld(pf+k)||0),0);
+ const pt=set('pt'),nf=set('nf'),sb=set('sb'),zn=set('zn'),fs=ks.some(k=>ld('fs'+k)==='1');
+ const fard=PR.filter(([k])=>!pt.has(k)).map(([,n])=>n);
+ const sunan=NFN.map((n,i)=>nf.has(i+'')?null:n).filter(Boolean);
+ const sbm=7-[0,1,2,3,4,5,6].filter(i=>sb.has(i+'')).length,znm=5-[0,1,2,3,4].filter(i=>zn.has(i+'')).length,adk=[];
+ if(sbm>0)adk.push('أذكار الصباح والمساء: متبقي '+ar(sbm)+' من ٧');if(znm>0)adk.push('أذكار النوم: متبقي '+ar(znm)+' من ٥');
+ const wg=+ld('wg')||5,pg=sum('wd'),wird=pg<wg?['متبقي '+ar(wg-pg)+' من '+ar(wg)+' صفحات']:[];
+ const tg=+ld('tg')||33,tt=sum('tt'),tas=tt<tg?['سبّحت '+ar(tt)+' من '+ar(tg)]:[];
+ const fk=fastKind(W.ds[0]),fas=fk&&!fs?['لم تسجّل صيام اليوم ('+fk+')']:[];
+ const nk=fastKind(W.tom),tomo=nk?[(W.ds.length>1?'اليوم':'غدًا')+': '+nk+' — انوِ الصيام وتسحّر']:[];
+ const rows=[['الفرائض التي لم تؤدَّ',fard],['السنن والنوافل الباقية',sunan.map((n,i)=>n+(['الوتر','قيام الليل'].includes(n)?' (وقته قائم حتى الفجر)':''))],['الصيام',fas],['ورد القرآن',wird],['التسبيح',tas],['الأذكار',adk]].filter(r=>r[1].length);
+ const sh=[...fard,...sunan,...(fas.length?['الصيام']:[]),...(wird.length?['ورد القرآن']:[]),...(tas.length?['التسبيح']:[]),...(adk.length?['الأذكار']:[])];
+ const body=sh.length?'متبقي: '+sh.slice(0,5).join('، ')+(sh.length>5?' و'+ar(sh.length-5)+' أخرى':''):'ما شاء الله، أتممت عبادات يومك ✓'+(tomo.length?' — '+tomo[0]:'');
+ const stats=[['الفرائض',ar(5-fard.length)+' من ٥'],['السنن والنوافل',ar(4-sunan.length)+' من ٤'],['ورد القرآن',ar(pg)+' صفحة'],['التسبيح',ar(tt)],['الصيام',fs?'صائم ✓':(fk?'لم تصم':'—')]];
+ return{rows,tomo,body,stats,date:W.ds[0]}};
+let drEl=null;
+const drOpen=()=>{const R=drBuild(),esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+ if(!drEl){drEl=document.createElement('div');drEl.id='drm';drEl.addEventListener('click',e=>{if(e.target===drEl||e.target.closest('#drx'))drEl.hidden=true});document.body.appendChild(drEl)}
+ drEl.innerHTML='<div class="drc" role="dialog" aria-label="تقرير اليوم"><h3>📋 تقرير يومك</h3><p class="mutp" style="margin:0 0 8px">'+esc(R.date.toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'}))+'</p>'
+  +'<div class="qd">'+R.stats.map(([a,b])=>'<div class="qr"><span>'+a+'</span><b style="font-size:.9rem">'+b+'</b></div>').join('')+'</div>'
+  +(R.rows.length?R.rows.map(([t,a])=>'<p class="mutp sth">'+t+'</p><div class="qd">'+a.map(x=>'<div class="qr"><span>'+esc(x)+'</span></div>').join('')+'</div>').join(''):'<p class="mutp" style="margin-top:12px;color:var(--ac)">ما شاء الله، أتممت عبادات يومك ✓</p>')
+  +(R.tomo.length?'<p class="mutp sth">للغد</p><div class="qd"><div class="qr"><span>'+esc(R.tomo[0])+'</span></div></div>':'')
+  +'<div class="chips" style="justify-content:center;margin-top:14px"><button class="chip" id="drx" type="button">إغلاق</button></div></div>';drEl.hidden=false;vb(8)};
 const pl=(t,w)=>()=>{try{const a=lib(t,WHY[w]);a&&a[0]&&load(a[0])}catch(e){}};
-const ntick=()=>{if(!N.on||typeof T==='undefined'||typeof PR==='undefined'||document.getElementById('splash'))return;const n=new Date(),C=[];let w={};try{w=typeof windows==='function'?windows(n):{}}catch(e){}
+const ntick=()=>{try{const iw=!!(typeof T!=='undefined'&&T&&drWin());if(iw!==ntick._w){ntick._w=iw;qr()}}catch(e){}
+ if(!N.on||typeof T==='undefined'||typeof PR==='undefined'||document.getElementById('splash'))return;const n=new Date(),C=[];let w={};try{w=typeof windows==='function'?windows(n):{}}catch(e){}
  PR.forEach(([k,nm])=>{if(!T[k])return;if(N.adhan&&inW(T[k]))C.push(['a'+k,'حان وقت أذان '+nm,'حيّ على الصلاة']);const ms=T[k]-n;if(N.pre&&ms>0&&ms<=N.pm*6e4)C.push(['p'+k,'باقي '+ar(Math.max(1,Math.round(ms/6e4)))+' دقائق على '+nm,'تجهّز للصلاة'])});
  if(N.wk&&n.getDay()===5&&n.getHours()>=8)C.push(['wk','تقريرك الأسبوعي جاهز','تابع تقدّمك هذا الأسبوع',['اعرض',()=>{window.apOpenWk&&apOpenWk()}]]);
  if(N.kahf&&w.kahf)C.push(['kahf','وقت سورة الكهف','سنة الجمعة',['استمع',pl('kahf','kahf')]]);
@@ -2353,6 +2390,7 @@ const ntick=()=>{if(!N.on||typeof T==='undefined'||typeof PR==='undefined'||docu
  if(n.getHours()===20&&n.getMinutes()<2){const tm=new Date(n.getTime()+864e5);if(N.mt&&(tm.getDay()===1||tm.getDay()===4))C.push(['mt','صيام الغد','غدًا '+(tm.getDay()===1?'الاثنين':'الخميس')+': يوم صيام مستحب']);
   try{const hd=+new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric'}).format(tm);if(N.wb&&hd>=13&&hd<=15)C.push(['wb','من الأيام البيض','غدًا من أيام الصيام البيض'])}catch(e){}}
  const zv=ld('zk31');if(N.zk&&zv&&n.getHours()===10&&n.getMinutes()<2){const l=Math.ceil((new Date(zv+'T12:00:00').getTime()+354*864e5-Date.now())/864e5);if([30,7,1,0].includes(l))C.push(['zk'+l,'حول الزكاة',l?'باقي '+ar(l)+' يومًا على تمام الحول':'يكتمل الحول اليوم، أخرج زكاتك'])}
+ if(N.dr){const W=drWin();if(W){const key=W.ds[0].toDateString();if(ld('drs31')!==key){const R=drBuild(W);C.push(['dr','تقرير يومك',R.body,['التفاصيل',drOpen],()=>sv('drs31',key)])}}}
  for(const c of C){if(fire(...c))break}};
 setTimeout(ntick,6000);setInterval(ntick,20000);
 /* ===== المفضلة والأخيرة + الشارات ===== */
@@ -2363,8 +2401,8 @@ svc.addEventListener('click',e=>{const c=e.target.closest('.sc');if(!c)return;se
 const qa=document.createElement('div');qa.id='qa';$('tabhint').after(qa);
 const strk=()=>{let n=0,d=new Date();const f=x=>cnt('pt'+D(x))>=5;if(!f(d))d.setDate(d.getDate()-1);while(n<400&&f(d)){n++;d.setDate(d.getDate()-1)}return n};
 function qr(){const by=k=>cards().find(c=>key(c)===k),ic=c=>(c.querySelector('.ic')||{}).textContent||'',L=[];F.forEach(k=>{const c=by(k);c&&L.push(['★',c])});R.forEach(k=>{const c=by(k);c&&!F.includes(k)&&L.push(['🕘',c])});const s=strk();
- qa.innerHTML=(s?`<span class="qs">🔥 سلسلة الصلوات: ${ar(s)} ${s<11?'أيام':'يومًا'}</span>`:'')+L.slice(0,7).map(([m,c],i)=>`<button class="chip" data-i="${i}"><span>${m}</span> ${ic(c)} ${key(c)}</button>`).join('');qa._L=L.slice(0,7).map(x=>x[1]);qa.hidden=!qa.innerHTML}
-qa.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const c=qa._L[+b.dataset.i],t=tabs.querySelector(`[data-t="${c.dataset.p}"]`);t&&t.click();setTimeout(()=>c.click(),80)};
+ qa.innerHTML=((N.dr&&drWin())?'<button class="chip" id="drb" type="button">📋 تقرير اليوم</button>':'')+(s?`<span class="qs">🔥 سلسلة الصلوات: ${ar(s)} ${s<11?'أيام':'يومًا'}</span>`:'')+L.slice(0,7).map(([m,c],i)=>`<button class="chip" data-i="${i}"><span>${m}</span> ${ic(c)} ${key(c)}</button>`).join('');qa._L=L.slice(0,7).map(x=>x[1]);qa.hidden=!qa.innerHTML}
+qa.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;if(b.id==='drb'){drOpen();return}const c=qa._L[+b.dataset.i],t=tabs.querySelector(`[data-t="${c.dataset.p}"]`);t&&t.click();setTimeout(()=>c.click(),80)};
 function bd(){const d=D(),v={sal:[cnt('pt'+d),5,1],dhk:[cnt('sb'+d),7,1],qur:[+ld('wd'+d)||0,1,0],siy:[ld('fs'+d)==='1'?1:0,1,0]};
  tabs.querySelectorAll('button').forEach(b=>{let e=b.querySelector('.bd');if(!e){e=document.createElement('b');e.className='bd';b.appendChild(e)}const x=v[b.dataset.t];if(!x||!x[0]){e.hidden=true;return}e.hidden=false;const ok=x[0]>=x[1];e.classList.toggle('ok',ok);e.textContent=ok?'✓':x[2]?ar(x[0])+'/'+ar(x[1]):ar(x[0])})}
 const all=()=>{sl();st();qr();bd()};all();
