@@ -542,6 +542,22 @@ body[data-p=fajr] #stabs [data-t=dhk],body[data-p=morning] #stabs [data-t=dhk],b
 </style>
 
 <style id="fvleft">
+/* إصلاح: شريطا التنبيه (toast و nt31) كانا يظهران جزئيًا أعلى الصفحة في وضع ملء الشاشة بسبب منطقة شريط الحالة */
+#toast:not(.on),.nt31:not(.on){transform:translateY(calc(-100% - 90px - env(safe-area-inset-top,0px)))!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:transform .35s,opacity .2s,visibility 0s .35s}
+/* إخفاء مسطرة التمرير في كل القوائم مع بقاء التمرير شغالًا */
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+#pk{position:fixed;inset:0;z-index:95;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6)}#pk[hidden]{display:none}
+#pk .pkc{width:100%;max-width:460px;max-height:86vh;display:flex;flex-direction:column;gap:8px;padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;background:rgba(8,14,28,.98);border:1.5px solid var(--ac);border-bottom:0;color:var(--ink);text-align:start}
+#pk .pkh{display:flex;justify-content:space-between;align-items:center;gap:8px}#pk .pkh b{font-size:1.02rem}
+#pk .pkh button{background:none;border:0;color:var(--ink);font-size:1.2rem;padding:4px 8px;cursor:pointer}
+#pk #pks{width:100%;padding:9px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:var(--ink);font:inherit}
+#pk .pkb{display:flex;gap:8px;align-items:center}#pk #pkn{margin-inline-start:auto;font-size:.85rem;color:var(--mut)}
+#pk .pkl{overflow:auto;display:grid;gap:5px;padding:2px;min-height:120px}
+#pk .pkr{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;border:1px solid transparent;background:rgba(255,255,255,.06);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+#pk .pkr.on{border-color:var(--ac);background:rgba(255,255,255,.14)}
+#pk .pkk{flex:none;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--mut);display:grid;place-items:center;font-style:normal;font-size:.8rem}
+#pk .pkr.on .pkk{background:var(--ac);border-color:var(--ac);color:#0b1220}#pk .pkr.on .pkk::before{content:"✓"}
+#pk .pkg{padding:12px;border-radius:14px;border:0;background:var(--ac);color:#0b1220;font:inherit;font-weight:700;cursor:pointer}#pk .pkg:disabled{opacity:.45;cursor:default}
 #drm{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.6)}#drm[hidden]{display:none}
 #drm .drc{width:100%;max-width:420px;max-height:82vh;overflow:auto;padding:16px;border-radius:20px;background:rgba(8,14,28,.97);border:1.5px solid var(--ac);color:var(--ink);text-align:start}
 #drm .drc h3{margin:0 0 4px;font-size:1.1rem}
@@ -1087,7 +1103,7 @@ const ADHAN=([k,nm])=>{
   const f=mine('adhan_fajr'),pool=(k==='fajr'&&f.length)?f.map(x=>mk(x)):lib('adhan'),b=pool[0];
   return {...b,key:'adhan'+k+Tday,title:'حي على الصلاة',why:'دخل وقت صلاة '+nm};
 };
-const played=new Set(),hist=[];let mode='now',cur=null,errs=0,lastQ='';
+const played=new Set(),hist=[];let mode='now',cur=null,errs=0,lastQ='',PKQ=null;
 try{lastQ=localStorage.getItem('lastQ')||''}catch(e){}
 /* «الآن» لا يشغّل إلا الأذكار المتكررة: التسبيح والتهليل والاستغفار ونحوها، لا أذكار المناسبات القليلة */
 const RECUR_OK=['تسبيح','سبحان','تهليل','لا اله','استغفار','استغفر','تحميد','صلاه علي النبي','الصلاه علي النبي'],RECUR_COUNTED=['الحمد','اكبر'],
@@ -1132,6 +1148,7 @@ function cycle(list,d,fallbackKey){
   load(list[(i+d+list.length)%list.length]);
 }
 function step(d){
+  if(PKQ&&PKQ.mode===mode&&PKQ.list.length)return cycle(PKQ.list,d,'');
   if(mode==='quran')return cycle(lib('quran',WHY.q),d,lastQ);
   if(mode==='adhkar')return cycle(adhkarList(),d,'');
   if(d>0)return load(pick());
@@ -1147,7 +1164,39 @@ function setMode(m){
 $('b-play').onclick=()=>audio.paused?play():(audio.pause(),setState(false,'متوقف مؤقتًا'));
 $('b-next').onclick=()=>step(1);
 $('b-prev').onclick=()=>step(-1);
-$('cat').onclick=e=>{const b=e.target.closest('button');if(b&&b.dataset.m)setMode(b.dataset.m)};
+let lastCat={m:'',t:0};
+$('cat').onclick=e=>{const b=e.target.closest('button');if(!b||!b.dataset.m)return;const m=b.dataset.m,t=Date.now();
+  if((m==='quran'||m==='adhkar')&&lastCat.m===m&&t-lastCat.t<450){lastCat.t=0;openPk(m);return}
+  lastCat={m,t};PKQ=null;setMode(m)};
+['quran','adhkar'].forEach(m=>{const b=document.querySelector('#cat [data-m="'+m+'"]');if(b)b.title='اضغط مرتين لاختيار ما تريد تشغيله'});
+/* ===== قائمة الاختيار المتعدد للقرآن والأذكار ===== */
+const pkEsc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pkNz=x=>String(x).replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+const pkAr=n=>Number(n).toLocaleString('ar-EG');
+const pkItems=m=>{const seen=new Set();return(m==='quran'?lib('quran',WHY.q):adhkarList()).filter(x=>!seen.has(x.key)&&seen.add(x.key))};
+let pkEl=null,pkM='',pkSel=new Set();
+function openPk(m){
+  pkM=m;const items=pkItems(m);let saved=[];try{saved=JSON.parse(localStorage.getItem('pk_'+m)||'[]')}catch(e){}
+  const keys=new Set(items.map(x=>x.key));pkSel=new Set(saved.filter(k=>keys.has(k)));
+  if(!pkEl){pkEl=document.createElement('div');pkEl.id='pk';pkEl.hidden=true;
+    pkEl.innerHTML='<div class="pkc" role="dialog" aria-modal="true"><div class="pkh"><b id="pkt"></b><button type="button" id="pkx" aria-label="إغلاق">✕</button></div><input id="pks" type="search" placeholder="ابحث…" autocomplete="off"><div class="pkb"><button type="button" class="chip" id="pkall">تحديد الكل</button><button type="button" class="chip" id="pkno">مسح</button><span id="pkn"></span></div><div class="pkl" id="pkl"></div><button type="button" class="pkg" id="pkg">تشغيل المحدد</button></div>';
+    document.body.appendChild(pkEl);
+    pkEl.addEventListener('click',e=>{if(e.target===pkEl||e.target.closest('#pkx')){pkEl.hidden=true;return}
+      const r=e.target.closest('.pkr');if(r){const k=r.dataset.k;pkSel.has(k)?pkSel.delete(k):pkSel.add(k);r.classList.toggle('on',pkSel.has(k));r.setAttribute('aria-pressed',String(pkSel.has(k)));pkCount();return}
+      if(e.target.closest('#pkall')){pkVis().forEach(x=>pkSel.add(x.key));pkDraw();return}
+      if(e.target.closest('#pkno')){pkSel.clear();pkDraw();return}
+      if(e.target.closest('#pkg'))pkGo()});
+    pkEl.querySelector('#pks').addEventListener('input',pkDraw);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pkEl&&!pkEl.hidden)pkEl.hidden=true})}
+  pkEl.querySelector('#pkt').textContent=(m==='quran'?'القرآن':'الأذكار')+' — اختر ما تريد تشغيله';pkEl.querySelector('#pks').value='';
+  pkEl.hidden=false;pkDraw()}
+const pkVis=()=>{const q=pkNz(pkEl.querySelector('#pks').value.trim());return pkItems(pkM).filter(x=>!q||pkNz(x.title).includes(q))};
+function pkCount(){pkEl.querySelector('#pkn').textContent=pkSel.size?pkAr(pkSel.size)+' محدد':'';const g=pkEl.querySelector('#pkg');g.disabled=!pkSel.size;g.textContent=pkSel.size?'تشغيل المحدد ('+pkAr(pkSel.size)+')':'تشغيل المحدد'}
+function pkDraw(){const V=pkVis(),el=pkEl.querySelector('#pkl');
+  el.innerHTML=V.length?V.map(x=>'<button type="button" class="pkr'+(pkSel.has(x.key)?' on':'')+'" data-k="'+pkEsc(x.key)+'" aria-pressed="'+pkSel.has(x.key)+'"><i class="pkk"></i><span>'+pkEsc(x.title)+'</span></button>').join(''):'<p class="mutp" style="text-align:center;margin:18px 0">'+(pkItems(pkM).length?'لا نتائج مطابقة.':'لا توجد ملفات متاحة.')+'</p>';pkCount()}
+function pkGo(){const L=pkItems(pkM).filter(x=>pkSel.has(x.key)).map(x=>({...x,why:'من قائمتك'}));if(!L.length)return;
+  try{localStorage.setItem('pk_'+pkM,JSON.stringify(L.map(x=>x.key)))}catch(e){}
+  PKQ={mode:pkM,list:L};mode=pkM;mark();pkEl.hidden=true;load(L[0])}
 audio.ontimeupdate=()=>{if(!audio.duration)return;ring(audio.currentTime/audio.duration);$('time').textContent=`${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;errs=0};
 audio.onended=()=>step(1);
 audio.onerror=()=>{setState(false,'تعذر تشغيل الملف، تأكد من اسمه ومساره');if(++errs<3)setTimeout(()=>step(1),2000)};
