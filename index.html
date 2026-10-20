@@ -625,6 +625,33 @@ body:not(.pk-used) .cat button[data-m="quran"]::after,body:not(.pk-used) .cat bu
 .svcg .sc.cl>h3{position:static!important}
 .svcg .sc.cl .fv{position:absolute!important;top:2px!important;right:auto!important;left:2px!important;width:26px;height:26px;font-size:1rem;margin:0!important}
 </style>
+<style id="mw14">
+.mwr{padding:9px 12px;border-radius:14px;background:rgba(0,0,0,.18);margin-top:6px}
+.mwt{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.98rem}
+.mwt em{font-style:normal;color:var(--mut);font-size:.85rem}
+.mwt b{color:var(--ac);font-size:1.15rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mwm{margin-top:3px;font-size:.82rem;color:var(--mut);line-height:1.7}
+.mwa{margin-top:10px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--line);font-size:.88rem;line-height:1.8}
+.mwa.w{border-color:#e0a24a}
+#mwOut{margin-top:14px}
+#mwFar{white-space:normal;text-align:start;height:auto}
+</style>
+<style id="wheelcss">
+/* v36: قايمة المسبحة بشكل عجلة iPhone */
+.wheelw{position:relative;margin:0}
+.wheelw::before{content:"";position:absolute;inset-inline:0;top:50%;height:34px;margin-top:-17px;border-radius:10px;background:color-mix(in srgb,var(--ink) 11%,transparent);pointer-events:none}
+.wheel{position:relative;height:102px;padding-block:34px;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none;
+  -webkit-mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent)}
+.wheel::-webkit-scrollbar{display:none}
+.wheel:focus-visible{border-radius:12px;box-shadow:0 0 0 2px var(--ac)}
+.wi{height:34px;line-height:34px;padding:0 14px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;scroll-snap-align:center;cursor:pointer;color:var(--mut);font-size:1rem;will-change:transform,opacity;-webkit-tap-highlight-color:transparent;user-select:none}
+.wi.sel{color:var(--ink);font-weight:700}
+.chrow:has(.wheelw){align-items:center}.chrow>.wheelw{flex:1;min-width:0}
+.tgp{margin:8px 0 2px}.tgp .add{margin-top:8px}
+.sk.tnx{font-size:1.15rem;max-width:86vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation-duration:1.7s}
+#tauto.on{background:var(--ac);color:#1a1408;border-color:transparent;font-weight:600}
+@media (prefers-reduced-motion:reduce){.wi{transition:none}}
+</style>
 </head>
 <body data-p="night">
 <div aria-hidden="true" class="bg" id="stars"><span class="shoot"></span></div>
@@ -693,10 +720,10 @@ body:not(.pk-used) .cat button[data-m="quran"]::after,body:not(.pk-used) .cat bu
 <button class="stback" hidden id="stBack" type="button"><span aria-hidden="true">→</span><b></b><em>كل الأقسام</em></button>
 <p class="tabhint" id="tabhint">اضغط على أي قسم لتظهر لك موضوعاته</p>
 <section class="sc" data-p="d"><h3>ذكر اليوم</h3><p class="zk" id="zk"></p><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="zc">نسخ</button></div></section>
-<section class="sc" data-p="t"><h3>المسبحة</h3><div class="chips" id="dz"></div>
+<section class="sc" data-p="t"><h3>المسبحة</h3><div class="wheelw"><div class="wheel" id="dz" role="listbox" tabindex="0" aria-label="قائمة الأذكار"></div></div>
 <div class="add"><input aria-label="ذكر جديد" id="tin" maxlength="60" placeholder="أضف ذكرًا خاصًا بك…"/><button class="chip" id="tadd">إضافة</button></div>
 <div class="tas" id="tas"><button aria-label="تسبيحة" id="tbtn"><b id="tn">٠</b><small id="tp"></small></button></div>
-<div class="chips" style="justify-content:center"><button class="chip" id="tgt"></button><button class="chip" id="trs">تصفير</button><button class="chip" hidden="" id="tdel">حذف هذا الذكر</button></div><p class="mutp" id="tday"></p></section>
+<div class="chips" style="justify-content:center"><button class="chip" id="tgt"></button><button class="chip" id="tauto" type="button"></button><button class="chip" id="trs">تصفير</button><button class="chip" hidden="" id="tdel">حذف هذا الذكر</button></div><div class="tgp" id="tgp" hidden><div class="chips" id="tgpc" style="justify-content:center"></div><div class="add" style="justify-content:center"><input aria-label="عدد مخصص" id="tgi" inputmode="numeric" max="99999" min="1" placeholder="عدد آخر…" style="max-width:150px;text-align:center" type="number"/><button class="chip" id="tgo" type="button">تعيين</button></div></div><p class="mutp" id="tday"></p></section>
 <section class="sc" data-p="b"><h3><span>متتبع الصلوات اليوم</span><span id="pc"></span></h3><div class="pt" id="pt"></div><p class="mutp" id="ps"></p></section>
 <section class="sc" data-p="b"><h3><span>ورد القرآن اليوم</span><span id="wrd"></span></h3><div class="row2"><button aria-label="إنقاص" class="chip" id="wm">−</button><b id="wn">٠</b><button aria-label="زيادة" class="chip" id="wp">+</button><button class="chip" id="wg"></button></div></section>
 <section class="sc" data-p="b"><h3><span>صيام اليوم</span><span id="fc"></span></h3><div class="chips"><button class="chip" id="fb">أنا صائم اليوم</button></div></section>
@@ -721,7 +748,7 @@ body:not(.pk-used) .cat button[data-m="quran"]::after,body:not(.pk-used) .cat bu
 <div class="zres" id="zres"></div>
 <p class="mutp">النصاب = ٨٥ جرام ذهب عيار ٢٤، ويُشترط مرور عام هجري كامل على المال. للفتوى في حالتك راجع أهل العلم.</p></section>
 <section class="sc" data-p="m"><h3>نسخة احتياطية لبياناتك</h3><div class="chips"><button class="chip" id="bkc">نسخ احتياطي</button><button class="chip" id="bkr">استعادة</button></div><input id="bkf" type="file" accept=".txt,text/plain,application/json,.json" hidden/><p class="mutp" id="bkl" style="text-align:start;margin:0 0 4px"></p><p class="mutp" id="bkm" role="status" style="text-align:start;min-height:1.2em"></p><p class="mutp">«نسخ احتياطي» يحفظ بياناتك في ملف نصي على جهازك، و«استعادة» تطلب منك اختيار هذا الملف.</p></section>
-<section class="sc" data-p="c"><h3>إعدادات المسبحة</h3><p class="mutp sth">لون زر المسبحة</p><div class="chips" id="tbcC"></div><p class="mutp sth">لون الأرقام</p><div class="chips" id="tncC"></div><p class="mutp">يظهر لون الأرقام على العدّاد داخل الزر وعلى +١ عند كل تسبيحة. «تلقائي» يرجّع الألوان الأصلية.</p><p class="mutp sth">الصوت والاهتزاز</p><div class="chips" id="apt2"><button class="chip" data-k="clk">صوت نقر المسبحة</button><button class="chip" data-k="vib">الاهتزاز</button></div><div class="chips" style="margin-top:8px"><button class="chip" id="vtest" type="button">تجربة الاهتزاز</button></div><p class="mutp" id="vmsg" role="status"></p></section>
+<section class="sc" data-p="c"><h3>إعدادات المسبحة</h3><p class="mutp sth">لون زر المسبحة</p><div class="chips" id="tbcC"></div><p class="mutp sth">لون الأرقام</p><div class="chips" id="tncC"></div><p class="mutp">يظهر لون الأرقام على العدّاد داخل الزر وعلى +١ عند كل تسبيحة. «تلقائي» يرجّع الألوان الأصلية.</p><p class="mutp sth">الصوت والاهتزاز</p><div class="chips" id="apt2"><button class="chip" data-k="clk">صوت نقر المسبحة</button><button class="chip" data-k="vib">الاهتزاز</button></div><div class="chips" style="margin-top:8px"><button class="chip" id="tchm" type="button">تنبيه صوتي للذكر التالي</button></div><div class="chips" style="margin-top:8px"><button class="chip" id="vtest" type="button">تجربة الاهتزاز</button></div><p class="mutp" id="vmsg" role="status"></p></section>
 <section class="sc" data-p="c"><h3>إعدادات التنبيهات</h3><p class="mutp sth">الأذان</p><div class="chips"><button class="chip" id="oa"></button></div><p class="mutp">يشغّل صوت الأذان تلقائيًا عند دخول وقت كل صلاة ما دام التطبيق مفتوحًا.</p><div id="ntg"></div></section>
 
 <section class="sc" data-p="c"><h3>إعدادات التشغيل</h3><p class="mutp sth">سرعة التشغيل</p><div class="chips" id="sp"><button class="chip" data-r="0.85">٠٫٨٥×</button><button class="chip on" data-r="1">١×</button><button class="chip" data-r="1.25">١٫٢٥×</button><button class="chip" data-r="1.5">١٫٥×</button></div><p class="mutp sth" style="display:flex;justify-content:space-between;align-items:center"><span>مؤقت النوم</span><span id="sst" style="font-weight:400;color:var(--mut);font-size:.85rem"></span></p><div class="chips" id="sl"><button class="chip" data-m="15">١٥ د</button><button class="chip" data-m="30">٣٠ د</button><button class="chip" data-m="60">ساعة</button><button class="chip" data-m="90">ساعة ونصف</button></div><p class="mutp">يخفض مؤقت النوم الصوت تدريجيًا ثم يوقف التشغيل.</p></section>
@@ -778,6 +805,19 @@ body:not(.pk-used) .cat button[data-m="quran"]::after,body:not(.pk-used) .cat bu
 <section class="sc" data-p="m"><h3>متابعة ورد القراءة الأسبوعي</h3><p class="mutp">سجّل إنجازك لكل يوم من أيام الأسبوع.</p><div class="ck gd" id="weeklyRead"></div><p class="mutp" id="weeklyReadStatus"></p><div class="chips" style="justify-content:center"><button class="chip" id="weeklyReadReset">إعادة الأسبوع</button></div></section>
 <section class="sc" data-p="b"><h3>الاستعداد للصلاة</h3><div class="ck" id="prayerReady"></div><p class="mutp" id="prayerReadyStatus"></p><div class="chips" style="justify-content:center"><button class="chip" id="prayerReadyReset">إعادة القائمة</button></div></section>
 <section class="sc" data-p="m"><h3>حاسبة حفظ القرآن</h3><div class="zr"><label for="memorizePages">الصفحات المطلوب حفظها</label><input id="memorizePages" min="0" type="number" value="20"/></div><div class="zr"><label for="memorizeDaily">صفحات الحفظ يوميًا</label><input id="memorizeDaily" min="1" type="number" value="1"/></div><div class="zres" id="memorizeResult"></div><p class="mutp">تقدير حسابي لا يحدد مقدارًا مناسبًا للجميع؛ راعِ وقت المراجعة والتثبيت.</p></section>
+<section class="sc" data-p="m"><h3>حاسبة المواريث</h3>
+<p class="mutp sth">المتوفى</p>
+<div class="chips" id="mwG"><button class="chip on" data-g="m" type="button">رجل</button><button class="chip" data-g="f" type="button">امرأة</button></div>
+<div id="mwRows"></div>
+<div class="chips" style="margin-top:12px"><button aria-pressed="false" class="chip" id="mwFar" type="button">يوجد عاصب أبعد (عم أو ابن أخ…)</button></div>
+<p class="mutp sth">التركة (اختياري)</p>
+<div class="zr"><label for="mwE">قيمة التركة</label><input autocomplete="off" id="mwE" inputmode="decimal" placeholder="٠"/></div>
+<div class="zr"><label for="mwC">تجهيز ودفن</label><input autocomplete="off" id="mwC" inputmode="decimal" placeholder="٠"/></div>
+<div class="zr"><label for="mwD">ديون على المتوفى</label><input autocomplete="off" id="mwD" inputmode="decimal" placeholder="٠"/></div>
+<div class="zr"><label for="mwW">وصية (لغير وارث)</label><input autocomplete="off" id="mwW" inputmode="decimal" placeholder="٠"/></div>
+<div id="mwOut" aria-live="polite"></div>
+<div class="chips" style="justify-content:center;margin-top:12px"><button class="chip" id="mwCopy" type="button">نسخ النتيجة</button><button class="chip" id="mwReset" type="button">مسح</button></div>
+<p class="mutp">تُقسَّم التركة بعد التجهيز وسداد الديون وتنفيذ الوصية (في حدود الثلث). تغطي الحاسبة الحالات الشائعة (الزوجية والأصول والفروع والإخوة) مع العَوْل والرَّد، ولا تغطي ذوي الأرحام ولا الجد مع الإخوة. هي للاسترشاد فقط، وللقسمة الفعلية راجع دار الإفتاء أو المحكمة المختصة.</p></section>
 <section class="sc" data-p="m"><h3>سجل إنجازات العبادة</h3><div class="zr"><label for="worshipDate">التاريخ</label><input id="worshipDate" type="date"/></div><textarea id="worshipJournal" maxlength="2000" placeholder="دوّن ما أنجزته وما تريد الاستمرار عليه…" rows="4" style="width:100%;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--line);background:rgba(0,0,0,.18);color:inherit;padding:10px 12px;font:inherit;resize:vertical"></textarea><p class="mutp">يُحفظ السجل محليًا على هذا الجهاز.</p></section>
 
 <section class="sc" data-p="m"><h3>اتجاه القبلة</h3><div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0"><div id="qiblaDial" style="width:190px;height:190px;border:2px solid var(--line);border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle,rgba(255,255,255,.08),rgba(0,0,0,.16))"><span style="position:absolute;top:8px;font-weight:700;color:var(--ac)">N</span><span style="position:absolute;bottom:8px">S</span><span style="position:absolute;left:10px">W</span><span style="position:absolute;right:10px">E</span><div id="qiblaArrow" style="font-size:3.6rem;color:#e45b53;transform:rotate(0deg);transition:transform .2s;line-height:1">➤</div></div><p class="duat" id="qiblaInfo">اضغط لتحديد موقعك وحساب اتجاه القبلة.</p><div class="chips" style="justify-content:center"><button class="chip" id="qiblaLocate">تحديد الموقع</button><button class="chip" id="qiblaCompass">تفعيل البوصلة</button></div></div><p class="mutp">تحتاج إلى السماح بالموقع وحساس الاتجاه. قد تتأثر الدقة بمعايرة الهاتف أو وجود معادن ومغناطيس قريب.</p></section>
@@ -1085,6 +1125,7 @@ const MY_AUDIO = [
 	{ title: 'يا عباد الله جدوا', file: 'audio/anasheed/ya-ibad-allah-juddu.mp3', type: 'anasheed' },
 
 // ibtihalat
+	{ title: 'ابتهالات نصر الدين طوبار', file: 'audio/ibtihalat/tobar-ibtihalat.mp3', type: 'ibtihalat' },
 	{ title: 'هو الله رب الوجود', file: 'audio/ibtihalat/huwa-allah-rabb-alwujud.mp3', type: 'ibtihalat' },
 	{ title: 'سبحان من بسط الأرض', file: 'audio/ibtihalat/subhan-man-basat-alard.mp3', type: 'ibtihalat' },
 	{ title: 'الضحى من نور من ؟', file: 'audio/ibtihalat/aldoha-min-noor.mp3', type: 'ibtihalat' },
@@ -1410,20 +1451,67 @@ for(let i=0;i<48;i++){const s=document.createElement('i');s.style.cssText=`left:
   /* المسبحة: أذكار مخصصة تُحفظ في المتصفح حتى بعد إغلاق الصفحة */
   const D0=['سبحان الله','الحمد لله','الله أكبر','أستغفر الله','الصلاة على النبي ﷺ'],G=[33,99,100],esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   let cu=[],TC={};try{cu=JSON.parse(ld('cu'))||[]}catch(e){}try{TC=JSON.parse(ld('tcs'))||{}}catch(e){}
-  let tg=+ld('tg')||33,dn=ld('dn')||D0[0];
-  const L=()=>D0.concat(cu),tdk=()=>'tt'+new Date().toDateString();
-  function tr(){const l=L();if(!l.includes(dn))dn=l[0];const c=TC[dn]||0;
-    $('dz').innerHTML=l.map((d,i)=>`<button class="chip${d===dn?' on':''}" data-i="${i}">${esc(d)}</button>`).join('');
+  let TGS={};try{TGS=JSON.parse(ld('tgs'))||{}}catch(e){}
+  let tgd=+ld('tgd');if(!tgd){tgd=+ld('tg')||33;sv('tgd',tgd)}
+  let tg=tgd,dn=ld('dn')||D0[0],pend=0;
+  const L=()=>D0.concat(cu),tdk=()=>'tt'+new Date().toDateString(),tgOf=d=>TGS[d]||tgd,AUTO=()=>ld('tauto')!=='0';
+  /* ===== عجلة الأذكار (زي بكرة iPhone) ===== */
+  const W=$('dz'),IH=34,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let wKey='',prog=0,pt=0,st0=0,raf=0,lastI=-1,lastSel=-1;
+  const wIdx=()=>Math.max(0,Math.min(L().length-1,Math.round(W.scrollTop/IH)));
+  function wFx(){const c=W.scrollTop/IH,it=W.children,s=Math.max(0,Math.min(it.length-1,Math.round(c)));
+    for(let i=0;i<it.length;i++){const d=i-c,a=Math.abs(d);if(a>4){it[i].style.opacity=0;continue}
+      it[i].style.transform='perspective(260px) rotateX('+Math.max(-70,Math.min(70,-d*24))+'deg) scale('+(1-Math.min(a,3)*.07)+')';
+      it[i].style.opacity=Math.max(.18,1-a*.32)}
+    if(s!==lastSel){if(it[lastSel])it[lastSel].classList.remove('sel');if(it[s]){it[s].classList.add('sel');W.setAttribute('aria-activedescendant',it[s].id)}lastSel=s}}
+  function wBuild(){const l=L(),k=l.join('\u0001');if(k===wKey)return;wKey=k;lastSel=-1;
+    W.innerHTML=l.map((d,i)=>`<div class="wi" role="option" id="wi${i}" data-i="${i}">${esc(d)}</div>`).join('');wFx()}
+  function wGo(smooth){if(!W.clientHeight)return;const i=L().indexOf(dn);if(i<0)return;const y=i*IH;if(Math.abs(W.scrollTop-y)<1){wFx();return}
+    prog=1;clearTimeout(pt);W.scrollTo({top:y,behavior:smooth&&!RM?'smooth':'auto'});wFx();pt=setTimeout(()=>{prog=0;wFx()},smooth&&!RM?650:60)}
+  function wSettle(){if(prog)return;const d=L()[wIdx()];if(d!==undefined&&d!==dn){dn=d;tr()}}
+  W.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;wFx();const i=wIdx();if(i!==lastI){if(lastI>=0&&!prog)vb(4);lastI=i}});
+    clearTimeout(st0);st0=setTimeout(wSettle,110)},{passive:true});
+  W.addEventListener('click',e=>{const x=e.target.closest('.wi');if(!x)return;const d=L()[+x.dataset.i];if(d!==undefined&&d!==dn){dn=d;tr()}});
+  W.addEventListener('keydown',e=>{if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;e.preventDefault();const l=L(),i=Math.max(0,Math.min(l.length-1,l.indexOf(dn)+(e.key==='ArrowDown'?1:-1)));if(l[i]!==dn){dn=l[i];tr()}});
+  try{new ResizeObserver(()=>{if(W.clientHeight)wGo(false)}).observe(W)}catch(e){}
+  /* ===== الرسم ===== */
+  function tgpR(){$('tgpc').innerHTML=G.map(v=>`<button class="chip${v===tg?' on':''}" data-v="${v}" type="button">${ar(v)}</button>`).join('')}
+  function tr(){clearTimeout(pend);pend=0;const l=L();if(!l.includes(dn))dn=l[0];tg=tgOf(dn);const c=TC[dn]||0;
+    wBuild();wGo(true);
     $('tn').textContent=ar(c);$('tp').textContent=dn;$('tgt').textContent='الهدف '+ar(tg);$('tas').style.setProperty('--g',Math.min(1,c/tg));
     $('tdel').hidden=cu.indexOf(dn)<0;$('tday').textContent='تسبيح اليوم: '+ar(+ld(tdk())||0);
-    sv('tcs',JSON.stringify(TC));sv('cu',JSON.stringify(cu));sv('tg',tg);sv('dn',dn)}
-  $('tbtn').onclick=()=>{let c=TC[dn]||0;c=c>=tg?1:c+1;TC[dn]=c;sv(tdk(),(+ld(tdk())||0)+1);vb(c===tg?[90,60,90]:12);tr();const n=$('tn');n.classList.remove('bump');void n.offsetWidth;n.classList.add('bump')};
-  $('dz').onclick=e=>{const b=e.target.closest('.chip');if(b){dn=L()[+b.dataset.i];tr()}};
-  $('tgt').onclick=()=>{tg=G[(G.indexOf(tg)+1)%G.length];tr()};
+    $('tauto').textContent='التالي تلقائيًا';$('tauto').classList.toggle('on',AUTO());$('tauto').setAttribute('aria-pressed',String(AUTO()));
+    if(!$('tgp').hidden)tgpR();
+    sv('tcs',JSON.stringify(TC));sv('cu',JSON.stringify(cu));sv('tgs',JSON.stringify(TGS));sv('tg',tg);sv('dn',dn)}
+  /* ===== الانتقال التلقائي للذكر اللي بعده لما العدّ يوصل للهدف ===== */
+  const nextOf=()=>{const l=L(),i=l.indexOf(dn);return l.length>1&&i>=0?l[(i+1)%l.length]:null};
+  const CH=()=>ld('tchime')!=='0';
+  let ac2=null;
+  function chime(){if(!CH())return;try{ac2=ac2||new (window.AudioContext||window.webkitAudioContext)();if(ac2.state==='suspended')ac2.resume();
+    [[660,0],[880,.13]].forEach(([f,o])=>{const x=ac2.createOscillator(),g=ac2.createGain(),t=ac2.currentTime+o;x.type='sine';x.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.28);x.connect(g);g.connect(ac2.destination);x.start(t);x.stop(t+.3)})}catch(e){}}
+  function nxLabel(name){const r=$('tbtn').getBoundingClientRect(),b=document.createElement('b');b.className='sk tk tnx';b.dir='auto';b.textContent=name;
+    b.style.left=Math.max(20,Math.min(innerWidth-20,r.left+r.width/2))+'px';b.style.top=Math.max(10,r.top-30)+'px';document.body.appendChild(b);setTimeout(()=>b.remove(),1750)}
+  function advance(){clearTimeout(pend);pend=0;const nx=nextOf();if(nx==null)return;
+    if((TC[nx]||0)>=tgOf(nx))TC[nx]=0;dn=nx;tr()}
+  $('tbtn').onclick=()=>{if(pend)advance();
+    let c=TC[dn]||0;c=c>=tg?1:c+1;TC[dn]=c;sv(tdk(),(+ld(tdk())||0)+1);const done=c===tg;vb(done?[90,60,90]:12);tr();
+    const n=$('tn');n.classList.remove('bump');void n.offsetWidth;n.classList.add('bump');
+    if(done&&AUTO()){const nx=nextOf();if(nx!=null){chime();nxLabel(nx);pend=setTimeout(advance,800)}}};
+  $('tchm').onclick=()=>{sv('tchime',CH()?'0':'1');chmR();if(CH())chime()};
+  function chmR(){const b=$('tchm');b.classList.toggle('on',CH());b.setAttribute('aria-pressed',String(CH()))}
+  chmR();
+  $('tauto').onclick=()=>{sv('tauto',AUTO()?'0':'1');if(!AUTO()){clearTimeout(pend);pend=0}tr()};
+  /* الهدف: ٣٣ / ٩٩ / ١٠٠ أو رقم من اختيارك — لكل ذكر هدفه */
+  $('tgt').onclick=()=>{const p=$('tgp');p.hidden=!p.hidden;if(!p.hidden){tgpR();$('tgi').value=''}};
+  const setT=v=>{v=Math.round(+v);if(!(v>=1&&v<=99999))return false;TGS[dn]=v;$('tgp').hidden=true;tr();return true};
+  $('tgpc').onclick=e=>{const b=e.target.closest('.chip');if(b)setT(b.dataset.v)};
+  $('tgo').onclick=()=>{const i=$('tgi');if(!setT(i.value)){i.focus();i.style.borderColor='#e0605a'}else i.style.borderColor=''};
+  $('tgi').onkeydown=e=>{if(e.key==='Enter')$('tgo').click()};
   $('trs').onclick=()=>{TC[dn]=0;tr()};
   $('tadd').onclick=()=>{const v=$('tin').value.trim().slice(0,60);if(!v)return;if(!L().includes(v))cu.push(v);dn=v;$('tin').value='';tr()};
   $('tin').onkeydown=e=>{if(e.key==='Enter')$('tadd').click()};
-  $('tdel').onclick=()=>{cu=cu.filter(x=>x!==dn);delete TC[dn];dn=D0[0];tr()};
+  $('tdel').onclick=()=>{cu=cu.filter(x=>x!==dn);delete TC[dn];delete TGS[dn];dn=D0[0];tr()};
   tr();
   /* أدعية مأثورة: دعاء جديد في كل مرة تفتح فيها التبويب (بدون تكرار حتى تنتهي القائمة) */
 /* أدعية مضافة من السنة والقرآن (تُدمج دون تكرار مع القوائم الموجودة) */
@@ -1715,7 +1803,7 @@ window.addNewDuas=arr=>{const z=t=>String(t).replace(/[\u064B-\u0652\u0640،؛.,
 ['mor','العمل والكسب','💼',[['الكسب الحلال','حكم: الكسب الحلال'],['إتقان العمل','حكم: إتقان العمل وأداء الواجب'],['أجر الأجير','حكم: أجر الأجير'],['المسألة والتسول','حكم: السؤال والتسول'],['التوكل والأسباب','حكم: التوكل والأخذ بالأسباب']]],
 ['@h','mor','الأسرة والمجتمع'],
 ['mor','الأسرة والزواج','💍',[['الخطبة والنظر','حكم: الخطبة والنظر'],['أركان الزواج','حكم: أركان الزواج وشروطه'],['حقوق الزوجين','حكم: حقوق الزوجين'],['النفقة','حكم: النفقة'],['التعدد','حكم: تعدد الزوجات'],['الطلاق','حكم: الطلاق'],['تربية الأبناء','حكم: تربية الأبناء']]],
-['mor','الميراث والوصية','📃',[['الميراث حق شرعي','حكم: الميراث حق شرعي'],['أصحاب الفروض','حكم: أصحاب الفروض'],['موانع الإرث','حكم: موانع الإرث'],['الوصية','حكم: الوصية'],['الوقف','حكم: الوقف'],['العطية والتحايل','حكم: العطية بين الأولاد والتحايل']]],
+['mor','الميراث والوصية','📃',[['حاسبة المواريث','حاسبة المواريث'],['الميراث حق شرعي','حكم: الميراث حق شرعي'],['أصحاب الفروض','حكم: أصحاب الفروض'],['موانع الإرث','حكم: موانع الإرث'],['الوصية','حكم: الوصية'],['الوقف','حكم: الوقف'],['العطية والتحايل','حكم: العطية بين الأولاد والتحايل']]],
 ['mor','العلاقات والآداب','🤝',[['الخلوة','حكم: الخلوة بالأجنبية'],['الاختلاط','حكم: الاختلاط بين الرجال والنساء'],['المصافحة','حكم: مصافحة المرأة الأجنبية'],['سفر المرأة','حكم: سفر المرأة'],['الاستئذان','حكم: الاستئذان'],['آداب المجلس','حكم: آداب المجالس'],['السلام','حكم: السلام']]],
 ['mor','الحقوق والمحرمات','📜',[['الوالدان','حكم: بر الوالدين'],['صلة الرحم','حكم: صلة الرحم'],['الجار','حكم: حق الجار'],['غض البصر','حكم: غض البصر'],['الأمانة والعهد','حكم: الأمانة والوفاء بالعهد'],['المسكرات','حكم: الخمر والمسكرات'],['الكبائر','حكم: الكبائر والتوبة']]],
 ['@h','mor','اللباس والمأكل والترفيه'],
@@ -1965,7 +2053,7 @@ if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coor
     if(!row||row.dataset.px)return;row.dataset.px='1';
     const plus=d.createElement('button');plus.type='button';plus.className='chip plus';plus.textContent='＋';plus.setAttribute('aria-label','إضافة');plus.setAttribute('aria-expanded','false');
     const grp=[row,extra].filter(Boolean);grp.forEach(x=>x.classList.add('cx'));
-    if(id==='tadd'){const dz=d.getElementById('dz'),w=d.createElement('div');w.className='chrow';dz.parentNode.insertBefore(w,dz);w.appendChild(dz);w.appendChild(plus)}
+    if(id==='tadd'){const dz=d.getElementById('dz').closest('.wheelw')||d.getElementById('dz'),w=d.createElement('div');w.className='chrow';dz.parentNode.insertBefore(w,dz);w.appendChild(dz);w.appendChild(plus)}
     else{const w=d.createElement('div');w.style.cssText='display:flex;justify-content:center;margin-top:10px';w.appendChild(plus);row.parentNode.insertBefore(w,row)}
     const set=o=>{grp.forEach(x=>x.classList.toggle('open',o));plus.classList.toggle('on',o);plus.setAttribute('aria-expanded',String(o))};
     plus.onclick=()=>{const o=!row.classList.contains('open');set(o);if(o){const i=row.querySelector('input');i&&i.focus()}};
@@ -2638,7 +2726,7 @@ new MutationObserver(all).observe(sh,{attributes:true,attributeFilter:['class']}
 tabs.querySelectorAll('button').forEach(b=>{const n=cards().filter(x=>x.dataset.p===b.dataset.t).length,m=b.querySelector('small');if(m)m.textContent=n===1?'موضوع واحد':ar(n)+(n<=10?' مواضيع':' موضوعًا')});
 /* سحب أفقي للتنقل بين الأقسام */
 let sx=0,sy=0;sh.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
-sh.addEventListener('touchend',e=>{if(sh.classList.contains('idle')||e.target.closest('input,textarea,select,.chips,.mpg,.hm,.bars'))return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)<70||Math.abs(dx)<1.8*Math.abs(dy))return;const B=[...tabs.querySelectorAll('button')],i=B.findIndex(b=>b.classList.contains('on')),j=i+(dx>0?1:-1);B[j]&&B[j].click()},{passive:true});
+sh.addEventListener('touchend',e=>{if(sh.classList.contains('idle')||e.target.closest('input,textarea,select,.chips,.wheelw,.mpg,.hm,.bars'))return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)<70||Math.abs(dx)<1.8*Math.abs(dy))return;const B=[...tabs.querySelectorAll('button')],i=B.findIndex(b=>b.classList.contains('on')),j=i+(dx>0?1:-1);B[j]&&B[j].click()},{passive:true});
 setInterval(()=>{if(sh.classList.contains('open'))bd()},4000);
 /* ===== وضع الاختبار: محاكاة التاريخ وتجربة كل التنبيهات ===== */
 {const RD=Object.getPrototypeOf(Date)===Function.prototype?Date:Object.getPrototypeOf(Date),MN=6e4,DY=864e5,p2=n=>String(n).padStart(2,'0'),simOn=()=>+ld('__simoff')||0;
@@ -2705,6 +2793,308 @@ if(now==="1"&&last!=="1"){t.classList.remove("tdone");void t.offsetWidth;t.class
 </script>
 <script>
 (function(){try{var st=document.createElement("style");st.textContent=".sc.show{animation:scin .38s cubic-bezier(.2,.8,.2,1)}@keyframes scin{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.sc.show{animation:none}}";document.head.appendChild(st)}catch(x){}})();
+</script>
+<script id="mw14">
+(()=>{
+const $=id=>document.getElementById(id);
+if(!$('mwRows'))return;
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+const F=(n,d=1)=>{if(d<0){n=-n;d=-d}const g=gcd(n,d)||1;return{n:n/g,d:d/g}};
+const add=(a,b)=>F(a.n*b.d+b.n*a.d,a.d*b.d),sub=(a,b)=>F(a.n*b.d-b.n*a.d,a.d*b.d),mul=(a,b)=>F(a.n*b.n,a.d*b.d),dvd=(a,b)=>F(a.n*b.d,a.d*b.n);
+const ZERO=F(0),ONE=F(1),val=a=>a.n/a.d;
+const KEYS=['husband','wives','father','gf','mother','gmm','gmp','son','dau','gson','gdau','bf','sf','bp','sp','bm','sm'];
+function solve(g,h,far){
+  const R={},blocked=[],notes=[];
+  const give=(k,f,kind)=>{const r=R[k]||(R[k]={share:ZERO,kinds:[]});const had=R[k]&&r.kinds.length;r.share=add(r.share,f);if(f.n===0&&had)return;if(!r.kinds.includes(kind))r.kinds.push(kind)};
+  const H={};KEYS.forEach(k=>H[k]=+h[k]||0);
+  if(g==='m')H.husband=0;else H.wives=0;
+  const father=H.father,gf=father?0:H.gf;
+  if(H.gf&&father)blocked.push(['gf','يحجبه الأب']);
+  const spouse=g==='m'?H.wives:H.husband;
+  const S=H.son,D=H.dau,desc=S+D+H.gson+H.gdau>0,maleDesc=S+H.gson>0;
+  const sibAll=H.bf+H.sf+H.bp+H.sp+H.bm+H.sm;
+  if(gf&&(H.bf+H.sf+H.bp+H.sp)>0&&!maleDesc)return{unsupported:'الجد مع الإخوة الأشقاء أو لأب مسألة فيها خلاف بين المذاهب (الحجب أو المقاسمة)، ولا تحسمها هذه الحاسبة. اعرضها على دار الإفتاء أو المحكمة المختصة.'};
+  if(gf&&H.mother&&spouse>0&&!desc&&sibAll<2)return{unsupported:'اجتماع الجد والأم والزوج/الزوجة بلا فرع وارث مسألة خلافية في نصيب الأم، ولا تحسمها هذه الحاسبة. اعرضها على دار الإفتاء أو المحكمة المختصة.'};
+  // grandmothers
+  let gmm=H.gmm,gmp=H.gmp;
+  if(gmm&&H.mother){blocked.push(['gmm','تحجبها الأم']);gmm=0}
+  if(gmp&&H.mother){blocked.push(['gmp','تحجبها الأم']);gmp=0}else if(gmp&&father){blocked.push(['gmp','يحجبها الأب']);gmp=0}
+  // grandchildren through son
+  let GS=H.gson,GD=H.gdau;
+  if(S){if(GS){blocked.push(['gson','يحجبهم الابن']);GS=0}if(GD){blocked.push(['gdau','يحجبهن الابن']);GD=0}}
+  else if(D>=2&&!GS&&GD){blocked.push(['gdau','يحجبهن البنتان فأكثر']);GD=0}
+  // full / paternal / maternal siblings
+  let BF=H.bf,SF=H.sf,BP=H.bp,SP=H.sp,BM=H.bm,SM=H.sm;
+  const upWhy=maleDesc?'يحجبهم الابن أو ابن الابن':father?'يحجبهم الأب':'يحجبهم الجد';
+  if(maleDesc||father||gf){
+    if(BF){blocked.push(['bf',upWhy]);BF=0}if(SF){blocked.push(['sf',upWhy]);SF=0}
+    if(BP){blocked.push(['bp',upWhy]);BP=0}if(SP){blocked.push(['sp',upWhy]);SP=0}
+  }
+  const sfAsaba=SF>0&&BF===0&&(D>0||GD>0);
+  if(BF>0){if(BP){blocked.push(['bp','يحجبهم الأخ الشقيق']);BP=0}if(SP){blocked.push(['sp','يحجبهن الأخ الشقيق']);SP=0}}
+  else if(sfAsaba){if(BP){blocked.push(['bp','تحجبهم الأخت الشقيقة مع البنات']);BP=0}if(SP){blocked.push(['sp','تحجبهن الأخت الشقيقة مع البنات']);SP=0}}
+  else if(SF>=2&&BP===0&&SP>0){blocked.push(['sp','تحجبهن الأختان الشقيقتان فأكثر']);SP=0}
+  if(desc||father||gf){
+    const w=desc?'يحجبهم الفرع الوارث':father?'يحجبهم الأب':'يحجبهم الجد';
+    if(BM){blocked.push(['bm',w]);BM=0}if(SM){blocked.push(['sm',w]);SM=0}
+  }
+  // ---- fards
+  let spShare=ZERO;
+  if(g==='f'&&H.husband){spShare=desc?F(1,4):F(1,2);give('husband',spShare,'فرض')}
+  if(g==='m'&&H.wives){spShare=desc?F(1,8):F(1,4);give('wives',spShare,'فرض')}
+  if(H.mother){
+    const sixth=desc||sibAll>=2;
+    if(!sixth&&father&&spouse>0){give('mother',dvd(sub(ONE,spShare),F(3)),'فرض');notes.push('مسألة العمريتين: للأم ثلث الباقي بعد نصيب الزوج/الزوجة، وليس ثلث التركة.')}
+    else give('mother',sixth?F(1,6):F(1,3),'فرض');
+  }
+  if(father){if(desc)give('father',F(1,6),'فرض')}
+  if(gf){if(desc)give('gf',F(1,6),'فرض')}
+  if(gmm||gmp)give(gmm?'gmm':'gmp',F(1,6),'فرض');
+  if(gmm&&gmp){const t=R.gmm.share;R.gmm.share=F(t.n,t.d*2);R.gmp={share:F(t.n,t.d*2),kinds:['فرض']}}
+  if(!S){
+    if(D===1)give('dau',F(1,2),'فرض');else if(D>=2)give('dau',F(2,3),'فرض');
+    if(!GS&&GD){if(D===0)give('gdau',GD===1?F(1,2):F(2,3),'فرض');else if(D===1)give('gdau',F(1,6),'فرض')}
+  }
+  if(SF>0&&BF===0&&!desc)give('sf',SF===1?F(1,2):F(2,3),'فرض');
+  if(SP>0&&BP===0&&!desc&&BF===0){
+    if(SF===0)give('sp',SP===1?F(1,2):F(2,3),'فرض');
+    else if(SF===1)give('sp',F(1,6),'فرض');
+  }
+  if(BM+SM>0){const t=BM+SM===1?F(1,6):F(1,3);if(BM)give('bm',mul(t,F(BM,BM+SM)),'فرض');if(SM)give('sm',mul(t,F(SM,BM+SM)),'فرض')}
+  let sum=Object.keys(R).reduce((a,k)=>add(a,R[k].share),ZERO);
+  let awl=false,resid=sub(ONE,sum);
+  if(val(resid)<0){
+    awl=true;
+    Object.keys(R).forEach(k=>{R[k].share=dvd(R[k].share,sum)});
+    notes.push('عالت المسألة: زادت الفروض على التركة، فنقص نصيب كل وارث بنسبة واحدة (العَوْل).');
+    resid=ZERO;
+  }
+  // ---- asaba
+  const grp=(list,kind)=>{const u=list.reduce((a,[k,w,c])=>a+w*c,0);if(!u)return false;list.forEach(([k,w,c])=>{if(c>0)give(k,mul(resid,F(w*c,u)),kind)});return true};
+  let done=false,pos=val(resid)>0;
+  if(S>0)done=grp([['son',2,S],['dau',1,D]],D?'تعصيب (للذكر مثل حظ الأنثيين)':'تعصيب');
+  else if(GS>0)done=grp([['gson',2,GS],['gdau',1,GD]],GD?'تعصيب (للذكر مثل حظ الأنثيين)':'تعصيب');
+  else if(father){give('father',resid,'تعصيب');done=true}
+  else if(gf){give('gf',resid,'تعصيب');done=true}
+  else if(BF>0)done=grp([['bf',2,BF],['sf',1,SF]],SF?'تعصيب (للذكر مثل حظ الأنثيين)':'تعصيب');
+  else if(sfAsaba){give('sf',resid,'تعصيب مع البنات');done=true}
+  else if(BP>0)done=grp([['bp',2,BP],['sp',1,SP]],SP?'تعصيب (للذكر مثل حظ الأنثيين)':'تعصيب');
+  else if(SP>0&&SF===0&&BF===0&&(D>0||GD>0)){give('sp',resid,'تعصيب مع البنات');done=true}
+  let leftover=ZERO;
+  if(!done&&pos){
+    if(far){give('far',resid,'تعصيب');done=true}
+    else{
+      const non=Object.keys(R).filter(k=>k!=='husband'&&k!=='wives');
+      const tot=non.reduce((a,k)=>add(a,R[k].share),ZERO);
+      if(non.length&&val(tot)>0){
+        non.forEach(k=>{const add_=mul(resid,dvd(R[k].share,tot));R[k].share=add(R[k].share,add_);if(!R[k].kinds.includes('رد'))R[k].kinds.push('رد')});
+        notes.push('لا عاصب في هذه المسألة، فرُدَّ الباقي على أصحاب الفروض بنسبة فروضهم (ما عدا الزوجين).');
+      }else leftover=resid;
+    }
+  }
+  if(awl&&(S>0||GS>0||BF>0||sfAsaba||BP>0))notes.push('لم يبقَ للعصبة شيء بعد استغراق الفروض.');
+  const cnt={husband:H.husband,wives:H.wives,father,gf,mother:H.mother,gmm,gmp,son:S,dau:D,gson:GS,gdau:GD,bf:BF,sf:SF,bp:BP,sp:SP,bm:BM,sm:SM,far:1};
+  const rows=[...KEYS,'far'].filter(k=>R[k]).map(k=>({k,count:cnt[k],share:R[k].share,kinds:R[k].kinds}));
+  return{rows,blocked,notes,leftover,awl};
+}
+const ar=n=>(+n).toLocaleString('ar-EG'),fm=n=>(+n).toLocaleString('ar-EG',{maximumFractionDigits:2});
+const LBL={husband:['الزوج','الزوج'],wives:['الزوجة','الزوجات'],father:['الأب','الأب'],gf:['الجد (أبو الأب)','الجد (أبو الأب)'],mother:['الأم','الأم'],gmm:['الجدة (أم الأم)','الجدة (أم الأم)'],gmp:['الجدة (أم الأب)','الجدة (أم الأب)'],son:['الابن','الأبناء'],dau:['البنت','البنات'],gson:['ابن الابن','أبناء الابن'],gdau:['بنت الابن','بنات الابن'],bf:['الأخ الشقيق','الإخوة الأشقاء'],sf:['الأخت الشقيقة','الأخوات الشقيقات'],bp:['الأخ لأب','الإخوة لأب'],sp:['الأخت لأب','الأخوات لأب'],bm:['الأخ لأم','الإخوة لأم'],sm:['الأخت لأم','الأخوات لأم'],far:['العاصب الأبعد','العاصب الأبعد']};
+const IN={husband:'الزوج',wives:'الزوجات (حتى ٤)',father:'الأب',mother:'الأم',gf:'الجد (أبو الأب)',gmm:'الجدة (أم الأم)',gmp:'الجدة (أم الأب)',son:'الأبناء',dau:'البنات',gson:'أبناء الابن',gdau:'بنات الابن',bf:'الإخوة الأشقاء',sf:'الأخوات الشقيقات',bp:'الإخوة لأب',sp:'الأخوات لأب',bm:'الإخوة لأم',sm:'الأخوات لأم'};
+const MAX={husband:1,wives:4,father:1,mother:1,gf:1,gmm:1,gmp:1};
+const GROUPS=[['الزوجية',['husband','wives']],['الأصول',['father','mother','gf','gmm','gmp']],['الفروع',['son','dau','gson','gdau']],['الإخوة والأخوات',['bf','sf','bp','sp','bm','sm']]];
+const KEY='hisn-mw';
+let st={g:'m',h:{},far:false,e:'',c:'',d:'',w:''};
+try{const o=JSON.parse(localStorage.getItem(KEY));if(o&&typeof o==='object'){st=Object.assign(st,o);if(!o.h||typeof o.h!=='object')st.h={}}}catch(e){}
+if(st.g!=='m'&&st.g!=='f')st.g='m';
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const cnt=k=>Math.max(0,Math.min(MAX[k]||30,parseInt(st.h[k])||0));
+const num=s=>{s=String(s||'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٬,\s]/g,'').replace(/٫/g,'.');const v=parseFloat(s);return isFinite(v)&&v>0?v:0};
+const fr=f=>f.n===0?'لا شيء':f.n===f.d?'كل التركة':`<bdi dir="ltr">${ar(f.n)}/${ar(f.d)}</bdi>`;
+const frT=f=>f.n===0?'لا شيء':f.n===f.d?'كل التركة':ar(f.n)+'/'+ar(f.d);
+function buildRows(){
+  const box=$('mwRows');box.innerHTML='';
+  GROUPS.forEach(([t,ks])=>{
+    const ks2=ks.filter(k=>!(k==='husband'&&st.g==='m')&&!(k==='wives'&&st.g==='f'));
+    const hd=document.createElement('p');hd.className='mutp sth';hd.textContent=t;box.appendChild(hd);
+    const qd=document.createElement('div');qd.className='qd';
+    ks2.forEach(k=>{
+      const r=document.createElement('div');r.className='qr';r.dataset.k=k;
+      r.innerHTML=`<span>${IN[k]}</span><div class="qb"><button class="chip" type="button" data-d="-1" aria-label="إنقاص ${IN[k]}">−</button><b>${ar(cnt(k))}</b><button class="chip" type="button" data-d="1" aria-label="زيادة ${IN[k]}">+</button></div>`;
+      qd.appendChild(r)});
+    box.appendChild(qd)});
+}
+let lastText='';
+function render(){
+  const out=$('mwOut');lastText='';
+  const h={};Object.keys(LBL).forEach(k=>{if(k!=='far')h[k]=cnt(k)});
+  if(st.g==='m')h.husband=0;else h.wives=0;
+  const any=Object.keys(h).some(k=>h[k]>0);
+  if(!any&&!st.far){out.innerHTML='<p class="mutp">اختر الورثة الموجودين لتظهر القسمة.</p>';return}
+  const r=solve(st.g,h,st.far);
+  if(r.unsupported){out.innerHTML=`<div class="mwa w">${r.unsupported}</div>`;return}
+  const E=num(st.e),C=num(st.c),Dd=num(st.d),W=num(st.w);
+  let net=null,sum=[],info=[],T=[];
+  if(E>0){
+    const after=E-C-Dd;
+    if(after<=0){net=0;info.push('التجهيز والديون تستغرق التركة، فلا يبقى شيء للوصية أو للورثة.')}
+    else{const wu=Math.min(W,after/3);if(W>after/3)info.push('الوصية لا تنفذ إلا في حدود ثلث الباقي بعد التجهيز والديون، وما زاد عليه يتوقف على إجازة الورثة. حُسب الثلث فقط.');net=after-wu;
+      sum=[['التركة',E]];if(C+Dd>0)sum.push(['التجهيز والديون',C+Dd]);if(wu>0)sum.push(['الوصية',wu]);sum.push(['الصافي للورثة',net])}
+  }
+  if(W>0)info.push('الوصية تكون لغير الوارث، ولا وصية لوارث إلا بإجازة بقية الورثة.');
+  let H='';
+  if(sum.length){H+='<div class="qd">'+sum.map(([a,b])=>`<div class="qr"><span>${a}</span><b>${fm(b)}</b></div>`).join('')+'</div>';T.push(...sum.map(([a,b])=>a+': '+fm(b)))}
+  H+='<p class="mutp sth">نتيجة القسمة</p>';T.push('نتيجة القسمة:');
+  r.rows.forEach(x=>{
+    const nm=x.k==='far'?LBL.far[0]:(x.count>1?LBL[x.k][1]:LBL[x.k][0]);
+    const zero=x.share.n===0,v=x.share.n/x.share.d;
+    const m=[x.kinds.join(' و')];
+    if(!zero){m.push(fm(v*100)+'٪');
+      if(x.count>1)m.push('لكل واحد: '+fr({n:x.share.n,d:x.share.d*x.count}));
+      if(net!=null){m.push('المبلغ: '+fm(v*net));if(x.count>1)m.push('لكل واحد: '+fm(v*net/x.count))}
+    }else m.push('استغرقت الفروض التركة');
+    H+=`<div class="mwr"><div class="mwt"><span>${nm}${x.count>1?` <em>×${ar(x.count)}</em>`:''}</span><b>${fr(x.share)}</b></div><div class="mwm">${m.join(' · ')}</div></div>`;
+    T.push('- '+nm+(x.count>1?' ×'+ar(x.count):'')+': '+frT(x.share)+(net!=null&&!zero?' ('+fm(v*net)+')':''));
+  });
+  if(r.leftover.n>0){
+    H+=`<div class="mwa w">يبقى من التركة <b>${fr(r.leftover)}</b> لا يستحقه أحد ممن أدخلتهم. ينتقل إلى العصبة الأبعد (الأعمام وأبناء الإخوة…) إن وُجدوا، وإلا فإلى ذوي الأرحام أو الزوج/الزوجة أو بيت المال بحسب القانون المعمول به. إن كان هناك عاصب أبعد فعِّل الخيار أعلاه.</div>`;
+    T.push('الباقي: '+frT(r.leftover)+' (يُنظر فيه حسب القانون)')}
+  if(r.blocked.length){
+    H+='<p class="mutp sth">محجوبون من الميراث</p><div class="qd">'+r.blocked.map(([k,w])=>`<div class="qr"><span>${LBL[k][h[k]>1?1:0]}</span><span style="font-size:.8rem;color:var(--mut)">${w}</span></div>`).join('')+'</div>';
+    T.push('محجوبون: '+r.blocked.map(([k,w])=>LBL[k][h[k]>1?1:0]+' ('+w+')').join('، '))}
+  r.notes.concat(info).forEach(n=>{H+=`<div class="mwa">${n}</div>`;T.push('* '+n)});
+  out.innerHTML=H;
+  lastText='حاسبة المواريث ('+(st.g==='m'?'المتوفى رجل':'المتوفاة امرأة')+')\n'+T.join('\n');
+}
+function sync(){
+  $('mwG').querySelectorAll('.chip').forEach(b=>b.classList.toggle('on',b.dataset.g===st.g));
+  $('mwFar').classList.toggle('on',!!st.far);$('mwFar').setAttribute('aria-pressed',String(!!st.far));
+  $('mwE').value=st.e||'';$('mwC').value=st.c||'';$('mwD').value=st.d||'';$('mwW').value=st.w||'';
+}
+$('mwG').onclick=e=>{const b=e.target.closest('[data-g]');if(!b)return;st.g=b.dataset.g;if(st.g==='m')st.h.husband=0;else st.h.wives=0;save();sync();buildRows();render()};
+$('mwRows').onclick=e=>{const b=e.target.closest('[data-d]');if(!b)return;const r=b.closest('[data-k]'),k=r.dataset.k,n=Math.max(0,Math.min(MAX[k]||30,cnt(k)+(+b.dataset.d)));st.h[k]=n;r.querySelector('b').textContent=ar(n);save();render()};
+$('mwFar').onclick=()=>{st.far=!st.far;save();sync();render()};
+[['mwE','e'],['mwC','c'],['mwD','d'],['mwW','w']].forEach(([id,k])=>$(id).addEventListener('input',()=>{st[k]=$(id).value;save();render()}));
+$('mwReset').onclick=()=>{st={g:'m',h:{},far:false,e:'',c:'',d:'',w:''};save();sync();buildRows();render()};
+$('mwCopy').onclick=async()=>{
+  const b=$('mwCopy'),old=b.textContent;if(!lastText)return;
+  try{await navigator.clipboard.writeText(lastText)}catch(e){const t=document.createElement('textarea');t.value=lastText;t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(x){}t.remove()}
+  b.textContent='تم النسخ ✓';setTimeout(()=>{b.textContent=old},1500)};
+sync();buildRows();render();
+})();
+</script>
+<style id="tas3d">
+/* v36: مسبحة 3D — حلقة خرز بعمق + زر كرة مجسّمة (خاص بمسبحة الذكر #tas فقط) */
+#tas{position:relative;display:block;width:260px;height:236px;margin:4px auto 8px;border-radius:0;background:none!important;-webkit-tap-highlight-color:transparent}
+#tas>canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#tas #tbtn{position:absolute;left:50%;top:84px;width:108px;height:108px;margin:-54px 0 0 -54px;z-index:2;border-radius:50%;
+  background:
+    radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--tbc,var(--ac)) 45%,#fff) 0,var(--tbc,var(--ac)) 46%,color-mix(in srgb,var(--tbc,var(--ac)) 60%,#3a2200) 100%)!important;
+  box-shadow:
+    inset -8px -11px 18px rgba(50,25,0,.45),
+    inset 6px 8px 12px rgba(255,255,255,.5),
+    0 7px 0 color-mix(in srgb,var(--tbc,var(--ac)) 45%,#2a1500),
+    0 16px 22px rgba(0,0,0,.5);
+  transition:transform .12s cubic-bezier(.3,1.5,.5,1),box-shadow .12s;text-shadow:0 1px 0 rgba(255,255,255,.3),0 -1px 0 rgba(0,0,0,.12)}
+#tas #tbtn::before{content:"";position:absolute;left:16%;top:8%;width:46%;height:28%;border-radius:50%;pointer-events:none;transform:rotate(-24deg);
+  background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.88),rgba(255,255,255,0) 72%)}
+#tas #tbtn::after{content:"";position:absolute;left:22%;right:22%;bottom:5%;height:12%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.28),rgba(255,255,255,0) 70%)}
+#tas #tbtn>*{position:relative;z-index:1}
+#tas #tbtn small{max-width:84px}
+#tas #tbtn:active{transform:translateY(6px) scale(.98);
+  box-shadow:inset -8px -11px 18px rgba(50,25,0,.45),inset 6px 8px 12px rgba(255,255,255,.45),0 1px 0 color-mix(in srgb,var(--tbc,var(--ac)) 45%,#2a1500),0 5px 8px rgba(0,0,0,.45)}
+#tas.tdone{animation:tdone3d .9s ease-out}
+@keyframes tdone3d{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){#tas.tdone{animation:none}#tas #tbtn{transition:none}}
+</style>
+<script>
+/* v36: مسبحة 3D — الخرز بيتحرك مع كل تسبيحة، والمعدود منه بيلمع */
+(function(){
+  const d=document,tas=d.getElementById('tas'),btn=d.getElementById('tbtn'),tn=d.getElementById('tn');
+  if(!tas||!btn||!tn||tas.querySelector('canvas'))return;
+  const W=260,H=236,CX=W/2,CY=84,R=100,TILT=42*Math.PI/180,F=520,N=33,SLOTS=N+1,STEP=2*Math.PI/SLOTS;
+  const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const cv=d.createElement('canvas');cv.setAttribute('aria-hidden','true');tas.insertBefore(cv,tas.firstChild);
+  const ctx=cv.getContext('2d');
+  const dpr=Math.min(3,window.devicePixelRatio||1);cv.width=W*dpr;cv.height=H*dpr;
+  const pc=d.createElement('canvas');pc.width=pc.height=1;const px=pc.getContext('2d',{willReadFrequently:true});
+  const toRGB=s=>{try{px.clearRect(0,0,1,1);px.fillStyle='#e8cc8e';px.fillStyle=s;px.fillRect(0,0,1,1);const a=px.getImageData(0,0,1,1).data;return[a[0],a[1],a[2]]}catch(e){return[232,204,142]}};
+  const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
+  const css=(c,a)=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a==null?1:a})`;
+  const digits=s=>{const m=String(s).replace(/[٠-٩]/g,x=>x.charCodeAt(0)-1632).replace(/[۰-۹]/g,x=>x.charCodeAt(0)-1776).replace(/\D/g,'');return m?+m:0};
+  let base=[232,204,142],cnt=digits(tn.textContent),rot=cnt,cur=cnt,kick=0,flash=0,clicked=false,raf=0,last=0,kp=0;
+  const readColor=()=>{const cs=getComputedStyle(d.body);base=toRGB((cs.getPropertyValue('--tbc')||cs.getPropertyValue('--ac')||'#e8cc8e').trim()||'#e8cc8e')};
+  /* موضع الخرزة على الحلقة (إسقاط منظور) */
+  function proj(slot,tilt){const a=Math.PI/2+slot*STEP,x=R*Math.cos(a),y0=R*Math.sin(a),z=y0*Math.sin(tilt),y=y0*Math.cos(tilt),k=F/(F-z);return{x:CX+x*k,y:CY+y*k,k,z}}
+  function slotOf(w){return w<32?w+1:33+(w-32)*2}
+  function bead(p,r,lit,fl){
+    const k=p.k,rr=r*k,depth=Math.max(0,Math.min(1,(p.k-.86)/.3));
+    let c=lit?base:mix(base,[24,16,8],.38);
+    const hi=mix(c,[255,255,255],.78),mid=c,sh=mix(c,[0,0,0],.5),ed=mix(c,[0,0,0],.72);
+    ctx.save();
+    if(lit){ctx.shadowColor=css(base,.55+.4*fl);ctx.shadowBlur=(10+16*fl)*k}else{ctx.shadowColor='rgba(0,0,0,.38)';ctx.shadowBlur=6*k;ctx.shadowOffsetY=3*k}
+    const g=ctx.createRadialGradient(p.x-rr*.38,p.y-rr*.42,rr*.1,p.x,p.y,rr*1.05);
+    g.addColorStop(0,css(hi));g.addColorStop(.35,css(mid));g.addColorStop(.8,css(sh));g.addColorStop(1,css(ed));
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,rr,0,7);ctx.fill();ctx.restore();
+    ctx.save();ctx.beginPath();ctx.arc(p.x,p.y,rr,0,7);ctx.clip();
+    ctx.fillStyle=`rgba(5,8,20,${(1-depth)*.42})`;ctx.fillRect(p.x-rr,p.y-rr,rr*2,rr*2);ctx.restore();
+    ctx.fillStyle='rgba(255,255,255,.75)';ctx.beginPath();ctx.ellipse(p.x-rr*.36,p.y-rr*.4,rr*.24,rr*.15,-.6,0,7);ctx.fill();
+    /* ثقب الخيط */
+    ctx.fillStyle='rgba(20,10,0,.38)';ctx.beginPath();ctx.arc(p.x,p.y,rr*.13,0,7);ctx.fill();
+  }
+  function imam(p,fl,sway){
+    const k=p.k,rx=11*k,ry=15.5*k,c=mix(base,[0,0,0],.12);
+    const hi=mix(c,[255,255,255],.75),sh=mix(c,[0,0,0],.5),ed=mix(c,[0,0,0],.72);
+    /* الشرّابة */
+    const tc=mix(base,[40,20,0],.35),hx=p.x,hy=p.y+ry+4*k,len=38*k,sw=sway*9*k;
+    ctx.strokeStyle='rgba(30,16,0,.9)';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(p.x,p.y+ry-2);ctx.lineTo(hx+sw*.2,hy+6*k);ctx.stroke();
+    const hb={x:hx+sw*.2,y:hy+9*k,k:k};bead(hb,5.5,true,fl);
+    for(let i=-4;i<=4;i++){const ex=hb.x+i*3.4*k+sw,ey=hb.y+len,mx=hb.x+i*1.6*k+sw*.4,my=hb.y+len*.5;
+      ctx.strokeStyle=css(mix(tc,[255,255,255],(i&1)?.18:0),.95);ctx.lineWidth=2*k;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(hb.x+i*.8,hb.y+4*k);ctx.quadraticCurveTo(mx,my,ex,ey);ctx.stroke()}
+    ctx.save();ctx.shadowColor='rgba(0,0,0,.4)';ctx.shadowBlur=7*k;ctx.shadowOffsetY=3*k;
+    const g=ctx.createRadialGradient(p.x-rx*.4,p.y-ry*.35,rx*.1,p.x,p.y,ry*1.05);
+    g.addColorStop(0,css(hi));g.addColorStop(.4,css(c));g.addColorStop(.85,css(sh));g.addColorStop(1,css(ed));
+    ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(p.x,p.y,rx,ry,0,0,7);ctx.fill();ctx.restore();
+    ctx.strokeStyle=css(ed,.55);ctx.lineWidth=1.2*k;
+    [-.62,.62].forEach(o=>{ctx.beginPath();ctx.ellipse(p.x,p.y+ry*o,rx*Math.sqrt(1-o*o)*.96,2.4*k,0,0,7);ctx.stroke()});
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.beginPath();ctx.ellipse(p.x-rx*.35,p.y-ry*.32,rx*.2,ry*.2,-.5,0,7);ctx.fill();
+  }
+  function draw(){
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+    const tilt=TILT+kick*Math.sin(kp)*.09,m=cnt%N,litN=(cnt>0&&m===0)?N:m,items=[];
+    /* الخيط */
+    ctx.strokeStyle='rgba(25,14,2,.85)';ctx.lineWidth=1.8;ctx.beginPath();
+    for(let i=0;i<=72;i++){const a=i/72*2*Math.PI,pp=proj((a-Math.PI/2)/STEP,tilt);i?ctx.lineTo(pp.x,pp.y):ctx.moveTo(pp.x,pp.y)}ctx.stroke();
+    for(let j=0;j<N;j++){const w=(((j+cur)%N)+N)%N,p=proj(slotOf(w),tilt),lit=j>=N-litN;items.push({p,lit,pass:w>=32})}
+    const im=proj(0,tilt);
+    items.sort((a,b)=>a.p.z-b.p.z);
+    const fl=Math.max(flash,0);
+    /* الخرز الخلفي ثم الإمام ثم الأمامي — الخرزة العابرة تحت الإمام */
+    items.filter(i=>!i.pass).forEach(i=>bead(i.p,9.8,i.lit,fl));
+    items.filter(i=>i.pass).forEach(i=>bead(i.p,9.8,i.lit,fl));
+    imam(im,fl,Math.sin(kp*1.3)*kick);
+  }
+  function loop(t){
+    const dt=Math.min(.05,(t-(last||t))/1000);last=t;
+    cur+=(rot-cur)*Math.min(1,dt*13);if(Math.abs(rot-cur)<.002)cur=rot;
+    kick*=Math.pow(.02,dt);kp+=dt*16;flash*=Math.pow(.05,dt);if(kick<.01)kick=0;if(flash<.01)flash=0;
+    draw();
+    if(cur!==rot||kick||flash)raf=requestAnimationFrame(loop);else{raf=0;last=0}
+  }
+  const go=()=>{if(!raf){last=0;raf=requestAnimationFrame(loop)}};
+  /* ربط بالعدّاد */
+  btn.addEventListener('click',()=>{clicked=true;setTimeout(()=>{clicked=false},0);
+    if(!RM){rot+=1;kick=1;kp=0;go()}
+    setTimeout(()=>{if(tas.style.getPropertyValue('--g').trim()==='1'&&!RM){flash=1;go()}},0)},true);
+  new MutationObserver(()=>{const c=digits(tn.textContent);if(c===cnt)return;cnt=c;
+    if(!clicked||RM){rot=cur=c;draw()}else go();
+    if(clicked&&RM)draw()}).observe(tn,{childList:true,characterData:true,subtree:true});
+  try{new MutationObserver(()=>{readColor();draw()}).observe(d.documentElement,{attributes:true,attributeFilter:['style']});
+      new MutationObserver(()=>{readColor();draw()}).observe(d.body,{attributes:true,attributeFilter:['data-p','class','style']})}catch(e){}
+  readColor();draw();
+  addEventListener('load',()=>{readColor();draw()});
+})();
 </script>
 </body>
 </html>
