@@ -2987,7 +2987,8 @@ sync();buildRows();render();
 #tas #tbtn::before{content:"";position:absolute;left:16%;top:8%;width:46%;height:28%;border-radius:50%;pointer-events:none;transform:rotate(-24deg);background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.88),rgba(255,255,255,0) 72%)}
 #tas #tbtn::after{content:"";position:absolute;left:22%;right:22%;bottom:5%;height:12%;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.28),rgba(255,255,255,0) 70%)}
 #tas #tbtn>*{position:relative;z-index:1}
-#tas #tbtn small{max-width:84px}
+#tas #tbtn small{max-width:calc(84px*var(--tbs,1));font-size:max(.62rem,calc(.85rem*var(--tbs,1)))}
+#tas #tbtn b{font-size:max(1.3rem,calc(2.2rem*var(--tbs,1)))}
 #tas #tbtn:active{transform:translateY(6px) scale(.98);box-shadow:inset -8px -11px 18px rgba(50,25,0,.45),inset 6px 8px 12px rgba(255,255,255,.45),0 1px 0 color-mix(in srgb,var(--tbc,var(--tbt,var(--ac))) 45%,#2a1500),0 5px 8px rgba(0,0,0,.45)}
 #tas.tdone{animation:tdone3d .9s ease-out}
 @keyframes tdone3d{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
@@ -3115,11 +3116,24 @@ sync();buildRows();render();
     else if(cfg.ac==='star'){for(let q=0;q<2;q++){for(let i=0;i<4;i++){const a=i*Math.PI/2+q*Math.PI/4+Math.PI/4;ctx[i?'lineTo':'moveTo'](cx+Math.cos(a)*r*1.1,cy+Math.sin(a)*r*1.1)}ctx.closePath()}ctx.fill()}
     else{ctx.arc(cx,cy,r,0,7);ctx.fill();ctx.restore();ctx.save();ctx.fillStyle='#3a2200';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`700 ${8.5*k}px Tahoma,Arial,sans-serif`;ctx.fillText('الله',cx,cy+k*.5)}
     ctx.restore()}
+  /* زر التسبيح يتكيّف مع شكل المسبحة وحجم الخرز: أكبر دايرة تتساع جوه الحلقة من غير ما تغطي الخرز أو الإمام */
+  let fk='';
+  function fitBtn(pa,r){const key=cfg.sh+'|'+r.toFixed(1);if(key===fk)return;fk=key;
+    const n=120,pts=[];let y0=1e9,y1=-1e9;
+    for(let i=0;i<n;i++){const p=proj(pa,i/n,pa.t);p.m=(Math.min(i,n-i)<=3?Math.max(r*1.15,16)+1:r*1.15)+3;pts.push(p);if(p.y<y0)y0=p.y;if(p.y>y1)y1=p.y}
+    const eff=y=>{let m=1e9;for(const p of pts){const e=Math.hypot(p.x-CX,p.y-y)-p.m;if(e<m)m=e}return m};
+    let best=0;const ys=[];for(let y=Math.floor(y0);y<=y1;y++){const e=eff(y);ys.push([y,e]);if(e>best)best=e}
+    const R=Math.max(26,Math.min(54,best));
+    let cy=CY,dm=1e9;for(const [y,e] of ys){if(e>=R-.5&&Math.abs(y-CY)<dm){dm=Math.abs(y-CY);cy=y}}
+    const s=Math.round(R*2);
+    btn.style.width=btn.style.height=s+'px';btn.style.top=cy+'px';btn.style.margin=(-s/2)+'px 0 0 '+(-s/2)+'px';
+    btn.style.setProperty('--tbs',(s/108).toFixed(3))}
   /* الرسم الكامل (يتشارك بين المسبحة الرئيسية ومعاينة الإعدادات) */
   function draw(I,S,tg){
     ctx=I.x;ctx.setTransform(I.r,0,0,I.r,0,0);ctx.clearRect(0,0,W,H);
     const N=nOf(tg),pa=PATH(cfg.sh),SL=N+1,tilt=pa.t+S.kick*Math.sin(S.kp)*.09,m=S.cnt%N,litN=(S.cnt>0&&m===0)?N:m,col=baseColor(),fl=Math.max(S.flash,0);
     const K=cfg.sp?(N===33?11:N===99?33:N===100?10:0):0,r=Math.min(10,pa.L/SL*.52);
+    if(I===MI)fitBtn(pa,r);
     {const o=SH[cfg.sh],mx=Math.max(o.rx,o.ry);ctx.save();ctx.translate(CX,CY+12);ctx.scale(o.rx/mx,o.ry/mx*Math.cos(pa.t)*.85);
       const gp=ctx.createRadialGradient(0,0,mx*.3,0,0,mx*1.12);gp.addColorStop(0,'rgba(0,0,0,0)');gp.addColorStop(.75,`rgba(0,0,0,${LT?.07:.16})`);gp.addColorStop(1,'rgba(0,0,0,0)');
       ctx.fillStyle=gp;ctx.beginPath();ctx.arc(0,0,mx*1.12,0,7);ctx.fill();ctx.restore()}
