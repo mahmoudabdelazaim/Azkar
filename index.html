@@ -2877,10 +2877,10 @@ const ntick=()=>{try{const iw=!!(typeof T!=='undefined'&&T&&drWin());if(iw!==nti
  for(const c of C){if(fire(...c))break}};
 setTimeout(ntick,6000);setInterval(ntick,20000);
 /* ===== المفضلة والأخيرة + الشارات ===== */
-let F=J('fav31',[]),R=J('rec31',[]);
+let F=J('fav31',[]),R=J('rec31',[]).slice(0,3);
 const sl=()=>cards().forEach(c=>{const h=c.querySelector(':scope>h3');if(!h||h.querySelector('.fv'))return;h.insertAdjacentHTML('beforeend','<span class="fv" role="button" aria-label="مفضلة">☆</span>')}),st=()=>cards().forEach(c=>{const f=c.querySelector('.fv'),on=F.includes(key(c));if(f){f.textContent=on?'★':'☆';f.classList.toggle('on',on)}});
 svc.addEventListener('click',e=>{const f=e.target.closest('.fv');if(!f)return;e.stopPropagation();const k=key(f.closest('.sc'));F=F.includes(k)?F.filter(x=>x!==k):[k,...F].slice(0,12);sv('fav31',JSON.stringify(F));vb(8);st();qr()},true);
-svc.addEventListener('click',e=>{const c=e.target.closest('.sc');if(!c)return;setTimeout(()=>{if(!c.classList.contains('cl')){R=[key(c),...R.filter(x=>x!==key(c))].slice(0,6);sv('rec31',JSON.stringify(R))}},0)});
+svc.addEventListener('click',e=>{const c=e.target.closest('.sc');if(!c)return;setTimeout(()=>{if(!c.classList.contains('cl')){R=[key(c),...R.filter(x=>x!==key(c))].slice(0,3);sv('rec31',JSON.stringify(R))}},0)});
 const qa=document.createElement('div');qa.id='qacc';$('tabhint').after(qa);
 const strk=()=>{let n=0,d=new Date();const f=x=>cnt('pt'+D(x))>=5;if(!f(d))d.setDate(d.getDate()-1);while(n<400&&f(d)){n++;d.setDate(d.getDate()-1)}return n};
 function qr(){const by=k=>cards().find(c=>key(c)===k),ic=c=>(c.querySelector('.ic')||{}).textContent||'',L=[];F.forEach(k=>{const c=by(k);c&&L.push(['★',c])});R.forEach(k=>{const c=by(k);c&&!F.includes(k)&&L.push(['🕘',c])});const s=strk();
@@ -3660,7 +3660,6 @@ sync();buildRows();render();
 #sqr{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px}
 #sqr .chip{min-height:40px}
 #sqr p{margin:4px 0;font-size:.85rem;opacity:.75}
-.sheet:not(.idle) #sqw{display:none}
 </style>
 <script id="sqjs">(function(){try{var d=document,h=d.getElementById('tabhint'),g=d.getElementById('svcg'),tb=d.getElementById('stabs');if(!h||!g||!tb||d.getElementById('sq'))return;
 var w=d.createElement('div');w.id='sqw';w.innerHTML='<input id="sq" type="search" enterkeyhint="search" autocomplete="off" placeholder="ابحث في كل الخدمات…" aria-label="بحث في الخدمات"><div id="sqr" aria-live="polite"></div>';h.after(w);
@@ -3671,7 +3670,77 @@ q.addEventListener('input',function(){var v=nz(q.value);r.innerHTML='';if(v.leng
 var m=cs().filter(function(c){var t=c.dataset.g||c.dataset.kw||'',h3=c.querySelector('h3');return nz(t+' '+(h3?h3.textContent:'')).indexOf(v)>-1}).slice(0,12);
 if(!m.length){r.innerHTML='<p>لا توجد نتائج</p>';return}
 m.forEach(function(c){var b=d.createElement('button'),h3=c.querySelector('h3'),ic=c.querySelector('.ic');b.type='button';b.className='chip';b.textContent=(ic?ic.textContent+' ':'')+(c.dataset.g||c.dataset.kw||(h3?h3.textContent:''));
-b.onclick=function(){var t=tb.querySelector('[data-t="'+c.dataset.p+'"]');if(!t)return;t.click();setTimeout(function(){if(c.classList.contains('cl'))c.click();try{c.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}},120)};r.appendChild(b)})})}catch(e){}})();</script>
+b.onclick=function(){var t=tb.querySelector('[data-t="'+c.dataset.p+'"]');if(!t)return;if(!t.classList.contains('on'))t.click();setTimeout(function(){if(c.classList.contains('cl'))c.click();try{c.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}},120)};r.appendChild(b)})})}catch(e){}})();</script>
+<style id="sqicon">.sht{display:flex;align-items:center;gap:10px}#sqb{display:flex;align-items:center;justify-content:center;width:34px;height:34px;padding:0;border-radius:50%;border:1.5px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink);font-size:.95rem;line-height:1;cursor:pointer}#sqb:active{transform:scale(.92)}#sqb[aria-expanded="true"]{background:color-mix(in srgb,var(--ac) 18%,transparent);border-color:color-mix(in srgb,var(--ac) 55%,transparent)}#sqw.sqc{display:none}.sheet.sqon>:not(.sh-h):not(#sqw){display:none!important}</style>
+<script id="sqicjs">(function(){try{var d=document,w=d.getElementById('sqw'),q=d.getElementById('sq'),hd=d.querySelector('#sheet .sh-h');if(!w||!q||!hd||d.getElementById('sqb'))return;var t=hd.firstElementChild,c=d.createElement('div');c.className='sht';hd.insertBefore(c,t);c.appendChild(t);
+var b=d.createElement('button');b.id='sqb';b.type='button';b.setAttribute('aria-label','بحث في الخدمات');b.setAttribute('aria-expanded','false');b.textContent='\uD83D\uDD0D';c.appendChild(b);w.classList.add('sqc');
+var rm=function(){return window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches};
+var isOpen=function(){return b.getAttribute('aria-expanded')==='true'};
+function fly(on){if(rm()||!w.animate)return null;var r=b.getBoundingClientRect(),k=w.getBoundingClientRect();w.style.transformOrigin=(r.left+r.width/2-k.left)+'px '+(r.top+r.height/2-k.top)+'px';var f=[{opacity:0,transform:'scale(.08,.3)'},{opacity:1,transform:'scale(1)'}];return w.animate(on?f:f.slice().reverse(),{duration:on?280:180,easing:on?'cubic-bezier(.2,.9,.3,1.1)':'ease-in'})}
+function op(){var s=d.getElementById('sheet');try{s.scrollTo({top:0,behavior:'smooth'})}catch(_){s.scrollTop=0}s.classList.add('sqon');w.getAnimations&&w.getAnimations().forEach(function(x){x.cancel()});w.classList.remove('sqc');b.setAttribute('aria-expanded','true');fly(true);q.focus({preventScroll:true})}
+function cl(){if(!isOpen())return;d.getElementById('sheet').classList.remove('sqon');b.setAttribute('aria-expanded','false');var a=fly(false);if(a){a.onfinish=function(){if(!isOpen())w.classList.add('sqc')}}else w.classList.add('sqc')}
+d.getElementById('sqr').addEventListener('click',function(e){if(e.target.closest('.chip'))setTimeout(function(){q.value='';q.dispatchEvent(new Event('input'));cl()},0)});
+b.addEventListener('click',function(){if(!isOpen())op();else{q.value='';q.dispatchEvent(new Event('input'));cl()}});
+q.addEventListener('blur',function(){setTimeout(function(){if(!q.value.trim()&&d.activeElement!==b)cl()},200)});
+var sh0=d.getElementById('sheet');new MutationObserver(function(){if(!sh0.classList.contains('open')&&isOpen()){q.value='';q.dispatchEvent(new Event('input'));cl()}}).observe(sh0,{attributes:true,attributeFilter:['class']});
+sh0.addEventListener('touchend',function(e){if(sh0.classList.contains('sqon'))e.stopImmediatePropagation()},true);
+q.addEventListener('keydown',function(e){if(e.key==='Escape'){q.value='';q.dispatchEvent(new Event('input'));cl();b.focus()}})}catch(e){}})();</script>
+<style id="hdrbtn">#sheet .sh-h #sx,#sheet .sh-h #sqb,#sheet .sh-h #rptb{width:42px!important;height:42px!important;min-height:0!important;padding:0!important;box-sizing:border-box!important;border-radius:50%!important;display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem!important;line-height:1;flex:none}
+#sheet .sh-h #rptb{border:1.5px solid rgba(224,96,90,.6);background:rgba(224,96,90,.16);color:#ff8f89;text-decoration:none;cursor:pointer}#sheet .sh-h #rptb:active{transform:scale(.92)}
+.sht{gap:8px!important}
+#rpttip{position:fixed;z-index:60;max-width:min(250px,calc(100vw - 16px));box-sizing:border-box;padding:9px 13px;border-radius:12px;background:#2b1513;color:#ffdad6;border:1px solid rgba(224,96,90,.65);box-shadow:0 8px 22px rgba(0,0,0,.45);font-size:.8rem;line-height:1.55;text-align:center;direction:rtl;opacity:0;transform:translateY(5px) scale(.96);transition:opacity .22s,transform .22s;cursor:pointer}
+#rpttip.on{opacity:1;transform:none}
+#rpttip::after{content:"";position:absolute;left:calc(var(--ax,50%) - 6px);width:10px;height:10px;background:#2b1513;transform:rotate(45deg)}
+#rpttip.up::after{bottom:-6px;border-right:1px solid rgba(224,96,90,.65);border-bottom:1px solid rgba(224,96,90,.65)}
+#rpttip.dn::after{top:-6px;border-left:1px solid rgba(224,96,90,.65);border-top:1px solid rgba(224,96,90,.65)}
+@media(prefers-reduced-motion:reduce){#rpttip{transition:none}}</style>
+<script id="rptjs">(function(){try{var d=document,c=d.querySelector('#sheet .sht')||d.querySelector('#sheet .sh-h'),sh=d.getElementById('sheet');if(!c||!sh||d.getElementById('rptb'))return;
+var a=d.createElement('a');a.id='rptb';a.setAttribute('aria-label','للإبلاغ عن خطأ أو للتواصل');a.title='للإبلاغ عن خطأ أو للتواصل';var sub='حصن: إبلاغ عن خطأ / تواصل',body='السلام عليكم،\n\nنوع الرسالة (خطأ في نص / اقتراح / تواصل):\nالقسم أو الموضوع:\nالتفاصيل:\n';a.href='mailto:hisn.elmuslim.tag@gmail.com?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);a.textContent='\u2709\uFE0F';c.appendChild(a);
+/* فقاعة تعريف: مرة في اليوم */
+var KEY='rptTipDay',mem='',tip=null,tm=0,tt=0;
+function day(){var t=new Date();return t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate()}
+function seen(){try{return localStorage.getItem(KEY)===day()}catch(e){return mem===day()}}
+function mark(){mem=day();try{localStorage.setItem(KEY,mem)}catch(e){}}
+function hide(){clearTimeout(tm);clearTimeout(tt);if(tip){var t=tip;tip=null;t.classList.remove('on');setTimeout(function(){t.remove()},260)}}
+function show(){if(tip||seen()||!sh.classList.contains('open'))return;var r=a.getBoundingClientRect();if(!r.width)return;mark();
+var t=d.createElement('div');t.id='rpttip';t.setAttribute('role','status');t.textContent='وجدت خطأً في النصوص؟ أو تريد التواصل معنا؟ اضغط هنا';d.body.appendChild(t);
+var w=t.offsetWidth,h=t.offsetHeight,vw=d.documentElement.clientWidth,cx=r.left+r.width/2,left=Math.max(8,Math.min(vw-w-8,cx-w/2)),up=r.top>h+18;
+t.style.left=left+'px';t.style.top=(up?r.top-h-10:r.bottom+10)+'px';t.style.setProperty('--ax',(cx-left)+'px');t.classList.add(up?'up':'dn');
+requestAnimationFrame(function(){requestAnimationFrame(function(){t.classList.add('on')})});tip=t;tm=setTimeout(hide,6500)}
+new MutationObserver(function(){if(sh.classList.contains('open')){clearTimeout(tt);tt=setTimeout(show,550)}else hide()}).observe(sh,{attributes:true,attributeFilter:['class']});
+d.addEventListener('pointerdown',function(){hide()},true);
+if(sh.classList.contains('open'))tt=setTimeout(show,550)}catch(e){}})();</script>
+<style id="fxcss">
+body.fx-play .play{background:var(--ac)!important;box-shadow:none!important;animation:none!important;transition:none!important}
+body.fx-play .play::before,body.fx-play .play::after{display:none!important}
+body.fx-play .play svg{filter:none!important}
+body.fx-play .play:active{transform:none!important;opacity:.85}
+body.fx-play .halo,body.fx-play .orb::before{display:none!important;animation:none!important}
+body.fx-play .orb .ring .pr{filter:none!important}
+body.fx-ctl .big,body.fx-ctl .big2{background:var(--card)!important;box-shadow:none!important;transition:none!important}
+body.fx-ctl .big2 .hf,body.fx-ctl .big2 .hf svg,body.fx-ctl .hs{transition:none!important;filter:none!important;animation:none!important}
+body.fx-ctl .big2 .hf:active,body.fx-ctl .big2 .hf:hover,body.fx-ctl .big2:active{background:transparent!important;transform:none!important}
+body.fx-ctl .big2 .hf:active svg{transform:none!important;opacity:.7}
+body.fx-ctl .big2 .hs::before{display:none!important}
+body.fx-ctl .hs.spin{background:transparent!important}
+body.fx-ctl .cat::before{box-shadow:none!important;transition:none!important}
+body.fx-ctl .cat button{transition:none!important}
+body.fx-ctl .cat button::after{animation:none!important}
+body.fx-ui .sheet,body.fx-ui .sheet *,body.fx-ui #toast,body.fx-ui #rpttip{animation:none!important;transition:none!important}
+body.fx-ui .sheet.open{will-change:auto}
+</style>
+<script id="fxjs">(function(){try{var d=document,b=d.body,P='ap_';
+var O=[['fxplay','fx-play','إلغاء تأثيرات زر التشغيل'],['fxctl','fx-ctl','إلغاء تأثيرات أزرار التحكم'],['fxui','fx-ui','إلغاء حركات القوائم والكروت']];
+function on(k){try{return localStorage.getItem(P+k)==='1'}catch(e){return false}}
+function ap(){O.forEach(function(o){b.classList.toggle(o[1],on(o[0]))})}
+function mk(w){w.querySelectorAll('.chip').forEach(function(x){var v=on(x.dataset.k);x.classList.toggle('on',v);x.setAttribute('aria-pressed',String(v))})}
+ap();
+var a=d.getElementById('apt');if(!a||d.getElementById('apfx'))return;var n=a.nextElementSibling;
+var w=d.createElement('div');w.id='apfx';
+w.innerHTML='<p class="mutp sth">تخفيف التأثيرات</p><div class="chips" id="apfxc">'+O.map(function(o){return '<button class="chip" type="button" data-k="'+o[0]+'" aria-pressed="false">'+o[2]+'</button>'}).join('')+'</div><p class="mutp">فعّل ما تريد إلغاءه: يشمل زر التشغيل (الكرة والهالات والنبض)، وأزرار السابق والتالي والتقديم والرجوع والتنقل السفلي، وحركات القوائم. يُحفظ اختيارك.</p>';
+(n||a).after(w);
+var c=d.getElementById('apfxc');mk(c);
+c.addEventListener('click',function(e){var x=e.target.closest('.chip');if(!x)return;try{localStorage.setItem(P+x.dataset.k,on(x.dataset.k)?'0':'1')}catch(_){}ap();mk(c);try{navigator.vibrate&&navigator.vibrate(8)}catch(_){}})}catch(e){}})();</script>
 <script>try{if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('./sw.js').then(function(r){window.__swr=r}).catch(function(){})}catch(e){}</script>
 </body>
 </html>
