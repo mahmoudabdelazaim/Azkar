@@ -3702,14 +3702,15 @@ function day(){var t=new Date();return t.getFullYear()+'-'+(t.getMonth()+1)+'-'+
 function seen(){try{return localStorage.getItem(KEY)===day()}catch(e){return mem===day()}}
 function mark(){mem=day();try{localStorage.setItem(KEY,mem)}catch(e){}}
 function hide(){clearTimeout(tm);clearTimeout(tt);if(tip){var t=tip;tip=null;t.classList.remove('on');setTimeout(function(){t.remove()},260)}}
-function show(){if(tip||seen()||!sh.classList.contains('open'))return;var r=a.getBoundingClientRect();if(!r.width)return;mark();
+function show(f){if(tip||(!f&&seen())||!sh.classList.contains('open'))return;var r=a.getBoundingClientRect();if(!r.width)return;mark();
 var t=d.createElement('div');t.id='rpttip';t.setAttribute('role','status');t.textContent='وجدت خطأً في النصوص؟ أو تريد التواصل معنا؟ اضغط هنا';d.body.appendChild(t);
 var w=t.offsetWidth,h=t.offsetHeight,vw=d.documentElement.clientWidth,cx=r.left+r.width/2,left=Math.max(8,Math.min(vw-w-8,cx-w/2)),up=r.top>h+18;
 t.style.left=left+'px';t.style.top=(up?r.top-h-10:r.bottom+10)+'px';t.style.setProperty('--ax',(cx-left)+'px');t.classList.add(up?'up':'dn');
 requestAnimationFrame(function(){requestAnimationFrame(function(){t.classList.add('on')})});tip=t;tm=setTimeout(hide,6500)}
-new MutationObserver(function(){if(sh.classList.contains('open')){clearTimeout(tt);tt=setTimeout(show,550)}else hide()}).observe(sh,{attributes:true,attributeFilter:['class']});
+window.rptTipAgain=function(){hide();try{sh.scrollTo({top:0})}catch(e){sh.scrollTop=0}setTimeout(function(){show(true)},60)};
+new MutationObserver(function(){if(sh.classList.contains('open')){clearTimeout(tt);tt=setTimeout(function(){show()},550)}else hide()}).observe(sh,{attributes:true,attributeFilter:['class']});
 d.addEventListener('pointerdown',function(){hide()},true);
-if(sh.classList.contains('open'))tt=setTimeout(show,550)}catch(e){}})();</script>
+if(sh.classList.contains('open'))tt=setTimeout(function(){show()},550)}catch(e){}})();</script>
 <style id="fxcss">
 body.fx-play .play{background:var(--ac)!important;box-shadow:none!important;animation:none!important;transition:none!important}
 body.fx-play .play::before,body.fx-play .play::after{display:none!important}
@@ -3753,6 +3754,23 @@ c.addEventListener('click',function(e){var x=e.target.closest('.chip');if(!x)ret
 .tbrow #tdel:active{background:rgba(224,96,90,.3)}
 #tundo{display:none!important}
 </style>
+<script id="autolitejs">(function(){try{var d=document,b=d.body,K='ap_autolite',nav=navigator,bat=null;
+function enabled(){try{return localStorage.getItem(K)!=='0'}catch(e){return true}}
+function manual(){try{return localStorage.getItem('ap_lite')==='1'}catch(e){return false}}
+function weak(){var c=nav.connection||{};return !!((nav.deviceMemory&&nav.deviceMemory<=2)||(nav.hardwareConcurrency&&nav.hardwareConcurrency<=2)||c.saveData)}
+function low(){return !!(bat&&!bat.charging&&bat.level<=0.15)}
+var why='';
+function sync(){var a=enabled()&&(weak()||low());why=a?(weak()?'الجهاز محدود الموارد':'البطارية منخفضة'):'';var want=manual()||a;if(b.classList.contains('lite')!==want)b.classList.toggle('lite',want);stat()}
+function stat(){var e=d.getElementById('alS');if(e)e.textContent=enabled()?(why?'مفعّل الآن تلقائيًا: '+why+'.':'غير مفعّل الآن: جهازك وبطاريتك في حالة جيدة.'):'الخيار متوقف، فلن يُفعَّل الوضع الخفيف إلا يدويًا.'}
+new MutationObserver(sync).observe(b,{attributes:true,attributeFilter:['class']});
+try{if(nav.getBattery)nav.getBattery().then(function(x){bat=x;x.addEventListener('levelchange',sync);x.addEventListener('chargingchange',sync);sync()}).catch(function(){})}catch(e){}
+sync();
+var w=d.getElementById('apfx');
+if(w&&!d.getElementById('alT')){var h=d.createElement('div');h.innerHTML='<p class="mutp sth">الوضع الخفيف التلقائي</p><div class="chips"><button class="chip" id="alT" type="button" aria-pressed="true">وضع خفيف تلقائي</button></div><p class="mutp" id="alS" role="status"></p><p class="mutp">يفعّل الوضع الخفيف وحده على الأجهزة الضعيفة، أو عند تفعيل توفير البيانات، أو عندما تنخفض البطارية إلى ١٥٪ أو أقل ولا يكون الجهاز على الشاحن. إن أردت منعه أوقف هذا الخيار.</p>';while(h.firstChild)w.appendChild(h.firstChild);
+var t=d.getElementById('alT');function mk(){var o=enabled();t.classList.toggle('on',o);t.setAttribute('aria-pressed',String(o));stat()}mk();
+t.addEventListener('click',function(){try{localStorage.setItem(K,enabled()?'0':'1')}catch(e){}sync();mk();try{navigator.vibrate&&navigator.vibrate(8)}catch(_){}})}
+var tg=d.getElementById('tourAgain');if(tg&&!d.getElementById('rptAgain')){var r=d.createElement('button');r.className='chip';r.id='rptAgain';r.type='button';r.textContent='إعادة عرض فقاعة الإبلاغ';tg.after(r);r.addEventListener('click',function(){window.rptTipAgain&&window.rptTipAgain()})}
+}catch(e){}})();</script>
 <script>try{if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('./sw.js').then(function(r){window.__swr=r}).catch(function(){})}catch(e){}</script>
 </body>
 </html>
