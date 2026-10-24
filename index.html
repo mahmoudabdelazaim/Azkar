@@ -591,6 +591,25 @@ body.quiet #wx,body.quiet #toast,body.quiet #nt31,body.quiet .nt31{display:none!
 #qtH{position:fixed;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--ink);font-size:1rem;opacity:0;pointer-events:none;transition:opacity .6s;text-shadow:0 1px 8px rgba(0,0,0,.6);z-index:50}
 #qtH small{display:block;font-size:.85rem;opacity:.8;margin-top:4px}
 body.quiet #qtH.show{opacity:.9}
+#tour{position:fixed;inset:0;z-index:110;direction:rtl}
+#tourHole{position:fixed;border-radius:18px;box-shadow:0 0 0 100vmax rgba(5,9,20,.82);outline:2px solid var(--ac);pointer-events:none;transition:left .35s ease,top .35s ease,width .35s ease,height .35s ease;animation:tourP 2.2s ease-in-out infinite}
+#tourHole.c{outline-color:transparent;animation:none}
+@keyframes tourP{50%{outline-color:color-mix(in srgb,var(--ac) 30%,transparent)}}
+#tourCard{position:fixed;left:50%;transform:translateX(-50%);width:min(92vw,390px);padding:14px 16px 14px;border-radius:22px;background:rgba(14,22,44,.98);border:1.5px solid var(--line);color:var(--ink);display:flex;flex-direction:column;gap:8px;box-shadow:0 18px 50px rgba(0,0,0,.5);transition:top .3s ease,opacity .2s}
+#tourCard .tmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--mut)}
+#tourCard .tg{display:flex;align-items:center;gap:8px}
+#tourCard .tc{font-weight:600;padding:1px 9px;border-radius:99px;background:var(--line);color:var(--ink);font-size:.75rem}
+#tourCard .tskip{min-height:0;padding:4px 8px;border:0;background:none;color:var(--mut);font:inherit;font-size:.8rem;text-decoration:underline;cursor:pointer}
+#tourCard h2{margin:0;font-family:Amiri,serif;font-size:1.45rem;color:var(--ac);line-height:1.3}
+#tourCard .tbody{overflow-y:auto;min-height:0;font-size:.92rem;line-height:1.75;color:var(--ink);scrollbar-width:thin}
+#tourCard .tbody p{margin:0 0 6px;color:var(--mut)}
+#tourCard .tbody p.tp2{margin:8px 0 0}
+#tourCard .tbody ul{margin:4px 0 0;padding:0 18px 0 0;display:flex;flex-direction:column;gap:3px}
+#tourCard .tbody li{color:var(--ink)}
+#tourCard .tbar{height:3px;border-radius:3px;background:var(--line);overflow:hidden;flex:none}
+#tourCard .tbar i{display:block;height:100%;background:var(--ac);transition:width .3s}
+#tourCard .tbtns{display:flex;gap:8px;justify-content:center;flex:none;flex-direction:row-reverse}
+@media(prefers-reduced-motion:reduce){#tourHole,#tourCard{transition:none;animation:none}}
 .chip:disabled{opacity:.4;pointer-events:none}
 #tsbSet .chips{margin-bottom:6px}
 #tsbSet .chip{min-height:36px}
@@ -861,7 +880,7 @@ var mo=new MutationObserver(function(){if(d.getElementById('splash')){rm();mo.di
 <section class="sc" data-p="m"><h3>أعمال الحج والعمرة</h3><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">العمرة</p><div class="qd"><div class="qr"><span>١. الإحرام من الميقات</span></div><div class="qr"><span>٢. الطواف بالبيت</span><b style="font-size:.8rem;min-width:0">٧ أشواط</b></div><div class="qr"><span>٣. السعي بين الصفا والمروة</span><b style="font-size:.8rem;min-width:0">٧ أشواط</b></div><div class="qr"><span>٤. الحلق أو التقصير</span></div></div><p class="mutp" style="margin:8px 0 6px;text-align:start;color:var(--ac);font-weight:600">الحج</p><div class="qd"><div class="qr"><span>٨ ذو الحجة (التروية)</span><b style="font-size:.8rem;min-width:0">الإحرام والتوجه إلى منى</b></div><div class="qr"><span>٩ (يوم عرفة)</span><b style="font-size:.8rem;min-width:0">الوقوف بعرفة ثم مزدلفة</b></div><div class="qr"><span>١٠ (يوم النحر)</span><b style="font-size:.8rem;min-width:0">رمي جمرة العقبة والنحر والحلق وطواف الإفاضة</b></div><div class="qr"><span>١١ إلى ١٣ (التشريق)</span><b style="font-size:.8rem;min-width:0">رمي الجمرات الثلاث والمبيت بمنى</b></div><div class="qr"><span>عند المغادرة</span><b style="font-size:.8rem;min-width:0">طواف الوداع</b></div></div><p class="mutp">تختلف الصور بحسب نوع النسك (تمتع أو قران أو إفراد)، فاتبع إرشاد حملتك وأهل العلم</p></section>
   <section class="sc" data-p="s"><h3>صيام التطوع</h3><p class="mutp" style="margin:0 0 6px">الاثنان والخميس هذا الأسبوع</p><div class="ck" id="vfw"></div><p class="mutp" style="margin:12px 0 6px">الأيام البيض هذا الشهر الهجري</p><div class="ck" id="vfb"></div></section>
   <section class="sc" data-p="s"><h3>مواعيدي</h3><div class="add"><input id="evt" maxlength="40" placeholder="اسم الموعد" aria-label="اسم الموعد" autocomplete="off"><input id="evd" type="date" aria-label="تاريخ الموعد"></div><div class="chips" style="justify-content:center;margin:8px 0"><button class="chip" id="eva">إضافة</button></div><div class="qd" id="evl"></div><p class="mutp">اضغط على الموعد لحذفه</p></section>
-<section class="sc" data-p="c"><h3>إعدادات المظهر</h3><p class="mutp sth">الخلفية</p><div class="chips" id="bgC"></div><p class="mutp" id="bgN"></p><p class="mutp sth">اللون المميز</p><div class="chips" id="apc"></div><p class="mutp sth">حجم الخط</p><div class="chips" id="apf"><button class="chip" data-f="90">صغير</button><button class="chip" data-f="100">عادي</button><button class="chip" data-f="115">كبير</button><button class="chip" data-f="130">أكبر</button></div><p class="mutp sth">الأداء</p><div class="chips" id="apt"><button class="chip" data-k="lite">وضع خفيف</button></div><p class="mutp">الوضع الخفيف يوقف تأثيرات السماء لتوفير البطارية.</p></section>
+<section class="sc" data-p="c"><h3>إعدادات المظهر</h3><p class="mutp sth">الخلفية</p><div class="chips" id="bgC"></div><p class="mutp" id="bgN"></p><p class="mutp sth">اللون المميز</p><div class="chips" id="apc"></div><p class="mutp sth">حجم الخط</p><div class="chips" id="apf"><button class="chip" data-f="90">صغير</button><button class="chip" data-f="100">عادي</button><button class="chip" data-f="115">كبير</button><button class="chip" data-f="130">أكبر</button></div><p class="mutp sth">الأداء</p><div class="chips" id="apt"><button class="chip" data-k="lite">وضع خفيف</button></div><p class="mutp">الوضع الخفيف يوقف تأثيرات السماء لتوفير البطارية.</p><p class="mutp sth">الجولة التعريفية</p><div class="chips"><button class="chip" id="tourAgain" type="button">إعادة الجولة التعريفية</button></div></section>
 <section class="sc" data-p="b"><h3>ضبط المواقيت</h3><p class="mutp" style="margin:0 0 6px;text-align:start">طريقة الحساب</p><select id="pmM" class="pmsel" aria-label="طريقة الحساب"></select><p class="mutp" style="margin:6px 0;text-align:start">المذهب في العصر</p><select id="pmA" class="pmsel" aria-label="المذهب في العصر"></select><p class="mutp" style="margin:6px 0;text-align:start">المدينة</p><select id="pmC" class="pmsel" aria-label="المدينة"></select><p class="mutp" style="margin:6px 0;text-align:start">تعديل بالدقائق</p><div class="qd" id="pmJ"></div><p class="mutp" style="margin:12px 0 6px;text-align:start">مواقيت اليوم بهذا الضبط</p><div class="qd" id="pmP"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="pmR">إعادة الضبط</button></div></section>
   <section class="sc" data-p="b"><h3>إمساكية رمضان</h3><div class="seg" id="imc"><button class="chip on" data-k="ram">رمضان</button><button class="chip" data-k="m30">٣٠ يومًا من اليوم</button></div><p class="mutp" id="imi" style="text-align:start"></p><div style="overflow-x:auto" id="imt"></div><div class="chips" style="justify-content:center;margin-top:10px"><button class="chip" id="imp">طباعة</button><button class="chip" id="imy">نسخ الجدول</button></div></section>
   <section class="sc" data-p="c"><h3>التقرير الأسبوعي</h3><div class="qd" id="wkr"></div><p class="duat" id="wkm"></p><div class="chips" style="justify-content:center"><button class="chip" id="wks">شارك تقريرك كصورة</button></div></section>
@@ -1105,13 +1124,10 @@ const MY_AUDIO = [
 	{ title: 'سورة الكهف',					file: 'audio/quran/018.mp3',				type: 'kahf' },  
 	{ title: 'سورة الكهف',					file: 'audio/quran/018.mp3',				type: 'quran' },  
 
-	{ title: 'سورة هود',					file: 'audio/quran/011.mp3',				type: 'quran' },
 	{ title: 'سورة يوسف',					file: 'audio/quran/012.mp3',				type: 'quran' },
-	{ title: 'سورة يوسف',					file: 'audio/quran/012_1.mp3',				type: 'quran' },
 	{ title: 'سورة ابراهيم',				file: 'audio/quran/014.mp3',				type: 'quran' },
 	{ title: 'سورة الحجر',					file: 'audio/quran/015.mp3',				type: 'quran' },
 	{ title: 'سورة الحج',					file: 'audio/quran/022.mp3',				type: 'quran' },
-	{ title: 'سورة فصلت',					file: 'audio/quran/041.mp3',				type: 'quran' },
 	{ title: 'سورة الزخرف',					file: 'audio/quran/043.mp3',				type: 'quran' },
 
 	{ title: 'سورة ق',						file: 'audio/quran/050.mp3',				type: 'quran' },
@@ -1160,8 +1176,6 @@ const MY_AUDIO = [
 	{ title: 'مولاي إني ببابك',			file: 'audio/anasheed/mawlay-inni-bibabik.mp3',	type: 'anasheed' },
 	{ title: 'يا عباد الله جدوا', file: 'audio/anasheed/ya-ibad-allah-juddu.mp3', type: 'anasheed' },
 	{ title: 'لسوف أعود يا أمي', file: 'audio/anasheed/Ommi.mp3', type: 'anasheed' },
-	{ title: 'يا طيبه', file: 'audio/anasheed/YaTiba.mp3', type: 'anasheed' },
-	{ title: 'هزتني', file: 'audio/anasheed/Hztny.mp3', type: 'anasheed' },
 
 
 // ibtihalat
@@ -1197,78 +1211,19 @@ const MY_AUDIO = [
    - ضع الملفات في مجلد audio/ambient/ (أو غيّر المسار). يُفضَّل ملف مدته دقيقة أو أكثر.
    - يمكنك إضافة أكثر من ملف لنفس النوع، فيتبدّل بينها عشوائيًا مع كل دورة.
    - أي نوع بلا ملف يتخطّاه التطبيق بهدوء ويستخدم البديل المذكور أعلاه.
-   
-   تجرّبها بنفسك من غير سكربت
-افتح index.html?wx=storm وغيّر الكلمة (rain / snow / fog / heavy / windy…).
    ========================================================================== */
 const AMBIENT_VOLUME = 0.8;   // مستوى الصوت العام لوضع السكون من 0 إلى 1
 const MY_AMBIENT = [
-	{ type: 'birds',     file: 'audio/ambient/birds1.mp3' },
-	{ type: 'birds',     file: 'audio/ambient/birds2.mp3' },
-	{ type: 'birds',     file: 'audio/ambient/birds3.mp3' },
-	
-	{ type: 'crickets',  file: 'audio/ambient/crickets1.mp3' },
-	{ type: 'crickets',  file: 'audio/ambient/crickets2.mp3' },
-	{ type: 'crickets',  file: 'audio/ambient/crickets3.mp3' },
-	{ type: 'crickets',  file: 'audio/ambient/crickets4.mp3' },
-	{ type: 'crickets',  file: 'audio/ambient/crickets5.mp3' },
-	
-	{ type: 'frogs',     file: 'audio/ambient/frogs1.mp3' },
-	{ type: 'frogs',     file: 'audio/ambient/frogs2.mp3' },
-	{ type: 'frogs',     file: 'audio/ambient/frogs3.mp3' },
-	{ type: 'frogs',     file: 'audio/ambient/frogs4.mp3' },
-
-
-	{ type: 'wind',      file: 'audio/ambient/wind1.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind2.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind3.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind4.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind5.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind6.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind7.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind8.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind9.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind10.mp3' },
-
-
-
-	{ type: 'lightrain', file: 'audio/ambient/lightrain1.mp3' },
-	{ type: 'lightrain', file: 'audio/ambient/lightrain2.mp3' },
-	{ type: 'lightrain', file: 'audio/ambient/lightrain3.mp3' },
-	{ type: 'lightrain', file: 'audio/ambient/lightrain4.mp3' },
-	{ type: 'lightrain', file: 'audio/ambient/lightrain5.mp3' },
-	{ type: 'lightrain', file: 'audio/ambient/lightrain6.mp3' },
-	
-	
-	
-	{ type: 'rain',      file: 'audio/ambient/rain1.mp3' },
-	{ type: 'rain',      file: 'audio/ambient/rain2.mp3' },
-	
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain1.mp3' },
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain2.mp3' },
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain3.mp3' },
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain4.mp3' },
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain5.mp3' },
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain6.mp3' },
-
-
-	{ type: 'storm',     file: 'audio/ambient/storm1.mp3' },
-	{ type: 'storm',     file: 'audio/ambient/storm2.mp3' },
-	{ type: 'storm',     file: 'audio/ambient/storm3.mp3' },
-	{ type: 'storm',     file: 'audio/ambient/storm4.mp3' },
-	{ type: 'storm',     file: 'audio/ambient/storm5.mp3' },
-	
-	{ type: 'thunder', file: 'audio/ambient/thunder1.mp3' },
-	{ type: 'thunder', file: 'audio/ambient/thunder2.mp3' },
-	{ type: 'thunder', file: 'audio/ambient/thunder3.mp3' },
-	{ type: 'thunder', file: 'audio/ambient/thunder4.mp3' },
-	{ type: 'thunder', file: 'audio/ambient/thunder5.mp3' },
-	{ type: 'thunder', file: 'audio/ambient/thunder6.mp3' },
-	
-	
-	{ type: 'snow',    file: 'audio/ambient/snow1.mp3' },
-	{ type: 'snow',    file: 'audio/ambient/snow2.mp3' },
-	{ type: 'snow',    file: 'audio/ambient/snow3.mp3' },
+	{ type: 'birds',     file: 'audio/ambient/birds.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain.mp3' },
+	{ type: 'rain',      file: 'audio/ambient/rain.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm.mp3' },
+	// { type: 'thunder', file: 'audio/ambient/thunder.mp3' },
+	// { type: 'snow',    file: 'audio/ambient/snow.mp3' },
 ];
 /* ========================= نهاية منطقة التعديل ========================= */
 
@@ -2420,13 +2375,13 @@ if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{lat=p.coor
       {t:'مرحبًا بك',p:'نجهّز التطبيق في خطوات سريعة ليناسبك.',x:()=>''},
       {t:'حدّد موقعك',p:'لنحسب مواقيت الصلاة واتجاه القبلة بدقة.',x:b=>{b.innerHTML='<button class="chip" id="obg">تحديد موقعي</button><p class="mutp">أو اختر مدينتك:</p><select class="pmsel" id="obc" aria-label="المدينة"><option value="">—</option>'+CITY.map(c=>`<option>${c[0]}</option>`).join('')+'</select><p id="obm"></p>';b.querySelector('#obg').onclick=()=>geo(m=>b.querySelector('#obm').textContent=m);b.querySelector('#obc').onchange=e=>{const o=pmGet();o.city=e.target.value;pmSave(o);refresh();b.querySelector('#obm').textContent=e.target.value?'تم ضبط المدينة ✓':''}}},
       {t:'طريقة الحساب',p:'اختر الجهة المعتمدة في بلدك، ويمكنك تغييرها لاحقًا من «ضبط المواقيت».',x:b=>{b.innerHTML='<select class="pmsel" id="obs" aria-label="طريقة الحساب">'+Object.entries(METH).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')+'</select>';const s=b.querySelector('#obs');s.value=pmGet().m;s.onchange=()=>{const q=pmGet();q.m=s.value;pmSave(q);refresh();pmM&&pmR()}}},
-      {t:'عرض الخلفية',p:'هذا الزر في أعلى الصفحة بين التاريخ ووقت الصلاة القادمة. اضغطه لإخفاء كل الواجهة وإبقاء الخلفية واسم المقطع فقط لتستمتع بالمشهد، ثم اضغط في أي مكان للرجوع. وتختار شكل الخلفية من الإعدادات.',x:b=>{b.innerHTML='<span class="immdemo" aria-hidden="true">'+'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><circle cx="12" cy="12" r="2.6"/></svg>'+'</span>'}},
-      {t:'أضفه إلى شاشتك',p:ios?'اضغط زر المشاركة في سفاري ثم «إضافة إلى الشاشة الرئيسية»، وافتحه من الأيقونة ليعمل بكامل الشاشة.':'من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية» ليعمل بكامل الشاشة.',x:()=>''}];
-    const draw=()=>{const s=S[i];o.innerHTML='<div class="cd2"><h2>'+s.t+'</h2><p>'+s.p+'</p><div id="obx"></div><div class="dots">'+S.map((_,k)=>'<i class="'+(k===i?'on':'')+'"></i>').join('')+'</div><div class="chips" style="justify-content:center"><button class="chip" id="obk">'+(i<S.length-1?'التالي':'ابدأ')+'</button>'+(i<S.length-1?'<button class="chip" id="obs0">تخطي</button>':'')+'</div></div>';
-      s.x(o.querySelector('#obx'));o.querySelector('#obk').onclick=()=>{if(i<S.length-1){i++;draw()}else fin()};const sk=o.querySelector('#obs0');if(sk)sk.onclick=fin};
-    const fin=()=>{ss('ap_ob','1');o.remove()};
+      {t:'جولة تعريفية',p:'سنمرّ الآن على كل أزرار التطبيق وخدماته خطوة بخطوة: التشغيل، وضع إخفاء الأزرار، وضع السكون، الخدمات والإعدادات. تستغرق دقيقتين تقريبًا، ويمكنك إعادتها لاحقًا من «إعدادات المظهر».',x:()=>''}];
+    const draw=()=>{const s=S[i];o.innerHTML='<div class="cd2"><h2>'+s.t+'</h2><p>'+s.p+'</p><div id="obx"></div><div class="dots">'+S.map((_,k)=>'<i class="'+(k===i?'on':'')+'"></i>').join('')+'</div><div class="chips" style="justify-content:center"><button class="chip" id="obk">'+(i<S.length-1?'التالي':'ابدأ الجولة')+'</button><button class="chip" id="obs0">'+(i<S.length-1?'تخطي':'لاحقًا')+'</button></div></div>';
+      s.x(o.querySelector('#obx'));o.querySelector('#obk').onclick=()=>{if(i<S.length-1){i++;draw()}else fin(1)};const sk=o.querySelector('#obs0');if(sk)sk.onclick=()=>fin(0)};
+    const fin=go=>{ss('ap_ob','1');o.remove();if(go&&window.apTour)window.apTour();else ss('ap_tour','1')};
     d.body.appendChild(o);draw()};
   if(!gs('ap_ob')){const w=setInterval(()=>{if(d.getElementById('splash'))return;clearInterval(w);setTimeout(build,400)},600)}
+  else if(!gs('ap_tour')){const w=setInterval(()=>{if(d.getElementById('splash'))return;clearInterval(w);setTimeout(()=>{if(window.apTour)window.apTour()},900)},600)}
 })();
 </script>
 <script>
@@ -3476,6 +3431,92 @@ sync();buildRows();render();
   d.addEventListener('wxchange',()=>refresh());
   try{new MutationObserver(()=>refresh()).observe(B,{attributes:true,attributeFilter:['data-p','data-wx']})}catch(_){}
   window.__quiet={scene,enter,exit,layers,bad};
+})();
+</script>
+<script>
+/* v41: جولة تعريفية تفصيلية: تسليط ضوء على كل زر وخدمة. تظهر مرة واحدة، وتُعاد من الإعدادات ← المظهر */
+(function(){
+  const d=document,$=i=>d.getElementById(i),K='ap_tour',
+    gs=k=>{try{return localStorage.getItem(k)}catch(e){return null}},ss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},
+    ar=n=>String(n).replace(/\d/g,x=>'٠١٢٣٤٥٦٧٨٩'[x]),
+    ios=/iPhone|iPad|iPod/.test(navigator.userAgent),
+    wait=ms=>new Promise(r=>setTimeout(r,ms)),
+    still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MAIN='الشاشة الرئيسية',SV='الخدمات',ST='الإعدادات',END='ختام';
+  const S=[
+    {g:MAIN,sel:'#hbtn',ic:'📅',t:'التاريخ الهجري',p:'اضغط عليه لتفتح بطاقة التاريخ:',li:['اليوم والتاريخ الميلادي','التاريخ القبطي والهجري الشمسي','طور القمر','المناسبات الإسلامية القريبة']},
+    {g:MAIN,sel:'#immB',ic:'🖼️',t:'وضع إخفاء الأزرار',p:'يُخفي كل الأزرار والقوائم ويُبقي الخلفية واسم المقطع فقط، والصوت يواصل التشغيل كما هو. مناسب لتتأمل المشهد أثناء الاستماع.',p2:'اضغط في أي مكان للرجوع.'},
+    {g:MAIN,sel:'#quietB',ic:'🌙',t:'وضع السكون',p:'يعرض الخلفية فقط بلا أي أزرار أو أسماء، ويوقف المشغّل، ويشغّل صوتًا من الطبيعة يناسب وقتك وطقسك الحقيقيين ويتكرر تلقائيًا ما دامت الصفحة مفتوحة:',li:['🐦 عصافير في الفجر والنهار','🦗 صراصير الحقل عند المغرب، ومعها 🐸 الضفادع في الليل','🌬️ رياح عند اشتدادها','🌦️ مطر خفيف، 🌧️ مطر، ومطر غزير','⛈️ عاصفة رعدية'],p2:'يتبدّل الصوت وحده لو تغيّر الجو أو دخل وقت جديد. اضغط في أي مكان للخروج.'},
+    {g:MAIN,sel:'#pbtn',ic:'🕌',t:'الصلاة القادمة',p:'عدّاد تنازلي لأقرب صلاة. اضغط عليه لتظهر مواقيت اليوم كاملة مع اتجاه القبلة، وتُضبط المواقيت من «الإعدادات».'},
+    {g:MAIN,sel:'#title',ic:'🎧',t:'اسم المقطع',p:'يظهر هنا اسم الذكر أو السورة أو المقطع الشغّال. وفي قسم «أذكار» يظهر تحته شريط للتبديل بين: الأذكار والابتهالات والأناشيد.'},
+    {g:MAIN,sel:'.ctl',ic:'▶️',t:'أزرار التحكم',li:['الدائرة الذهبية: تشغيل وإيقاف مؤقت، وحولها حلقة تقدّم والوقت تحتها','السابق والتالي: للانتقال بين المقاطع','رجوع ١٠ ثوانٍ وتقديم ١٠ ثوانٍ: على جانبي الدائرة']},
+    {g:MAIN,sel:'#cat',ic:'🧭',t:'أقسام التشغيل',li:['الآن: يختار لك الأنسب للوقت: أذكار الصباح أو المساء، وسورة الكهف يوم الجمعة، أو ورد هادئ','قرآن: سور القرآن الكريم','أذكار: الأذكار والابتهالات والأناشيد'],p2:'والأذان يُشغَّل تلقائيًا عند دخول كل صلاة ما دام التطبيق مفتوحًا.'},
+    {g:MAIN,sel:'#svc',ic:'🗂️',t:'زر الخدمات',p:'يفتح قائمة الخدمات: أدوات وأحكام ومتابعات للعبادة مقسّمة على ستة أقسام. سنفتحها الآن لنتعرّف عليها.'},
+    {g:SV,sheet:1,sel:'#stabs',ic:'🗂️',t:'أقسام الخدمات الستة',p:'اضغط على أي قسم لتظهر موضوعاته، وزر الرجوع يعيدك إلى كل الأقسام. وفيها أكثر من ١٥٠ حكمًا شرعيًا مبسّطًا موزّعة على الأقسام، إضافةً إلى حاسبات ودفاتر ومتابعات.'},
+    {g:SV,sheet:1,sel:'#stabs [data-t="dhk"]',ic:'📿',t:'الذكر',li:['المسبحة: عدّاد تسبيح بملء الشاشة','أذكار اليوم: الصباح والمساء، بعد الصلاة، النوم، الاستيقاظ','أذكار المناسبات: المناسبات، الاستخارة، دخول المنزل، مفضلتي','الرقية الشرعية: آيات، أدعية، استماع، آداب','نفحة اليوم: ذكر، دعاء، حديث، أسماء الله الحسنى، الأربعون النووية']},
+    {g:SV,sheet:1,sel:'#stabs [data-t="sal"]',ic:'🕌',t:'الصلاة',li:['الصلوات: متتبع اليوم، القضاء، الاستعداد للصلاة','المواقيت والقبلة: مواقيت الغد، الضحى والليل، اتجاه القبلة','النوافل والسنن: نوافل اليوم، الرواتب، الجمعة، قيام الليل','أحكام الصلاة، الطهارة والنظافة، الحيض والنفاس','دروس الوضوء والركعات وصلاة المسافر']},
+    {g:SV,sheet:1,sel:'#stabs [data-t="siy"]',ic:'🌙',t:'الصيام',li:['صيام الفرض: اليوم، رمضان، القضاء، الإمساكية، ساعات الصيام','صيام السنة: الصيام المستحب القادم، ست شوال، التطوع','أحكام الصيام']},
+    {g:SV,sheet:1,sel:'#stabs [data-t="zak"]',ic:'💰',t:'الزكاة',li:['الزكاة والكفارات: زكاة المال، زكاة الفطر، الكفارات والفدية','الصدقات: سجل الصدقات، خطة شهرية، الصدقة الجارية','أحكام الزكاة، وحول الزكاة']},
+    {g:SV,sheet:1,sel:'#stabs [data-t="qur"]',ic:'📖',t:'القرآن',li:['ورد القرآن: اليوم، الأسبوع، الختمات، مؤقت التدبر','الختمة والحفظ: خطة الختمة، حاسبة الورد، متابعة الحفظ، المراجعة، حاسبة الحفظ، خريطة الحفظ','علوم القرآن: التجويد، فهرس السور، الأنبياء، دفتر تدبر الآيات']},
+    {g:SV,sheet:1,sel:'#stabs [data-t="mor"]',ic:'☰',t:'المزيد',li:['تزكية النفس: عادات الخير، ودفاتر الفوائد والامتنان والمحاسبة والدعوات','أحكام العقيدة والحج والنذر واليمين والجنائز','أحكام المال والمعاملات والأسرة والميراث','أحكام اللباس والطعام والترفيه والأخلاق','تعلّم واختبر معلوماتك','أدوات: إنجازاتي، التقويم والمناسبات، الإعدادات']},
+    {g:ST,sheet:1,ic:'⚙️',t:'الإعدادات',p:'تجدها في «المزيد ← الإعدادات»:',li:['التنبيهات: تشغيل الأذان تلقائيًا عند دخول كل وقت','المواقيت: طريقة الحساب والمذهب والمدينة والتعديل بالدقائق','التشغيل: سرعة الصوت (أبطأ قليلًا أو أسرع حتى مرة ونصف) ومؤقت النوم الذي يخفض الصوت تدريجيًا ثم يوقفه','المظهر: شكل الخلفية واللون المميز وحجم الخط والوضع الخفيف لتوفير البطارية','المسبحة: الهدف اليومي وألوان الزر وصوت النقر والاهتزاز','نسخة احتياطية: حفظ بياناتك في ملف واستعادتها'],p2:'يمكنك إعادة هذه الجولة من «إعدادات المظهر».'},
+    {g:END,ic:'📲',t:'أضفه إلى شاشتك',p:ios?'اضغط زر المشاركة في سفاري ثم «إضافة إلى الشاشة الرئيسية»، وافتحه من الأيقونة ليعمل بكامل الشاشة.':'من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية» ليعمل بكامل الشاشة.',p2:'بارك الله فيك، وتقبّل منك.',last:1}
+  ];
+  let idx=0,root,hole,card,busy=false;
+  const el=(tag,cls,txt)=>{const e=d.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
+  const rectOf=s=>{if(!s.sel)return null;const e=d.querySelector(s.sel);if(!e)return null;const r=e.getBoundingClientRect();return r.width&&r.height?r:null};
+  function place(){
+    if(!root)return;
+    const s=S[idx],r=rectOf(s),vw=innerWidth,vh=innerHeight,gap=14,pad=8;
+    if(!r){hole.className='c';Object.assign(hole.style,{left:vw/2+'px',top:vh/2+'px',width:'0px',height:'0px'});
+      card.style.maxHeight=Math.round(vh*.8)+'px';card.style.top=Math.max(12,Math.round((vh-card.offsetHeight)/2))+'px';return}
+    const x=Math.max(4,r.left-pad),y=Math.max(4,r.top-pad),w=Math.min(vw-8,r.width+pad*2),h=Math.min(vh-8,r.height+pad*2),
+      below=vh-(y+h)-gap,above=y-gap;
+    hole.className='';Object.assign(hole.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
+    card.style.maxHeight=Math.round(Math.max(190,Math.min(vh*.72,Math.max(below,above))))+'px';
+    const ch=card.offsetHeight;let top=(below>=ch||below>=above)?y+h+gap:y-gap-ch;
+    card.style.top=Math.round(Math.max(10,Math.min(vh-ch-10,top)))+'px'}
+  function render(){
+    const s=S[idx],n=S.length;card.textContent='';
+    const m=el('div','tmeta');const tg=el('span','tg');tg.append(el('span',null,s.g),el('b','tc',ar(idx+1)+' من '+ar(n)));m.append(tg);
+    if(!s.last){const k=el('button','tskip','تخطي الجولة');k.type='button';k.onclick=()=>end();m.append(k)}
+    const h=el('h2');h.append(el('span','tic',s.ic),d.createTextNode(' '+s.t));
+    const b=el('div','tbody');if(s.p)b.append(el('p',null,s.p));
+    if(s.li){const u=el('ul');s.li.forEach(x=>u.append(el('li',null,x)));b.append(u)}
+    if(s.p2)b.append(el('p','tp2',s.p2));
+    const bar=el('div','tbar'),fill=el('i');fill.style.width=((idx+1)/n*100)+'%';bar.append(fill);
+    const bt=el('div','tbtns'),nx=el('button','chip on',s.last?'ابدأ الاستخدام':'التالي');nx.type='button';nx.id='tnext';nx.onclick=()=>go(1);bt.append(nx);
+    if(idx>0){const pv=el('button','chip','السابق');pv.type='button';pv.id='tprev';pv.onclick=()=>go(-1);bt.append(pv)}
+    card.append(m,h,b,bar,bt)}
+  async function show(i){
+    if(busy)return;busy=true;idx=i;const s=S[i],sh=$('sheet'),isOpen=sh&&sh.classList.contains('open');
+    card.style.opacity='0';
+    try{
+      if(s.sheet&&!isOpen){$('svc').click();await wait(still?60:520)}
+      else if(!s.sheet&&isOpen){$('sx').click();await wait(still?60:520)}
+      const e=s.sel&&d.querySelector(s.sel);if(e){const r=e.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)e.scrollIntoView({block:'center'})}
+      render();place();card.style.opacity='1';
+      const nx=$('tnext');if(nx)nx.focus({preventScroll:true})
+    }finally{busy=false}}
+  const go=dir=>{const j=idx+dir;if(j<0)return;if(j>=S.length)end();else show(j)};
+  function end(){
+    if(!root)return;ss(K,'1');
+    const sh=$('sheet');if(sh&&sh.classList.contains('open')){try{$('sx').click()}catch(e){}}
+    removeEventListener('resize',place);d.removeEventListener('keydown',key,true);root.remove();root=null}
+  function key(e){if(!root)return;
+    if(e.key==='Escape'){e.preventDefault();e.stopPropagation();end()}
+    else if(e.key==='ArrowLeft'||e.key==='Enter'){e.preventDefault();e.stopPropagation();go(1)}
+    else if(e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();go(-1)}}
+  window.apTour=function(){
+    if(root)return;
+    root=el('div');root.id='tour';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-label','جولة تعريفية');
+    hole=el('div');hole.id='tourHole';hole.className='c';card=el('div');card.id='tourCard';card.style.opacity='0';
+    root.append(hole,card);d.body.appendChild(root);
+    addEventListener('resize',place);d.addEventListener('keydown',key,true);
+    show(0)};
+  /* زر إعادة الجولة في إعدادات المظهر */
+  const ta=$('tourAgain');if(ta)ta.onclick=()=>window.apTour();
+  window.__tour={steps:S,show,place,end};
 })();
 </script>
 <script>
