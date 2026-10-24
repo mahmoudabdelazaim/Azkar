@@ -1116,7 +1116,7 @@ const MY_AUDIO = [
 	// أناشيد (مثال):
 	// { title: 'طلع البدر علينا', file: 'audio/anasheed/tala3.mp3', type: 'anasheed' },
 
-	// adhan
+		// adhan
 
 	{ title: 'الأذان',						file: 'audio/adhan/adhan.mp3',			type: 'adhan' },
 	{ title: 'اذان الفجر',					file: 'audio/adhan/adhan_fajr.mp3',		type: 'adhan_fajr' },
@@ -1124,10 +1124,13 @@ const MY_AUDIO = [
 	{ title: 'سورة الكهف',					file: 'audio/quran/018.mp3',				type: 'kahf' },  
 	{ title: 'سورة الكهف',					file: 'audio/quran/018.mp3',				type: 'quran' },  
 
+	{ title: 'سورة هود',					file: 'audio/quran/011.mp3',				type: 'quran' },
 	{ title: 'سورة يوسف',					file: 'audio/quran/012.mp3',				type: 'quran' },
+	{ title: 'سورة يوسف',					file: 'audio/quran/012_1.mp3',				type: 'quran' },
 	{ title: 'سورة ابراهيم',				file: 'audio/quran/014.mp3',				type: 'quran' },
 	{ title: 'سورة الحجر',					file: 'audio/quran/015.mp3',				type: 'quran' },
 	{ title: 'سورة الحج',					file: 'audio/quran/022.mp3',				type: 'quran' },
+	{ title: 'سورة فصلت',					file: 'audio/quran/041.mp3',				type: 'quran' },
 	{ title: 'سورة الزخرف',					file: 'audio/quran/043.mp3',				type: 'quran' },
 
 	{ title: 'سورة ق',						file: 'audio/quran/050.mp3',				type: 'quran' },
@@ -1176,6 +1179,8 @@ const MY_AUDIO = [
 	{ title: 'مولاي إني ببابك',			file: 'audio/anasheed/mawlay-inni-bibabik.mp3',	type: 'anasheed' },
 	{ title: 'يا عباد الله جدوا', file: 'audio/anasheed/ya-ibad-allah-juddu.mp3', type: 'anasheed' },
 	{ title: 'لسوف أعود يا أمي', file: 'audio/anasheed/Ommi.mp3', type: 'anasheed' },
+	{ title: 'يا طيبه', file: 'audio/anasheed/YaTiba.mp3', type: 'anasheed' },
+	{ title: 'هزتني', file: 'audio/anasheed/Hztny.mp3', type: 'anasheed' },
 
 
 // ibtihalat
@@ -1214,16 +1219,72 @@ const MY_AUDIO = [
    ========================================================================== */
 const AMBIENT_VOLUME = 0.8;   // مستوى الصوت العام لوضع السكون من 0 إلى 1
 const MY_AMBIENT = [
-	{ type: 'birds',     file: 'audio/ambient/birds.mp3' },
-	{ type: 'crickets',  file: 'audio/ambient/crickets.mp3' },
-	{ type: 'frogs',     file: 'audio/ambient/frogs.mp3' },
-	{ type: 'wind',      file: 'audio/ambient/wind.mp3' },
-	{ type: 'lightrain', file: 'audio/ambient/lightrain.mp3' },
-	{ type: 'rain',      file: 'audio/ambient/rain.mp3' },
-	{ type: 'heavyrain', file: 'audio/ambient/heavyrain.mp3' },
-	{ type: 'storm',     file: 'audio/ambient/storm.mp3' },
-	// { type: 'thunder', file: 'audio/ambient/thunder.mp3' },
-	// { type: 'snow',    file: 'audio/ambient/snow.mp3' },
+	{ type: 'birds',     file: 'audio/ambient/birds1.mp3' },
+	{ type: 'birds',     file: 'audio/ambient/birds2.mp3' },
+	{ type: 'birds',     file: 'audio/ambient/birds3.mp3' },
+	
+	{ type: 'crickets',  file: 'audio/ambient/crickets1.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets2.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets3.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets4.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets5.mp3' },
+	
+	{ type: 'frogs',     file: 'audio/ambient/frogs1.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs2.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs3.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs4.mp3' },
+
+
+	{ type: 'wind',      file: 'audio/ambient/wind1.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind2.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind3.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind4.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind5.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind6.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind7.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind8.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind9.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind10.mp3' },
+
+
+
+	{ type: 'lightrain', file: 'audio/ambient/lightrain1.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain2.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain3.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain4.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain5.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain6.mp3' },
+	
+	
+	
+	{ type: 'rain',      file: 'audio/ambient/rain1.mp3' },
+	{ type: 'rain',      file: 'audio/ambient/rain2.mp3' },
+	
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain1.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain2.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain3.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain4.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain5.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain6.mp3' },
+
+
+	{ type: 'storm',     file: 'audio/ambient/storm1.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm2.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm3.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm4.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm5.mp3' },
+	
+	{ type: 'thunder', file: 'audio/ambient/thunder1.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder2.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder3.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder4.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder5.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder6.mp3' },
+	
+	
+	{ type: 'snow',    file: 'audio/ambient/snow1.mp3' },
+	{ type: 'snow',    file: 'audio/ambient/snow2.mp3' },
+	{ type: 'snow',    file: 'audio/ambient/snow3.mp3' },
 ];
 /* ========================= نهاية منطقة التعديل ========================= */
 
