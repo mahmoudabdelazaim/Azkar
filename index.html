@@ -585,6 +585,12 @@ body.imm #toast,body.imm #nt31,body.imm .nt31{display:none!important}
 body.imm #title{transform:scale(1.14);transition:transform .6s cubic-bezier(.22,1,.36,1)}
 #immH{position:fixed;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--ink);font-size:.95rem;opacity:0;pointer-events:none;transition:opacity .5s;text-shadow:0 1px 8px rgba(0,0,0,.6);z-index:50}
 body.imm #immH.show{opacity:.85}
+body.quiet #app,body.quiet #sbd,body.quiet #sheet{opacity:0;visibility:hidden;pointer-events:none}
+body.quiet #wx,body.quiet #toast,body.quiet #nt31,body.quiet .nt31{display:none!important}
+#app{transition:opacity .6s ease,visibility .6s}
+#qtH{position:fixed;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--ink);font-size:1rem;opacity:0;pointer-events:none;transition:opacity .6s;text-shadow:0 1px 8px rgba(0,0,0,.6);z-index:50}
+#qtH small{display:block;font-size:.85rem;opacity:.8;margin-top:4px}
+body.quiet #qtH.show{opacity:.9}
 .chip:disabled{opacity:.4;pointer-events:none}
 #tsbSet .chips{margin-bottom:6px}
 #tsbSet .chip{min-height:36px}
@@ -707,6 +713,7 @@ var mo=new MutationObserver(function(){if(d.getElementById('splash')){rm();mo.di
 <header class="top">
 <button aria-controls="dpop" aria-expanded="false" class="dbtn" id="hbtn"><span id="hijri"></span><i aria-hidden="true" class="chev">▾</i></button>
 <button type="button" class="immb" id="immB" aria-label="عرض الخلفية فقط مع اسم المقطع" title="عرض الخلفية"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><circle cx="12" cy="12" r="2.6"/></svg></button>
+<button type="button" class="immb" id="quietB" aria-label="وضع السكون: الخلفية مع أصوات الطبيعة" title="وضع السكون"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></button>
 <div aria-controls="ppop" aria-expanded="false" class="cd" id="pbtn" role="button" tabindex="0"><span id="nx-name"></span><b id="nx-cd">--:--:--</b></div>
 <div class="pop" hidden="" id="dpop"></div><div class="pop" hidden="" id="ppop"></div>
 </header>
@@ -1098,10 +1105,13 @@ const MY_AUDIO = [
 	{ title: 'سورة الكهف',					file: 'audio/quran/018.mp3',				type: 'kahf' },  
 	{ title: 'سورة الكهف',					file: 'audio/quran/018.mp3',				type: 'quran' },  
 
+	{ title: 'سورة هود',					file: 'audio/quran/011.mp3',				type: 'quran' },
 	{ title: 'سورة يوسف',					file: 'audio/quran/012.mp3',				type: 'quran' },
+	{ title: 'سورة يوسف',					file: 'audio/quran/012_1.mp3',				type: 'quran' },
 	{ title: 'سورة ابراهيم',				file: 'audio/quran/014.mp3',				type: 'quran' },
 	{ title: 'سورة الحجر',					file: 'audio/quran/015.mp3',				type: 'quran' },
 	{ title: 'سورة الحج',					file: 'audio/quran/022.mp3',				type: 'quran' },
+	{ title: 'سورة فصلت',					file: 'audio/quran/041.mp3',				type: 'quran' },
 	{ title: 'سورة الزخرف',					file: 'audio/quran/043.mp3',				type: 'quran' },
 
 	{ title: 'سورة ق',						file: 'audio/quran/050.mp3',				type: 'quran' },
@@ -1150,6 +1160,8 @@ const MY_AUDIO = [
 	{ title: 'مولاي إني ببابك',			file: 'audio/anasheed/mawlay-inni-bibabik.mp3',	type: 'anasheed' },
 	{ title: 'يا عباد الله جدوا', file: 'audio/anasheed/ya-ibad-allah-juddu.mp3', type: 'anasheed' },
 	{ title: 'لسوف أعود يا أمي', file: 'audio/anasheed/Ommi.mp3', type: 'anasheed' },
+	{ title: 'يا طيبه', file: 'audio/anasheed/YaTiba.mp3', type: 'anasheed' },
+	{ title: 'هزتني', file: 'audio/anasheed/Hztny.mp3', type: 'anasheed' },
 
 
 // ibtihalat
@@ -1163,6 +1175,100 @@ const MY_AUDIO = [
 	{ title: 'العلم يحلو كلما كررته', file: 'audio/ibtihalat/alilm-yahlu-kullama-karartuh.mp3', type: 'ibtihalat' },
 	{ title: 'فكم لله من لطف خفي', file: 'audio/ibtihalat/fakam-lillah-min-lutf-khafi.mp3', type: 'ibtihalat' },
 
+];
+
+/* ========================= أصوات وضع السكون (الطبيعة) =========================
+   وضع السكون يعرض الخلفية فقط، ويشغّل صوتًا طبيعيًا يتبع الوقت والطقس، ويكرره تلقائيًا
+   طول ما الصفحة مفتوحة، ويبدّله لو تغيّر الجو أو دخل وقت جديد.
+
+   الأنواع (type) وإمتى تُستخدم:
+     'birds'      عصافير            ← الفجر والصباح والظهر والعصر والجو صافٍ أو غائم
+     'crickets'   صراصير الحقل      ← المغرب، ومع الضفادع بالليل
+     'frogs'      ضفادع             ← الليل والجو صافٍ أو غائم
+     'wind'       رياح              ← الرياح النشطة (٣٠ كم/س فأكثر)، وتُضاف بصوت خفيف مع المطر
+     'lightrain'  مطر خفيف / رذاذ   ← (لو غير موجود يُستخدم 'rain')
+     'rain'       مطر               ← مطر متوسط
+     'heavyrain'  مطر غزير          ← (لو غير موجود يُستخدم 'rain')
+     'storm'      عاصفة رعدية       ← (لو غير موجود يُستخدم 'heavyrain' مع 'thunder')
+     'thunder'    رعد (اختياري)     ← يُضاف فوق المطر الغزير في العاصفة لو لا يوجد 'storm'
+     'snow'       ثلج (اختياري)     ← لو غير موجود يُستخدم 'wind'
+
+   ملاحظات:
+   - ضع الملفات في مجلد audio/ambient/ (أو غيّر المسار). يُفضَّل ملف مدته دقيقة أو أكثر.
+   - يمكنك إضافة أكثر من ملف لنفس النوع، فيتبدّل بينها عشوائيًا مع كل دورة.
+   - أي نوع بلا ملف يتخطّاه التطبيق بهدوء ويستخدم البديل المذكور أعلاه.
+   
+   تجرّبها بنفسك من غير سكربت
+افتح index.html?wx=storm وغيّر الكلمة (rain / snow / fog / heavy / windy…).
+   ========================================================================== */
+const AMBIENT_VOLUME = 0.8;   // مستوى الصوت العام لوضع السكون من 0 إلى 1
+const MY_AMBIENT = [
+	{ type: 'birds',     file: 'audio/ambient/birds1.mp3' },
+	{ type: 'birds',     file: 'audio/ambient/birds2.mp3' },
+	{ type: 'birds',     file: 'audio/ambient/birds3.mp3' },
+	
+	{ type: 'crickets',  file: 'audio/ambient/crickets1.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets2.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets3.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets4.mp3' },
+	{ type: 'crickets',  file: 'audio/ambient/crickets5.mp3' },
+	
+	{ type: 'frogs',     file: 'audio/ambient/frogs1.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs2.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs3.mp3' },
+	{ type: 'frogs',     file: 'audio/ambient/frogs4.mp3' },
+
+
+	{ type: 'wind',      file: 'audio/ambient/wind1.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind2.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind3.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind4.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind5.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind6.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind7.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind8.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind9.mp3' },
+	{ type: 'wind',      file: 'audio/ambient/wind10.mp3' },
+
+
+
+	{ type: 'lightrain', file: 'audio/ambient/lightrain1.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain2.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain3.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain4.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain5.mp3' },
+	{ type: 'lightrain', file: 'audio/ambient/lightrain6.mp3' },
+	
+	
+	
+	{ type: 'rain',      file: 'audio/ambient/rain1.mp3' },
+	{ type: 'rain',      file: 'audio/ambient/rain2.mp3' },
+	
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain1.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain2.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain3.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain4.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain5.mp3' },
+	{ type: 'heavyrain', file: 'audio/ambient/heavyrain6.mp3' },
+
+
+	{ type: 'storm',     file: 'audio/ambient/storm1.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm2.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm3.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm4.mp3' },
+	{ type: 'storm',     file: 'audio/ambient/storm5.mp3' },
+	
+	{ type: 'thunder', file: 'audio/ambient/thunder1.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder2.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder3.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder4.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder5.mp3' },
+	{ type: 'thunder', file: 'audio/ambient/thunder6.mp3' },
+	
+	
+	{ type: 'snow',    file: 'audio/ambient/snow1.mp3' },
+	{ type: 'snow',    file: 'audio/ambient/snow2.mp3' },
+	{ type: 'snow',    file: 'audio/ambient/snow3.mp3' },
 ];
 /* ========================= نهاية منطقة التعديل ========================= */
 
@@ -1445,6 +1551,7 @@ function tick(){
     setFx(S?'snow':rain?'rain':null,S?110:Math.round(50+rain*170));
     clearTimeout(lg);if(ST&&!still)lg=setTimeout(bolt,2500);
     document.body.dataset.wx=key;const e=$('wx');e.hidden=false;e.innerHTML=(NM[code]||'')+' · <bdi dir="ltr">'+Math.round(w.temp).toLocaleString('ar-EG')+'°</bdi>'+(ws>=30?' · رياح نشطة':'');
+    window.WXS={key,code,ws,rain,S,F,ST};try{document.dispatchEvent(new Event('wxchange'))}catch(_){}
     try{placeSky(new Date())}catch(_){}
   }
   async function loadWx(){try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(3)}&longitude=${lng.toFixed(3)}&current=temperature_2m,weather_code,cloud_cover,wind_speed_10m&timezone=auto`),c=(await r.json()).current,w={code:c.weather_code,temp:c.temperature_2m,cover:c.cloud_cover,ws:c.wind_speed_10m};try{localStorage.setItem('wx',JSON.stringify(w))}catch(e){}if(!window.__wxHold)apply(w)}catch(e){}}
@@ -3273,6 +3380,102 @@ sync();buildRows();render();
   b.addEventListener('click',on);
   d.addEventListener('click',e=>{if(!d.body.classList.contains('imm'))return;e.preventDefault();e.stopPropagation();off()},true);
   d.addEventListener('keydown',e=>{if(e.key==='Escape'&&d.body.classList.contains('imm'))off()});
+})();
+</script>
+<script>
+/* v40: وضع السكون — الخلفية فقط + أصوات الطبيعة حسب الوقت والطقس، تتكرر تلقائيًا وتتبدّل لو تغيّر الجو */
+(function(){
+  const d=document,B=d.body,$=i=>d.getElementById(i),btn=$('quietB');if(!btn)return;
+  const LIB=(typeof MY_AMBIENT!=='undefined'&&Array.isArray(MY_AMBIENT))?MY_AMBIENT:[],
+    MASTER=(typeof AMBIENT_VOLUME==='number'&&AMBIENT_VOLUME>=0)?Math.min(1,AMBIENT_VOLUME):.8,
+    XF=3,FADE=3,A=$('audio'),
+    NAME={birds:['🐦','عصافير'],frogs:['🐸','ضفادع'],crickets:['🦗','صراصير الحقل'],wind:['🌬️','رياح'],lightrain:['🌦️','مطر خفيف'],rain:['🌧️','مطر'],heavyrain:['🌧️','مطر غزير'],storm:['⛈️','عاصفة رعدية'],thunder:['⚡','رعد'],snow:['❄️','ثلج']},
+    SIL='data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+  const bad=new Set(),files=id=>LIB.filter(x=>x&&x.type===id&&x.file).map(x=>/^https?:/.test(x.file)?x.file:encodeURI(x.file)).filter(s=>!bad.has(s)),
+    pick=id=>{const f=files(id);return f.length?f[Math.floor(Math.random()*f.length)]:null};
+  /* بعض المتصفحات (آيفون) تتجاهل تغيير volume، فنكتفي بالكتم/التشغيل */
+  const VOL_OK=(()=>{try{const t=new Audio();t.volume=.5;return t.volume===.5}catch(_){return false}})();
+  const setV=(e,v)=>{v=Math.max(0,Math.min(1,v));if(VOL_OK)e.volume=v;else e.muted=v<.15};
+
+  /* ===== اختيار الصوت: الوقت (data-p) + الطقس (WXS) ===== */
+  function scene(){
+    const W=window.WXS||{},k=W.key||'clear',ws=+W.ws||0,rn=+W.rain||0,p=B.dataset.p||'day',wind=ws>=30;
+    const base=p==='night'?[[['frogs'],.8],[['crickets'],.7]]:p==='maghrib'?[[['crickets'],.9]]:[[['birds'],1]];
+    let L;
+    if(k==='storm')L=[[['storm','heavyrain','rain'],1],[['thunder'],.8,'storm']];
+    else if(k==='rain')L=[[rn>=.9?['heavyrain','rain']:rn>=.55?['rain']:['lightrain','rain'],1]];
+    else if(k==='snow')L=[[['snow','wind'],.8]];
+    else if(wind)L=[[['wind'],1]].concat(base.map(b=>[b[0],b[1]*.25]));
+    else{const f=k==='fog'?.6:k==='cloudy'?.85:1;L=base.map(b=>[b[0],b[1]*f])}
+    if(wind&&(k==='storm'||k==='rain'||k==='snow'))L.push([['wind'],.35,'wind']);
+    const out=new Map();
+    for(const [ids,v,skip] of L){if(skip&&out.has(skip))continue;const id=ids.find(i=>files(i).length);if(id)out.set(id,Math.max(out.get(id)||0,v))}
+    const label=out.size?[...new Set([...out.keys()].map(i=>NAME[i][0]+' '+NAME[i][1]))].join(' + '):'🔇 لا توجد ملفات صوتية لهذا الجو';
+    return{out,label,key:[...out].map(([i,v])=>i+v.toFixed(2)).join('|')}
+  }
+
+  /* ===== محرك الطبقات: كل صوت له عنصرين صوتيين للتكرار بتلاشي متداخل بدون فجوة ===== */
+  const layers=new Map(),pool=[];let on=false,held=false,timer=0,chk=0,last=0,cur='',hint=false;
+  const mkEl=()=>{const e=new Audio();e.preload='auto';e.setAttribute('playsinline','');return e};
+  const take=()=>{const e=pool.pop()||mkEl();e.muted=false;e.f=0;return e};
+  const give=e=>{e.onerror=null;try{e.pause();e.removeAttribute('src');e.load()}catch(_){}pool.push(e)};
+  const go=e=>{try{const p=e.play();p&&p.catch&&p.catch(()=>{})}catch(_){}};
+  function kill(L){if(L.dead)return;L.dead=1;if(layers.get(L.id)===L)layers.delete(L.id);L.es.forEach(give)}
+  function load(L,e){const s=pick(L.id);if(!s)return false;e.onerror=()=>{e.onerror=null;bad.add(s);kill(L);refresh(true)};e.loop=true;e.src=s;return true}
+  function startLayer(id,v){
+    if(!files(id).length)return;
+    const L={id,v,gv:0,es:[take(),take()],cur:0,xf:false,rt:0};
+    if(!load(L,L.es[0])){kill(L);return}
+    L.es[0].f=1;setV(L.es[0],0);layers.set(id,L);go(L.es[0])}
+  function nextLoop(L){const o=L.es[L.cur^1];if(!load(L,o))return;o.f=0;setV(o,0);go(o);L.cur^=1;L.xf=true}
+  function tick(){
+    const n=performance.now(),dt=Math.min(2,(n-(last||n))/1000);last=n;
+    for(const L of [...layers.values()]){
+      const st=dt/(on?FADE:1);L.gv+=Math.max(-st,Math.min(st,L.v-L.gv));
+      if(L.v===0&&L.gv<=.001){kill(L);continue}
+      const c=L.es[L.cur],o=L.es[L.cur^1];
+      if(L.xf){c.f=Math.min(1,c.f+dt/XF);o.f=Math.max(0,o.f-dt/XF);if(o.f===0){try{o.pause()}catch(_){}L.xf=false}}
+      else if(!held&&c.duration>XF*2+1&&c.currentTime>c.duration-XF)nextLoop(L);
+      L.es.forEach(e=>setV(e,L.gv*MASTER*e.f));
+      if(!held&&c.paused&&c.src&&(L.rt+=dt)>2){L.rt=0;go(c)}
+    }
+    if(!on&&!layers.size){clearInterval(timer);timer=0;last=0}
+  }
+  /* لو شغّل التطبيق صوتًا آخر (أذان مثلًا) نوقف الطبيعة مؤقتًا ونكمل بعده */
+  function hold(v){if(held===v)return;held=v;layers.forEach(L=>L.es.forEach(e=>{if(!e.src)return;if(v)try{e.pause()}catch(_){}else if(e.f>0)go(e)}))}
+  if(A){A.addEventListener('play',()=>{if(on)hold(true)});['pause','ended'].forEach(t=>A.addEventListener(t,()=>{if(on)hold(false)}))}
+
+  /* ===== تطبيق المشهد الحالي ===== */
+  function refresh(force){
+    if(!on)return;
+    const S=scene();if(!force&&S.key===cur)return;cur=S.key;
+    layers.forEach((L,id)=>{L.v=S.out.has(id)?S.out.get(id):0});
+    S.out.forEach((v,id)=>{if(!layers.has(id))startLayer(id,v)});
+    if(!timer){last=0;timer=setInterval(tick,100)}
+    caption(S.label,hint);hint=false}
+
+  /* ===== الواجهة ===== */
+  const H=d.createElement('div');H.id='qtH';H.setAttribute('aria-hidden','true');d.body.appendChild(H);let ht=0;
+  function caption(txt,withHint){H.textContent='';const a=d.createElement('div');a.textContent=txt;H.appendChild(a);
+    if(withHint){const s=d.createElement('small');s.textContent='اضغط في أي مكان للخروج';H.appendChild(s)}
+    H.classList.add('show');clearTimeout(ht);ht=setTimeout(()=>H.classList.remove('show'),withHint?4200:3200)}
+  function enter(){
+    if(on)return;
+    try{if(A&&!A.paused){A.pause();if(typeof setState==='function')setState(false,'متوقف مؤقتًا')}}catch(_){}
+    /* فتح عناصر الصوت داخل لمسة المستخدم عشان التبديل التلقائي بعدها يشتغل حتى على الآيفون */
+    for(let i=0;i<8;i++){const e=pool[i]||(pool[i]=mkEl());e.muted=true;e.src=SIL;go(e)}
+    on=true;held=false;cur='';hint=true;B.classList.add('quiet');
+    refresh(true);chk=setInterval(()=>refresh(),6e4)}
+  function exit(){
+    if(!on)return;on=false;B.classList.remove('quiet');H.classList.remove('show');clearTimeout(ht);clearInterval(chk);
+    layers.forEach(L=>{L.v=0});if(d.hidden)[...layers.values()].forEach(kill);
+    if(!layers.size&&timer){clearInterval(timer);timer=0}}
+  btn.addEventListener('click',enter);
+  d.addEventListener('click',e=>{if(!on)return;e.preventDefault();e.stopPropagation();exit()},true);
+  d.addEventListener('keydown',e=>{if(e.key==='Escape'&&on)exit()});
+  d.addEventListener('wxchange',()=>refresh());
+  try{new MutationObserver(()=>refresh()).observe(B,{attributes:true,attributeFilter:['data-p','data-wx']})}catch(_){}
+  window.__quiet={scene,enter,exit,layers,bad};
 })();
 </script>
 <script>
